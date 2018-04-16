@@ -376,3 +376,176 @@ ex() %>% check_output_expr("AP_begin")
 ex() %>% check_output_expr("AP_rest")
 success_msg("Great Work!")
 ```
+
+---
+## Sequence of random variables 
+
+```yaml
+type: MultipleChoiceExercise
+key: ae9260bd7c
+lang: r
+xp: 50
+skills: 1
+```
+How do we call an ordered sequence of random variables (rv) which are defined on the same probability space?  
+
+`@instructions`
+- random walk
+- AR-process
+- (discrete) stochastic process
+- martingale 
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
+test_mc(correct = 3)
+success_msg("Great Work!")
+```
+
+
+---
+## Time Series
+
+```yaml
+type: MultipleChoiceExercise
+key: 6b9cf0fb93
+lang: r
+xp: 50
+skills: 1
+```
+
+
+`@instructions`
+- As a (discrete) stochastic process. 
+- As a realization of a (discrete) stochastic process. 
+- As a sequence of variables.
+- As a process in continues time.
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
+test_mc(correct = 2)
+success_msg("Great Work!")
+```
+
+---
+## (Weak) Stationarity I
+
+```yaml
+type: MultipleChoiceExercise
+key: 85b7fcbddf
+lang: r
+xp: 50
+skills: 1
+```
+We say a time series process is weakly stationary if: 
+
+`@instructions`
+- The mean is constant over time.
+- The autocovariances do not depend on $t$.
+- The process stays within a certain interval.
+- The first two moments do not change over time.
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
+test_mc(correct = 4)
+success_msg("Great Work!")
+```
+
+
+---
+## (Weak) Stationarity II
+
+```yaml
+type: MultipleChoiceExercise
+key: a3b54f025a
+lang: r
+xp: 50
+skills: 1
+```
+Consider the process from the previous exercise
+$$Y_t = 4 + \epsilon _t \text{, } \,\,\,\,\,\, \epsilon _t \sim N(0,t)$$
+
+Is $\{Y_t\}$ stationary?
+
+
+`@instructions`
+- Yes, because the mean does not change over time.
+- No, because the mean changes over time. 
+- No, because the second moments converge to $0$.
+- No, because $\sigma _t \neq \sigma _{t+1}$.
+- Yes, because the process is ergodic.
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+set.seed(123)
+t <- 1:100
+y <- 4 + rnorm(100, sd = t)
+plot(y ~ t, type = "l")
+```
+
+`@sct`
+```{r}
+test_mc(correct = 4)
+success_msg("Great Work!")
+```
+---
+## Ergodicity
+
+```yaml
+type: MultipleChoiceExercise
+key: 997640b9d6
+lang: r
+xp: 100
+skills: 1
+```
+The time series process $\\{Y_t\\}$ is ergodic if 
+
+$$\overline{Y}_T =\frac{1}{T} \sum^T _{t = 1} y _t$$
+
+`@instructions`
+- converges to the sample mean.
+- converges to $\mu$ as $T \rightarrow 0$.
+- converges to $0$ as $T \rightarrow \infty$.
+- converges to $E[Y_t]$ as $T \rightarrow \infty$.
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+test_mc(correct = 4)
+success_msg("Great Work!")
+```

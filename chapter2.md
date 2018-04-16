@@ -242,3 +242,78 @@ ex() %>% check_object("AP_log_decomp") %>% check_equal()
 ex() %>% check_function("plot", index = 2) %>% check_arg("x") %>% check_equal()
 success_msg("Great Work!")
 ```
+
+
+
+
+
+
+
+---
+## Aggregate
+
+```yaml
+type: NormalExercise
+key: c3b3bf1811
+lang: r
+xp: 100
+skills: 1
+```
+The `AirPassanger` series has both an upward sloping trend and a seasonal pattern. 
+We can extract the trend by considering the monthly average of each year. 
+
+To achieve this the function `aggregate()` can be used. This function takes two inputs: a time series and 
+a function. The function is applied to all values of each year (time unit).
+So if we have a time series with monthly data beginning in January 2000 and ending in December 2001
+the function will be applied to the $12$ values of the year $2000$ and the $12$ values of the year 2001. 
+By default `aggregate()` computes the sum of all values belonging to one time unit. 
+In our case we are however interested in the average for which we can use `mean()`. 
+
+The function call you need should be of the form `aggregate(TimeSeries, FUN = "functionName")`. Do not forget 
+the `" "` arround the name of the function you want to apply. 
+
+
+
+`@instructions`
+- Compute the monthly average of each year with `aggregate()`. Assign the result to the variable `AP_avg`. 
+- Produce a plot of the original time series and add a red line with the values of `AP_avg` to the plot. You can use 
+  the function `lines()` where you set the argument `col` to `"red"`. If you get the error: "Error: plot.new has not been called yet" you
+  have to run the call to `plot()` and `lines()` in one block. 
+
+
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+plot(AirPassengers)
+#Compute monthly average per year
+
+
+#Add the average to the plot
+
+```
+
+`@solution`
+```{r}
+#Compute monthly average per year
+AP_avg <- aggregate(AirPassengers, FUN =  "mean")
+
+#Add the average to the plot
+plot(AirPassengers)
+lines(AP_avg, col = "red")
+```
+
+`@sct`
+```{r}
+ex() %>% check_object("AP_avg") %>% check_equal()
+ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
+fun_lines <- ex() %>% check_function("lines")
+fun_lines %>% check_arg("x") %>% check_equal()
+fun_lines %>% check_arg("col") %>% check_equal()
+```
