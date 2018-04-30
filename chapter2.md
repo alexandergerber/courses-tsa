@@ -252,6 +252,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 The `AirPassanger` series has both an upward sloping trend and a seasonal pattern. 
 We can extract the trend by considering the monthly average of each year. 
 
@@ -259,11 +260,7 @@ To achieve this the function `aggregate()` can be used. This function takes two 
 a function. The function is applied to all values of each year (time unit).
 So if we have a time series with monthly data beginning in January 2000 and ending in December 2001
 the function will be applied to the $12$ values of the year $2000$ and the $12$ values of the year 2001. 
-By default `aggregate()` computes the sum of all values belonging to one time unit. 
-In our case we are however interested in the average for which we can use `mean()`. 
-
-The function call you need should be of the form `aggregate(TimeSeries, FUN = "functionName")`. Do not forget 
-the `" "` arround the name of the function you want to apply. 
+ 
 
 
 
@@ -276,6 +273,9 @@ the `" "` arround the name of the function you want to apply.
 
 
 `@hint`
+The function call you need should be of the form `aggregate(TimeSeries, FUN = "functionName")`. Do not forget 
+the `" "` arround the name of the function you want to apply. 
+
 
 `@pre_exercise_code`
 ```{r}
