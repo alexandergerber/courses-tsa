@@ -145,9 +145,10 @@ What do you think about the result?
 
 `@instructions`
 
-- It looks good. The random component moves arround $0$. We can start working with ARMA models. 
+- It looks good. We can start working with ARMA models. 
 - The estimated random component still has a distinct pattern and does not appear to be stationary. We have to reconsider our approach.  
 - The estimated random component still has a distinct pattern an ARMA Model can handle this.
+
 
 `@hint`
 
