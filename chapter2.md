@@ -316,4 +316,5 @@ ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
 fun_lines <- ex() %>% check_function("lines")
 fun_lines %>% check_arg("x") %>% check_equal()
 fun_lines %>% check_arg("col") %>% check_equal()
+success_msg("Great Work!")
 ```
