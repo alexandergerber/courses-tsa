@@ -116,7 +116,6 @@ Assume we observed for each day of the week how many students were in the univer
   </tr>
 </table>
 <br>
-From the data in this table we want to create a simple time series object in R.
 
 `@instructions`
 - Create a simple vector called `vec` containing the numbers from the table. 
