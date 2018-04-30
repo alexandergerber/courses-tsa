@@ -93,29 +93,10 @@ In the previous excercise a proper time series was already provided.
 Mostly this will not be the case.
 Assume we observed for each day of the week how many students were in the university canteen.
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg .tg-yw4l{vertical-align:top}
-</style>
-<table class="tg">
-  <tr>
-    <th class="tg-yw4l">Mon.</th>
-    <th class="tg-yw4l">Tues.</th>
-    <th class="tg-yw4l">Wed.</th>
-    <th class="tg-yw4l">Thurs.</th>
-    <th class="tg-yw4l">Fri.</th>
-  </tr>
-  <tr>
-    <td class="tg-yw4l">2500</td>
-    <td class="tg-yw4l">4000</td>
-    <td class="tg-yw4l">4500</td>
-    <td class="tg-yw4l">4250</td>
-    <td class="tg-yw4l">500</td>
-  </tr>
-</table>
-<br>
+
+| Mon. 	| Tue. 	| We. 	| Th. 	| Fri. 	|
+|------	|------	|------	|------	|------	|
+| 2500 	| 4000 	| 4500 	| 4250 	| 500 	|
 
 `@instructions`
 - Create a simple vector called `vec` containing the numbers from the table. 
