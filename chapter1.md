@@ -24,8 +24,6 @@ Your task is to conduct a rudimentary analysis of this data set. Through this yo
 - Find out of how many observations this time series consists.  Use `length()` to achieve this. 
 - Print out the first 6 and the last 7 observations. Use `head()` and `tail()` for this. 
 - Visualize the time series using the `plot()` function.  
-
-
 `@hint`
 - You can print something by either using to function `print()` or by just typing the name of the object you want to print. 
 - You can always use the `R` `help()` function. For example,`help(head)` or `?head`. 
