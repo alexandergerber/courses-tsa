@@ -193,6 +193,7 @@ One way to improve our results is to take logarithms.
 - `decompose()` `AP_log` and assign the result to `AP_log_decomp`. Plot `AP_log_decomp`.
 - What do you think about the result?
 `@hint`
+Use `log()` to take the logarithm. 
 
 `@pre_exercise_code`
 ```{r}
