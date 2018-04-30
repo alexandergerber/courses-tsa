@@ -276,28 +276,22 @@ lang: r
 xp: 100
 skills: 1
 ```
-Another data set directly available in R is the `AirPassanger` data set.
-It contains the number of air passangers in the first years of commercial aviation. 
+The `AirPassanger` data set contains the number of air passangers in the first years of commercial aviation. 
 
-We are only interested in the first $4$ years. Therefore we want to subset the 
-original time series and save it as a new object. A convinient way of subsetting 
+We are only interested in the first $4$ years. A convinient way of subsetting a
 time series is the function `window()`. We provide the original time series as well as
 the start and the end date of the desired subset 
-(e.g. for a monthly time series `window(TimeSeries, start = c(year, month), end = c(year, month) )`).
-One advantage of `window()` is that in contrast to other subsetting techniques an object of class `ts` is returned.  
 
-First, we need to figure out when the time series starts and what frequency it has in order to 
-provide sensible dates. Then we can use the `window()` function for subsetting. 
-Finally, we will create a time series with the remaining data. 
+One advantage of `window()` is that in contrast to other subsetting techniques an object of class `ts` is returned.  
 
 
 `@instructions`
 - Plot the time series `AirPassangers`. This object is already available in your enviornment. 
-- When does the time series start and when does it end? Use `start()` and `end()` to find it out. 
-- What is the underlying frequency? Use `frequency()` to get the answer. 
+- When does the time series start and when does it end? What is the underlying frequency? Use `start()`, `end()` and `frequency()` to find it out. 
 - Create a new object called `AP_begin` with only the first 4 years of the original time series. Print out `AP_begin`! 
 - Create a new object called `AP_rest` with the remaining years. Print out `AP_rest`!
 `@hint`
+Use for monthly data the following syntax `window(TimeSeries, start = c(year, month), end = c(year, month) )`.
 
 `@pre_exercise_code`
 ```{r}
@@ -308,17 +302,16 @@ Finally, we will create a time series with the remaining data.
 ```{r}
 # Plot the AirPassanger time series
 
-
 # Find out the start and the end date 
 
 
 # Determine the frequnecy
 
+# Create and print out a vector containing only the first 4 years
 
-# Create a vector containing only the first 4 years
 
+# Create and print out a vector containing the remaining series
 
-# Create a vector containing the remaining series
 
 ```
 
@@ -326,14 +319,11 @@ Finally, we will create a time series with the remaining data.
 ```{r}
 # Plot the AirPassanger time series
 plot(AirPassengers)
-
 # Find out the start and the end date 
 start(AirPassengers)
 end(AirPassengers)
-
 # Determine the frequnecy
 frequency(AirPassengers)
-
 # Create and print out a vector containing only the first 4 years
 AP_begin<- window(AirPassengers, start =  start(AirPassengers), end = c(1952, 12))
 AP_begin
