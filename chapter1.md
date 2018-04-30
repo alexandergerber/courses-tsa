@@ -227,7 +227,6 @@ We set frequency to `4` because a year consists of `4` quarters. For monthly dat
   -  Create a time series which starts in the 3. quarter of the year 2000 and assign it to `x_ts`. Use the observations contained in the variable `x`.
   -  Print out the time series to the console and produce a simple plot.
 
-`@hint`
 
 `@pre_exercise_code`
 ```{r}
