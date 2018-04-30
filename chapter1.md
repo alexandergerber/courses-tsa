@@ -388,7 +388,7 @@ lang: r
 xp: 50
 skills: 1
 ```
-
+How can a time series be defined?
 
 `@instructions`
 - As a (discrete) stochastic process. 
