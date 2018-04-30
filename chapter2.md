@@ -31,8 +31,6 @@ You need to find all true statements.
 - The statements 2 and 5 are true.
 - Only statements 6 is true.
 - The statements 2, 4, and 5 are true.  
-- Only statements 4 is true.
-- The statements 1, 2, and 4 are true.
 - All statements but 6 are true. 
 
 `@hint`
@@ -68,18 +66,9 @@ lang: r
 xp: 100
 skills: 1
 ```
-In the near future we will consider ARMA - models which can be applied only to stationary processes. 
-As we found in the previous exercise, the `AirPassanger` time series is clearly not stationry. 
-To work with this kind of model we need to transform the original time series in a stationary one. 
+We found out that the `AirPassanger` time series is non-stationary because it exhibits a deterministic trend and seasonal pattern.
 
-In our case this means that we have to remove the time trend and the seasonal pattern. In the lecture several methods 
-were discussed how you can achieve this. In the exercise session those methods will be considered in much more 
-detail. 
-
-Here we will introduce the R function `decompose()`. `decompose()` does not require any knowledge about the 
-underlying methods, which makes it an easy to use function. However, when applied without caution it can yield misleading results. 
-
-`decompose()` assumes the following model: 
+The function `decompose()` can be used to decompose a time series according to the model: 
 
 $$Y _t = s _t + m _t + X _t,$$
 
@@ -94,6 +83,7 @@ make sure to check this condition.
 - Plot `AP_decomp` and inspect the output. 
 - Extract only the seasonal component form `AP_decomp` and save it as `AP_seasonal `. `?decompose` is helpful here. Look for the caption "Value". This section describes the output object of a function.  
 `@hint`
+Use the `$` sign get access to the seasonal component.
 
 `@pre_exercise_code`
 ```{r}
