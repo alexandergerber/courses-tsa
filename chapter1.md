@@ -456,7 +456,7 @@ Is $\{Y_t\}$ stationary?
 - Yes, because the mean does not change over time.
 - No, because the mean changes over time. 
 - No, because the second moments converge to $0$.
-- No, because $\sigma _t \neq \sigma _{t+1}$.
+- No, because $\sigma _t \neq \sigma _{s}$ for $t \neq s$.
 - Yes, because the process is ergodic.
 `@hint`
 
