@@ -152,8 +152,8 @@ and `data.frame` from the introduction course.
 
 Everything you can do with a `ts` object can also be done with a normal vector.
 So it is not mandatory to work with `ts` objects for time series analysis in R. 
-However, it available makes life easier if we do so. The reason is that several 
-functions such as plot behave differently depending on the class of their arguments.
+However, it often makes life easier if we do so. The reason is that several 
+functions such as plot behave differently depending on the class of their inputs.
 
 `@instructions`
 - Plot `vec` and `ts_vec` one below the other. The `par()` function in the sample code
