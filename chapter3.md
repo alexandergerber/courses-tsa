@@ -262,7 +262,7 @@ The autocorrelation functions of White Noise, $MA$ and $AR$ processes exhibit di
 
 
 `@instructions`
-
+Use the functio `acf` to plot the autocorrelation function of all 4 time series.  
 `@hint`
 If the 4 plots do not fit on your display or are too small you can copy and paste the code into the R console on your computer. 
 `@pre_exercise_code`
@@ -387,7 +387,7 @@ success_msg("Great Work!")
 ```
 
 ---
-## ## An AR(2) process with complex roots 
+## An AR(2) process with complex roots 
 
 ```yaml
 type: NormalExercise
