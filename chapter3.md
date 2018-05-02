@@ -27,7 +27,6 @@ we can use: `arima.sim(model = list(ma = c(0.6, -1.5)), mean = 2, n = 100)`.
 
 
 `@instructions`
-- Set the seed to 123.
 - Generate 1000 obs. from a Gausian White Noise process. Use `arima.sim()` for this and assign the result to the variable `wn`.
 - Generate 1000 obs. form the process $$Y _t = 7 + \epsilon _{t} - 1.5 \epsilon _{t-1} $$ and call them `ma1`.
 - Generate 1000 obs. from the process $$Y _t = \epsilon _{t} + \epsilon _{t-1} + \epsilon _{t-2} + \epsilon _{t-3}$$ and call them `ma3`.
@@ -41,7 +40,7 @@ we can use: `arima.sim(model = list(ma = c(0.6, -1.5)), mean = 2, n = 100)`.
 `@sample_code`
 ```{r}
 #Set the seed
-
+set.seed(123)
 #Simulate the time series
 
 #Plot all three time series
@@ -94,7 +93,6 @@ $$ Z _t = \epsilon _t + 0.9 \epsilon _{t-1},  \qquad \epsilon _t \sim (0, \sigma
 - The variance of $Y_t$ is larger because a white noise process is more wiggly than an $MA$ process.
 - The variance of $Y_t$ is larger because $Z _t$ is a smoothed version of $Y _t$.
 - The variance of $Z _t$ is larger because $$Var(Z _t) = \sigma^2 (1 + \theta^2) $$.
-- The variance of $Z _t$ is larger because there are positive autocovariances. 
 
 `@hint`
 
