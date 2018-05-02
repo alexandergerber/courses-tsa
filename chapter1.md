@@ -446,7 +446,7 @@ lang: r
 xp: 50
 skills: 1
 ```
-Consider the process from the previous exercise
+Consider the process
 $$Y_t = 4 + \epsilon _t \text{, } \,\,\,\,\,\, \epsilon _t \sim N(0,t)$$
 
 Is $\{Y_t\}$ stationary?
