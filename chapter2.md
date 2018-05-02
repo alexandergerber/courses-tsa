@@ -147,7 +147,7 @@ What do you think about the result?
 
 - It looks good. We can start working with ARMA models. 
 - The estimated random component still has a distinct pattern and does not appear to be stationary. We have to reconsider our approach.  
-- The estimated random component still has a distinct pattern an ARMA Model can handle this.
+- The estimated random component still has a distinct pattern but an ARMA Model can handle this.
 
 
 `@hint`
