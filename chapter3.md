@@ -16,17 +16,18 @@ In the lecture you learnt about Moving Average (MA) processes of the form
 
 $$Y _t = \mu + \sum _{j = 0} ^q \theta _j \epsilon _{t-j}.$$
 
-The function `arima.sim()` can be used to simulate time series from an underlying MA process. 
+The function `arima.sim()` can be used to simulate time series from an MA process. 
 In order to generate 100 data points from the $MA(2)$ process 
 
 $$Y _t = 2 + \epsilon _{t} + 0.6 \epsilon _{t-1} - 1.5 \epsilon _{t-2} $$
 
-we would type: `arima.sim(model = list(ma = c(0.6, -1.5)), mean = 2, n = 100)`.
+we can use: `arima.sim(model = list(ma = c(0.6, -1.5)), mean = 2, n = 100)`.
 
-Set the seed to 123.
+
 
 
 `@instructions`
+- Set the seed to 123.
 - Generate 1000 obs. from a Gausian White Noise process. Use `arima.sim()` for this and assign the result to the variable `wn`.
 - Generate 1000 obs. form the process $$Y _t = 7 + \epsilon _{t} - 1.5 \epsilon _{t-1} $$ and call them `ma1`.
 - Generate 1000 obs. from the process $$Y _t = \epsilon _{t} + \epsilon _{t-1} + \epsilon _{t-2} + \epsilon _{t-3}$$ and call them `ma3`.
@@ -321,8 +322,6 @@ Decide which process belongs to which ACF.
 - **a** was simulated from a White Noise process, **b** from an $AR$ process and **c** from a $MA$ process. 
 - **a** was simulated from an $AR$ process and **b** and **c** from a $MA$ process. 
 - **a** was simulated from an $AR$ process, **b** from an White Woise process and **c** from a $MA$ process. 
-- **a** and **c** were simulated from an $AR$ process and **b** from a $MA$ process. 
-- **a** was simulated from an $ARMA$ process, **b** from a White Noise process and **c** from an $AR$ process. 
 
 `@hint`
 
@@ -373,7 +372,6 @@ Consider the following processes.
 - The processes $2$, $5$ and $6$ are stationary.
 - The processes $1$, $3$ and $4$ are stationary.
 - The processes $2$ and $4$ are stationary.
-- Only process $5$ is stationary. 
 
 `@hint`
 
@@ -399,20 +397,18 @@ xp: 100
 skills: 1
 ```
 Check whether the process 
-
 $$y _t = 1.5 y _{t-1} - .75 y _{t-2} + \epsilon _t $$ 
-
 is stationary. 
-
 You can use the function `polyroot()` to compute the roots of the characteristic polynomial.
-
 
 `@instructions`
 - Assign the coefficients of the characteristic polynomial to the vector `z`.
 - Pass `z` as an argument to `polyroot()` and assign the result to the variable `roots`. 
 - Compute the absolute value of the roots (`Mod()` can do this for real as well as complex numbers) and check if they lie outside the unit circle. 
+
 `@hint`
 How does the characteristic polynomial looks like? Double check if you used the correct signs. 
+
 `@pre_exercise_code`
 ```{r}
 
@@ -448,4 +444,5 @@ Mod(roots)
 ex() %>% check_object("z") %>% check_equal()
 ex() %>% check_object("roots") %>% check_equal()
 ex() %>% check_output_expr("Mod(roots)")
+success_msg("Great Work!")
 ```
