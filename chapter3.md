@@ -3,7 +3,7 @@ title: 'Arma Models'
 description: 'Insert the chapter description here'
 ---
 
-## Simulate from a MA(q) processes
+## Simulate from MA(q) processes
 
 ```yaml
 type: NormalExercise
