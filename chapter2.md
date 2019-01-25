@@ -61,7 +61,7 @@ xp: 100
 skills: 1
 ```
 
-We found out that the `AirPassanger` time series is non-stationary because it exhibits a deterministic trend and seasonal pattern.
+We found out that the `AirPassanger` time series is non-stationary because it exhibits a deterministic trend and a seasonal pattern.
 
 The function `decompose()` can be used to decompose a time series according to the model: 
 
