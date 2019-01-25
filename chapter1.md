@@ -38,11 +38,14 @@ Your task is to conduct a rudimentary analysis of this data set. Through this yo
 
 `@sample_code`
 ```{r}
-# 1. Print the time series
+# 1. Print out the time series
+
 
 # 2. Compute the length of the time series
 
-# 3. Printe the first 6 and the last 7 observations 
+
+# 3. Print out the first 6 and the last 7 observations 
+
 
 
 # 4. Generate a plot
@@ -281,7 +284,7 @@ The `AirPassanger` data set contains the number of air passangers in the first y
 
 We are only interested in the first $4$ years. A convinient way of subsetting a
 time series is the function `window()`. We provide the original time series as well as
-the start and the end date of the desired subset 
+the start and the end date of the desired subset. 
 
 One advantage of `window()` is that in contrast to other subsetting techniques an object of class `ts` is returned.
 
