@@ -40,12 +40,9 @@ Your task is to conduct a rudimentary analysis of this data set. Through this yo
 ```{r}
 # 1. Print out the time series
 
-
 # 2. Compute the length of the time series
 
-
 # 3. Print out the first 6 and the last 7 observations 
-
 
 
 # 4. Generate a plot
