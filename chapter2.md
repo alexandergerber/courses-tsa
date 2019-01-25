@@ -1,16 +1,18 @@
 ---
-title       : Seasonality
-description : Insert the chapter description here
+title: Seasonality
+description: 'Insert the chapter description here'
 ---
+
 ## The AirPassanger time series
 
 ```yaml
 type: MultipleChoiceExercise
 key: 536201f151
 lang: r
-xp: 100
+xp: 50
 skills: 1
 ```
+
 With your knowledge about stationarity and how a stationary process should look like reconsider the `AirPassanger` time series. 
 Which of the following statements are true?
 
@@ -24,30 +26,21 @@ Which of the following statements are true?
   <li>The underlying process seems to be perfectly stationary.</li>
 </ol>
 
-You need to find all true statements. 
+You need to find all true statements.
 
-`@instructions`
+`@possible_answers`
 - The statements 1, 3, 6 are true. 
 - The statements 2 and 5 are true.
 - Only statements 6 is true.
 - The statements 2, 4, and 5 are true.  
-- All statements but 6 are true. 
+- All statements but 6 are true.
 
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
 plot(AirPassengers)
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
 ```
 
 `@sct`
@@ -57,6 +50,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Trend and Seasonality I
 
 ```yaml
@@ -66,6 +60,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 We found out that the `AirPassanger` time series is non-stationary because it exhibits a deterministic trend and seasonal pattern.
 
 The function `decompose()` can be used to decompose a time series according to the model: 
@@ -76,12 +71,13 @@ where $s _t$ is the seasonal component, $m _t$ is the trend component and $X _t$
 `decompose()` uses moving average filters to estimate $s _t$ and $m _t$. 
 
 In order to use `decompose()` you need an object of class `ts` with `frequency > 1`. When working with real data
-make sure to check this condition. 
+make sure to check this condition.
 
 `@instructions`
 - Apply `decompose()` to `AirPassangers` and assign the results to `AP_decomp`.
 - Plot `AP_decomp` and inspect the output. 
-- Extract only the seasonal component form `AP_decomp` and save it as `AP_seasonal `. `?decompose` is helpful here. Look for the caption "Value". This section describes the output object of a function.  
+- Extract only the seasonal component form `AP_decomp` and save it as `AP_seasonal `. `?decompose` is helpful here. Look for the caption "Value". This section describes the output object of a function.
+
 `@hint`
 Use the `$` sign get access to the seasonal component.
 
@@ -130,6 +126,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Trend and Seasonality II
 
 ```yaml
@@ -139,18 +136,17 @@ lang: r
 xp: 50
 skills: 1
 ```
+
 Reconsider the seasonal decompositon provided by `decompose()`. 
 What do you think about the result?
 
-
-`@instructions`
-
+`@possible_answers`
 - It looks good. We can start working with ARMA models. 
 - The estimated random component still has a distinct pattern and does not appear to be stationary. We have to reconsider our approach.  
 - The estimated random component still has a distinct pattern but an ARMA Model can handle this.
 
-
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
@@ -168,6 +164,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Trend and Seasonality III
 
 ```yaml
@@ -177,6 +174,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 Why did it not work as expected? 
 
 As already stated decompose assumes a model of the form:
@@ -186,15 +184,16 @@ $$Y _t = s _t + m _t + X _t.$$
 However, we found earlier that the seasonal pattern becomes stronger with increasing level of the time series. 
 The simple model assumed by `decompose()` considers the seasonal pattern $s_t$ to be constant over time.
 
-One way to improve our results is to take logarithms.  
+One way to improve our results is to take logarithms.
 
 `@instructions`
 - Take the logarithm of the time series and assign it to `AP_logs`.
 - Plot `AP_logs`. Can you see what changed?
 - `decompose()` `AP_log` and assign the result to `AP_log_decomp`. Plot `AP_log_decomp`.
 - What do you think about the result?
+
 `@hint`
-Use `log()` to take the logarithm. 
+Use `log()` to take the logarithm.
 
 `@pre_exercise_code`
 ```{r}
@@ -236,13 +235,8 @@ ex() %>% check_function("plot", index = 2) %>% check_arg("x") %>% check_equal()
 success_msg("Great Work!")
 ```
 
-
-
-
-
-
-
 ---
+
 ## Aggregate
 
 ```yaml
@@ -259,23 +253,17 @@ We can extract the trend by considering the monthly average of each year.
 To achieve this the function `aggregate()` can be used. This function takes two inputs: a time series and 
 a function. The function is applied to all values of each year (time unit).
 So if we have a time series with monthly data beginning in January 2000 and ending in December 2001
-the function will be applied to the $12$ values of the year $2000$ and the $12$ values of the year 2001. 
- 
-
-
+the function will be applied to the $12$ values of the year $2000$ and the $12$ values of the year 2001.
 
 `@instructions`
 - Compute the monthly average of each year with `aggregate()`. Assign the result to the variable `AP_avg`. 
 - Produce a plot of the original time series and add a red line with the values of `AP_avg` to the plot. You can use 
   the function `lines()` where you set the argument `col` to `"red"`. If you get the error: "Error: plot.new has not been called yet" you
-  have to run the call to `plot()` and `lines()` in one block. 
-
-
+  have to run the call to `plot()` and `lines()` in one block.
 
 `@hint`
 The function call you need should be of the form `aggregate(TimeSeries, FUN = "functionName")`. Do not forget 
-the `" "` arround the name of the function you want to apply. 
-
+the `" "` arround the name of the function you want to apply.
 
 `@pre_exercise_code`
 ```{r}

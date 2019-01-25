@@ -1,43 +1,42 @@
 ---
-title: Introduction to Time Series
-description: This is a template chapter.
+title: 'Introduction to Time Series'
+description: 'This is a template chapter.'
+free_preview: true
 ---
 
 ## Discover
 
 ```yaml
 type: NormalExercise
+key: cc46134a89
 lang: r
 xp: 100
 skills: 1
-key: cc46134a89
 ```
 
 The `discoveries` data set contains the numbers of great inventions and scientific discoveries of each year from 1860 to 1959.
 It is also one of the many data sets which are available immediately after the installation of `R`.
 Type `data()` in the R console on your computer to find others (this does not work in DataCamp). 
 
-Your task is to conduct a rudimentary analysis of this data set. Through this you will learn some of the basics of working with time series in `R`. 
+Your task is to conduct a rudimentary analysis of this data set. Through this you will learn some of the basics of working with time series in `R`.
 
 `@instructions`
 - Print out the time series `discoveries` and examine the output. 
 - Find out of how many observations this time series consists.  Use `length()` to achieve this. 
 - Print out the first 6 and the last 7 observations. Use `head()` and `tail()` for this. 
-- Visualize the time series using the `plot()` function.  
+- Visualize the time series using the `plot()` function.
+
 `@hint`
 - You can print something by either using to function `print()` or by just typing the name of the object you want to print. 
-- You can always use the `R` `help()` function. For example,`help(head)` or `?head`. 
-- When working with time series data it is enough to call `plot()` with the time series object as its only argument to generate a decent plot.  
-
+- You can always use `help()` to find additional Information. For example `help(head)` or `?head`. 
+- When working with time series data it is enough to call `plot()` with the time series object as its only argument to generate a decent plot.
 
 `@pre_exercise_code`
-
 ```{r}
 
 ```
 
 `@sample_code`
-
 ```{r}
 # 1. Print the time series
 
@@ -50,7 +49,6 @@ Your task is to conduct a rudimentary analysis of this data set. Through this yo
 ```
 
 `@solution`
-
 ```{r}
 # 1. Print the time series
 print(discoveries)
@@ -64,7 +62,6 @@ plot(discoveries)
 ```
 
 `@sct`
-
 ```{r}
 ex() %>% check_output_expr("print(discoveries)", missing_msg  = "Did you print out the time series?")
 ex() %>% check_function("length") %>%  check_result() %>% check_equal()
@@ -75,6 +72,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Create a time series
 
 ```yaml
@@ -84,6 +82,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 In the previous excercise a proper time series was already provided. 
 Mostly this will not be the case.
 Assume we observed for each day of the week how many students were in the university canteen.
@@ -96,10 +95,10 @@ Assume we observed for each day of the week how many students were in the univer
 `@instructions`
 - Create a simple vector called `vec` containing the numbers from the table. 
 - Use the function `ts()` to create a time series object from `vec` and assign the result to `ts_vec`.
-- Find out to what kind of class `vec` and `ts_vec` belong to. Use `class()` for this task. 
+- Find out to what kind of class `vec` and `ts_vec` belong to. Use `class()` for this task.
 
 `@hint`
-You can use`c()` to **c**ombine values to a vector. 
+You can use`c()` to **c**ombine values to a vector.
 
 `@pre_exercise_code`
 ```{r}
@@ -137,6 +136,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Why using class ts?
 
 ```yaml
@@ -146,6 +146,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 In R each object has a class. Along with the now introduced class `ts` 
 you might already know the classes `vector`, `matrix`, `list` 
 and `data.frame` from the introduction course. 
@@ -157,9 +158,11 @@ functions such as plot behave differently depending on the class of their inputs
 
 `@instructions`
 - Plot `vec` and `ts_vec` one below the other. The `par()` function in the sample code
-   will achieve this. Simply put the code for the two plots below. Note the difference. 
+   will achieve this. Simply put the code for the two plots below. Note the difference.
+
 `@hint`
-- You can increase the size of the plot window to get a better view on the plots you created. 
+- You can increase the size of the plot window to get a better view on the plots you created.
+
 `@pre_exercise_code`
 ```{r}
 
@@ -195,6 +198,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Quarterly Data
 
 ```yaml
@@ -204,6 +208,7 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 You already know some basics about time series objects of class `ts`. Now, we
 want to create a time series for which we have to define more than just one argument 
 of the function `ts()`.
@@ -211,18 +216,17 @@ of the function `ts()`.
 We want to create a quarterly time series which starts in the 3. quarter of the year
 $2000$. This can be done by calling `ts()` with the additional arguments `start` and `frequency`. 
 `start` will tell the time series when to start. `frequency` defines how many observations 
-occur per unit of time (in our case per year). 
+occur per unit of time (in our case per year).
 
 `@instructions`
-  -  Create a time series which starts in the 3. quarter of the year 2000 and assign it to `x_ts`. Use the observations contained in the variable `x`.
+-  Create a time series which starts in the 3. quarter of the year 2000 and assign it to `x_ts`. Use the observations contained in the variable `x`.
   -  Print out the time series to the console and produce a simple plot.
 
 `@hint`
 If we for example want the series to start
 in the 4. quarter 2016 than we would have to type `ts(x, start = c(2016, 4), frequency = 4)`.
 We set frequency to `4` because a year consists of `4` quarters. For monthly data we would have
-`frequency = 12` and so on. 
-
+`frequency = 12` and so on.
 
 `@pre_exercise_code`
 ```{r}
@@ -262,6 +266,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## Subsetting a Time Series
 
 ```yaml
@@ -271,20 +276,21 @@ lang: r
 xp: 100
 skills: 1
 ```
+
 The `AirPassanger` data set contains the number of air passangers in the first years of commercial aviation. 
 
 We are only interested in the first $4$ years. A convinient way of subsetting a
 time series is the function `window()`. We provide the original time series as well as
 the start and the end date of the desired subset 
 
-One advantage of `window()` is that in contrast to other subsetting techniques an object of class `ts` is returned.  
-
+One advantage of `window()` is that in contrast to other subsetting techniques an object of class `ts` is returned.
 
 `@instructions`
 - Plot the time series `AirPassangers`. This object is already available in your enviornment. 
 - When does the time series start and when does it end? What is the underlying frequency? Use `start()`, `end()` and `frequency()` to find it out. 
 - Create a new object called `AP_begin` with only the first 4 years of the original time series. Print out `AP_begin`! 
 - Create a new object called `AP_rest` with the remaining years. Print out `AP_rest`!
+
 `@hint`
 Use for monthly data the following syntax `window(TimeSeries, start = c(year, month), end = c(year, month) )`.
 
@@ -343,7 +349,8 @@ success_msg("Great Work!")
 ```
 
 ---
-## Sequence of random variables 
+
+## Sequence of random variables
 
 ```yaml
 type: MultipleChoiceExercise
@@ -352,14 +359,17 @@ lang: r
 xp: 50
 skills: 1
 ```
-How do we call an ordered sequence of random variables (rv) which are defined on the same probability space?  
 
-`@instructions`
+How do we call an ordered sequence of random variables (rv) which are defined on the same probability space?
+
+`@possible_answers`
 - random walk
 - AR-process
 - (discrete) stochastic process
-- martingale 
+- martingale
+
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
@@ -372,8 +382,8 @@ test_mc(correct = 3)
 success_msg("Great Work!")
 ```
 
-
 ---
+
 ## Time Series
 
 ```yaml
@@ -383,15 +393,17 @@ lang: r
 xp: 50
 skills: 1
 ```
+
 How can a time series be defined?
 
-`@instructions`
+`@possible_answers`
 - As a (discrete) stochastic process. 
 - As a realization of a (discrete) stochastic process. 
 - As a sequence of variables.
 - As a process in continues time.
 
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
@@ -405,6 +417,7 @@ success_msg("Great Work!")
 ```
 
 ---
+
 ## (Weak) Stationarity I
 
 ```yaml
@@ -414,15 +427,17 @@ lang: r
 xp: 50
 skills: 1
 ```
-We say a time series process is weakly stationary if: 
 
-`@instructions`
+We say a time series process is weakly stationary if:
+
+`@possible_answers`
 - The mean is constant over time.
 - The autocovariances do not depend on $t$.
 - The process stays within a certain interval.
 - The first two moments do not change over time.
 
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
@@ -435,8 +450,8 @@ test_mc(correct = 4)
 success_msg("Great Work!")
 ```
 
-
 ---
+
 ## (Weak) Stationarity II
 
 ```yaml
@@ -446,19 +461,21 @@ lang: r
 xp: 50
 skills: 1
 ```
+
 Consider the process
 $$Y_t = 4 + \epsilon _t, \qquad \epsilon _t \sim N(0,t)$$
 
 Is $\{Y_t\}$ stationary?
 
-
-`@instructions`
+`@possible_answers`
 - Yes, because the mean does not change over time.
 - No, because the mean changes over time. 
 - No, because the second moments converge to $0$.
 - No, because $\sigma _t \neq \sigma _{s}$ for $t \neq s$.
 - Yes, because the process is ergodic.
+
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
@@ -473,38 +490,33 @@ plot(y ~ t, type = "l")
 test_mc(correct = 4)
 success_msg("Great Work!")
 ```
+
 ---
+
 ## Ergodicity
 
 ```yaml
 type: MultipleChoiceExercise
 key: 997640b9d6
 lang: r
-xp: 100
+xp: 50
 skills: 1
 ```
+
 The time series process $\\{Y_t\\}$ is ergodic if 
 
 $$\overline{Y}_T =\frac{1}{T} \sum^T _{t = 1} y _t$$
 
-`@instructions`
+`@possible_answers`
 - converges to the sample mean.
 - converges to $\mu$ as $T \rightarrow 0$.
 - converges to $0$ as $T \rightarrow \infty$.
 - converges to $E[Y_t]$ as $T \rightarrow \infty$.
+
 `@hint`
 
+
 `@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
 ```{r}
 
 ```
