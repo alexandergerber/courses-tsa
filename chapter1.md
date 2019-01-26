@@ -400,7 +400,7 @@ How can a time series be defined?
 - As a (discrete) stochastic process. 
 - As a realization of a (discrete) stochastic process. 
 - As a sequence of variables.
-- As a process in continues time.
+- As a process in continuous time.
 
 `@hint`
 
