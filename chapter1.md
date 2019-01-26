@@ -4,7 +4,7 @@ description: 'This is a template chapter.'
 free_preview: true
 ---
 
-## Discover
+## Discoveries
 
 ```yaml
 type: NormalExercise
