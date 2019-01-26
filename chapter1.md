@@ -292,7 +292,7 @@ One advantage of `window()` is that in contrast to other subsetting techniques a
 - Create a new object called `AP_rest` with the remaining years. Print out `AP_rest`!
 
 `@hint`
-Use for monthly data the following syntax `window(TimeSeries, start = c(year, month), end = c(year, month) )`.
+Use `window(TimeSeries, start = c(year, month), end = c(year, month) )` for monthly data.
 
 `@pre_exercise_code`
 ```{r}
@@ -308,7 +308,7 @@ Use for monthly data the following syntax `window(TimeSeries, start = c(year, mo
 
 # Determine the frequnecy
 
-# Create and print out a vector containing only the first 4 years
+# Create and print a vector containing only the date of the first 4 years
 
 
 # Create and print out a vector containing the remaining series
@@ -325,7 +325,7 @@ start(AirPassengers)
 end(AirPassengers)
 # Determine the frequnecy
 frequency(AirPassengers)
-# Create and print out a vector containing only the first 4 years
+# Create and print a vector containing only the date of the first 4 years
 AP_begin<- window(AirPassengers, start =  start(AirPassengers), end = c(1952, 12))
 AP_begin
 # Create and print out a vector containing the remaining series
