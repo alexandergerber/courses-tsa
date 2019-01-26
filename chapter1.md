@@ -18,7 +18,7 @@ The `discoveries` data set contains the numbers of great inventions and scientif
 It is also one of the many data sets which are available immediately after the installation of `R`.
 Type `data()` in the R console on your computer to find others (this does not work in DataCamp). 
 
-Your task is to conduct a rudimentary analysis of this data set. Through this you will learn some of the basics of working with time series in `R`.
+Your task is to conduct a rudimentary analysis of this data set. Through this you will learn some of the basics of working with time series in `R`. Test
 
 `@instructions`
 - Print the time series `discoveries` to the console and examine the output. 
