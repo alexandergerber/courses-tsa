@@ -148,7 +148,7 @@ skills: 1
 ```
 
 In R each object has a class. Along with the now introduced class `ts` 
-you might already know the classes `vector`, `matrix`, `list` 
+you already know the classes `vector`, `matrix`, `list` 
 and `data.frame` from the introduction course. 
 
 Everything you can do with a `ts` object can also be done with a normal vector.
