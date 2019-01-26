@@ -213,18 +213,18 @@ You already know some basics about time series objects of class `ts`. Now, we
 want to create a time series for which we have to define more than just one argument 
 of the function `ts()`.
 
-We want to create a quarterly time series which starts in the 3. quarter of the year
+We want to create a quarterly time series which starts in the 3rd quarter of the year
 $2000$. This can be done by calling `ts()` with the additional arguments `start` and `frequency`. 
 `start` will tell the time series when to start. `frequency` defines how many observations 
 occur per unit of time (in our case per year).
 
 `@instructions`
--  Create a time series which starts in the 3. quarter of the year 2000 and assign it to `x_ts`. Use the observations contained in the variable `x`.
-  -  Print out the time series to the console and produce a simple plot.
+-  Create a time series which starts in the 3rd quarter of the year 2000 and assign it to `x_ts`. Use the observations contained in the variable `x`.
+-  Print the time series to the console and produce a simple plot.
 
 `@hint`
-If we for example want the series to start
-in the 4. quarter 2016 than we would have to type `ts(x, start = c(2016, 4), frequency = 4)`.
+For example, if we want the series to start
+in the 4th quarter of 2016, we would have to type `ts(x, start = c(2016, 4), frequency = 4)`.
 We set frequency to `4` because a year consists of `4` quarters. For monthly data we would have
 `frequency = 12` and so on.
 
