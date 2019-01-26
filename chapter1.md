@@ -54,7 +54,7 @@ Your task is to conduct a rudimentary analysis of this data set. Through this yo
 print(discoveries)
 # 2. Compute the length of the time series
 length(discoveries)
-# 3. Save the first 6 and the last 7 observations 
+# 3. Print out the first 6 and the last 7 observations 
 head(discoveries)
 tail(discoveries, n = 7)
 # 4. Generate a plot
