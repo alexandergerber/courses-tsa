@@ -83,9 +83,9 @@ xp: 100
 skills: 1
 ```
 
-In the previous excercise a proper time series was already provided. 
-Mostly this will not be the case.
-Assume we observed for each day of the week how many students were in the university canteen.
+In the previous excercise a proper time series is already provided. 
+Generally that will rarely be the case.
+Assume we observed how many students were in the university canteen for each day of the week.
 
 
 | Mon. 	| Tue. 	| We. 	| Th. 	| Fri. 	|
@@ -111,7 +111,7 @@ You can use`c()` to **c**ombine values to a vector.
 
 # Create ts_vec
 
-# Print out the class of vec and ts_vec
+# Print the class of vec and ts_vec
 ```
 
 `@solution`
@@ -122,7 +122,7 @@ vec    <- c(2500, 4000, 4500, 4250, 500)
 # Create ts_vec
 ts_vec <- ts(vec)
 
-# Print out the class of vec and ts_vec
+# Print the class of vec and ts_vec
 class(vec)
 class(ts_vec)
 ```
