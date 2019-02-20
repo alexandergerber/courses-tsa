@@ -53,6 +53,6 @@ ls()
 
 `@sct`
 ```{r}
-test_error()
+ex() %>% check_library("quantmod")
 success_msg("Great!")
 ```
