@@ -69,11 +69,11 @@ xp: 100
 ```
 
 The imported data contains more than just one time series. 
-We are only interested in the daily closing prices.
+Find out of which components the dataset consists. 
 
 `@instructions`
-- Use `str()` to find of which variables the imported dataset consists of
-- Then assign
+- Use `head()` to get a numerical overview
+- Use `plot()` to get a graphical overview
 
 `@hint`
 
@@ -81,16 +81,21 @@ We are only interested in the daily closing prices.
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-getSymbols("^GDAXI")
+getSymbols("^GDAXI", return.class = "ts")
 ```
 
 `@sample_code`
 ```{r}
+# Print out the first rows  
+
 # Plot the time series
+
 ```
 
 `@solution`
 ```{r}
+# Print out the first rows  
+head(GDAXI)
 # Plot the time series
 plot(GDAXI)
 ```
