@@ -69,7 +69,7 @@ xp: 100
 ```
 
 The imported data contains more than just one time series. 
-Find out of which components the dataset consists. 
+Find out of which components the dataset consists.
 
 `@instructions`
 - Use `head()` to get a numerical overview
