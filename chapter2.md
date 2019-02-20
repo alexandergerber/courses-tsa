@@ -51,5 +51,6 @@ ls()
 
 `@sct`
 ```{r}
-
+test_error()
+success_msg("Great!")
 ```
