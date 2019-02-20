@@ -28,6 +28,7 @@ a search engine (search e.g. for Yahoo Finance DAX).
 
 `@pre_exercise_code`
 ```{r}
+library(quatmod)
 # Import the Data
 
 
@@ -42,6 +43,7 @@ a search engine (search e.g. for Yahoo Finance DAX).
 
 `@solution`
 ```{r}
+library(quatmod)
 # Import the Data
 getSymbols("^GDAXI")
 
