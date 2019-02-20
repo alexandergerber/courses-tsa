@@ -21,7 +21,7 @@ a search engine (search e.g. for Yahoo Finance DAX).
 `@instructions`
 - Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
 - Load the `quantmod` package.
-- Import the DAX data by passing the symbol as a string to `getSymbols()`.
+- Import the DAX data by passing the symbol as a string to `getSymbols(., return.class = "ts")` (meaning you should replace the dot by the symbol). 
 - Check under which name the imported data was saved using `ls()`.
 
 `@hint`
@@ -47,7 +47,7 @@ a search engine (search e.g. for Yahoo Finance DAX).
 # Load the quantmod package
 library(quantmod)
 # Import the Data
-getSymbols("^GDAXI")
+getSymbols("^GDAXI", return.class = "ts")
 # Check out the name 
 ls()
 ```
@@ -68,10 +68,12 @@ key: e68207ca67
 xp: 100
 ```
 
-aa
+The imported data contains more than just one time series. 
+We are only interested in the daily closing prices. 
 
 `@instructions`
-- Use `plot()` to vizualise the loaded time series
+- Use `str()` to find of which variables the imported dataset consists of
+- Then assign
 
 `@hint`
 
