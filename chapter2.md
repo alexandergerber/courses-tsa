@@ -19,9 +19,10 @@ To import for example DAX data from Yahoo Finance we need to find the symbol Yah
 a search engine (search e.g. for Yahoo Finance DAX).
 
 `@instructions`
-- Verify that the Yahoo Finance symbol for the DAX is ^GDAXI
-- Import the DAX data by passing the symbol as a string to `getSymbols()`
-- Check under which name the imported data was saved using `ls()`
+- Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
+- Load the `quantmod` package.
+- Import the DAX data by passing the symbol as a string to `getSymbols()`.
+- Check under which name the imported data was saved using `ls()`.
 
 `@hint`
 - If you want to pass something as a string you have to use ""
@@ -33,9 +34,9 @@ a search engine (search e.g. for Yahoo Finance DAX).
 
 `@sample_code`
 ```{r}
-library(quantmod)
-# Import the Data
+# Load the quantmod package
 
+# Import the Data with getSymbols()
 
 # Check out the name 
 
@@ -43,10 +44,10 @@ library(quantmod)
 
 `@solution`
 ```{r}
+# Load the quantmod package
 library(quantmod)
 # Import the Data
 getSymbols("^GDAXI")
-
 # Check out the name 
 ls()
 ```
