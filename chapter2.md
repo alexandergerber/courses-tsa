@@ -3,7 +3,7 @@ title: 'Import and Visualize Time Series Data'
 description: ""
 ---
 
-## Import Data via `quantmod()`
+## Importing Data 
 
 ```yaml
 type: NormalExercise
@@ -43,7 +43,7 @@ library(quantmod)
 
 `@solution`
 ```{r}
-library(quatmod)
+library(quantmod)
 # Import the Data
 getSymbols("^GDAXI")
 
