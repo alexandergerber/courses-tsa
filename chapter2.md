@@ -60,7 +60,7 @@ success_msg("Great!")
 
 ---
 
-## Insert exercise title here
+## Inspect the downloaded data
 
 ```yaml
 type: NormalExercise
@@ -68,8 +68,8 @@ key: e68207ca67
 xp: 100
 ```
 
-The imported data contains more than just one time series. 
-Find out of which components the dataset consists.
+The imported data consist of more than just one time series. 
+Follow the instructions to find out more about the data. 
 
 `@instructions`
 - Use `head()` to get a numerical overview
