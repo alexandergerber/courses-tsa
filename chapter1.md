@@ -16,7 +16,7 @@ skills: 1
 
 The `discoveries` data set contains the numbers of great inventions and scientific discoveries of each year from 1860 to 1959.
 It is also one of the many data sets which are available immediately after the installation of `R`.
-Type `data()` in the R console on your computer to find others (this does not work in DataCamp). 
+Type `data()` in the R console on your computer to find others (this does not work in DataCamp). test
 
 Your task is to conduct a rudimentary analysis of this data set. Through this you will learn some of the basics of working with time series in `R`. Test
 
