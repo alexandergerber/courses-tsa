@@ -150,5 +150,5 @@ plot(GDAXI)
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
