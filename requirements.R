@@ -1,6 +1,7 @@
 library(remotes)
 ##### Install specific package versions from CRAN #####
 
+install_version("forecast", "2.5")
 install_version("ggplot2", "2.2.1")
 install_version("dplyr", "0.7.4")
 install_version("quantmod", "0.4-13") 
