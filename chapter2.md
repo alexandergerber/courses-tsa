@@ -3,7 +3,7 @@ title: 'Import and Visualize Time Series Data'
 description: ""
 ---
 
-## Importing Data 
+## Importing Data
 
 ```yaml
 type: NormalExercise
