@@ -60,7 +60,7 @@ success_msg("Great!")
 
 ---
 
-## Inspect the downloaded data
+## Inspect the Downloaded Data
 
 ```yaml
 type: NormalExercise
@@ -103,5 +103,6 @@ plot(GDAXI)
 `@sct`
 ```{r}
 ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("head") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
