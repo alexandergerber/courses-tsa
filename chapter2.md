@@ -150,6 +150,6 @@ plot(GDAXI)
 
 `@sct`
 ```{r}
-ex() %>% check_function("plot")
+ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
