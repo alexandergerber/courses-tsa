@@ -145,7 +145,7 @@ xp: 50
 `@solution`
 ```{r}
 # Plot the data
-plot(GDAXI)
+plot(1:10)
 ```
 
 `@sct`
