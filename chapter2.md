@@ -69,7 +69,7 @@ xp: 100
 ```
 
 The imported data contains more than just one time series. 
-We are only interested in the daily closing prices. 
+We are only interested in the daily closing prices.
 
 `@instructions`
 - Use `str()` to find of which variables the imported dataset consists of
