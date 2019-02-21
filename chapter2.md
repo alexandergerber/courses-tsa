@@ -16,13 +16,13 @@ by the `quantmod` package. The package contains the function `getSymbols()` whic
 as Yahoo and Google Finance and the FRED (Federal Reserve Bank of St. Louis). 
 
 To import for example DAX data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
-a search engine (search e.g. for Yahoo Finance DAX).
+a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(., auto.assign = FALSE, return.class = "ts")`
+(meaning you should replace the dot by the symbol) and assign the result to a variable using `<-`. 
 
 `@instructions`
 - Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
 - Load the `quantmod` package.
-- Import the DAX data by passing the symbol as a string to `getSymbols(., return.class = "ts")` (meaning you should replace the dot by the symbol). 
-- Check under which name the imported data was saved using `ls()`.
+- Import the DAX data by passing the symbol as a string to `getSymbols(.,auto.assign = FALSE, return.class = "ts")` and assign the result to the variable `DAX`.
 
 `@hint`
 - If you want to pass something as a string you have to use ""
@@ -38,7 +38,6 @@ a search engine (search e.g. for Yahoo Finance DAX).
 
 # Import the Data with getSymbols()
 
-# Check out the name 
 
 ```
 
@@ -47,9 +46,7 @@ a search engine (search e.g. for Yahoo Finance DAX).
 # Load the quantmod package
 library(quantmod)
 # Import the Data
-getSymbols("^GDAXI", return.class = "ts")
-# Check out the name 
-ls()
+DAX <- getSymbols("^GDAXI", auto.assign = FALSE, return.class = "ts")
 ```
 
 `@sct`
