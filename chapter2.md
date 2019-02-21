@@ -186,6 +186,7 @@ We start with a simple one, the `autoplot()` function. For a single time series 
 ```{r}
 library(quantmod)
 DAX <- getSymbols("^GDAXI",auto.assign = FALSE, return.class = "ts")
+close <- DAX[ ,"GDAXI.Close"]
 ```
 
 `@sample_code`
