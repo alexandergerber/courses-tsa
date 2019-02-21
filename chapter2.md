@@ -16,7 +16,7 @@ by the `quantmod` package. The package contains the function `getSymbols()` whic
 as Yahoo and Google Finance and the FRED (Federal Reserve Bank of St. Louis). 
 
 To import for example DAX data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
-a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(., auto.assign = FALSE, return.class = "ts")`
+a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE, return.class = "ts")`
 (meaning you should replace the dot by the symbol) and assign the result to a variable using `<-`. 
 
 `@instructions`
@@ -210,4 +210,46 @@ autoplot(close)
 ex() %>% check_function("library") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
+```
+
+---
+
+## Insert exercise title here
+
+```yaml
+type: NormalExercise
+key: 335ac38015
+xp: 100
+```
+
+Recall the things you learned in order to import and inspect the Dow Jones data. 
+
+`@instructions`
+- Import the Dow Jones Data from Yahoo Finance
+- Assign the traded volume to a new variable called `vol`
+- Visualize `vol` using `autoplot()`
+
+`@hint`
+Recall that you imported data from Yahoo using `getSymbols(.,src = "yahoo", auto.assign = FALSE, return.class = "ts")`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+DOW <- getSymbols("^DJI",auto.assign = FALSE, return.class = "ts")
+
+colnames(DOW)
+```
+
+`@sct`
+```{r}
+
 ```
