@@ -160,3 +160,53 @@ ex() %>% check_function("colnames") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("close") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
+
+---
+
+## The Forecast Package
+
+```yaml
+type: NormalExercise
+key: 20f2562914
+xp: 100
+```
+
+In this course we will use some of the functionality the `forecast` package provides. 
+We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, 
+`autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
+
+`@instructions`
+- Load the `forecast` package
+- Plot the closing prices using the autoplot function
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE, return.class = "ts")
+```
+
+`@sample_code`
+```{r}
+# Load the forecast package
+
+# plot the closing prices using autoplot()
+
+```
+
+`@solution`
+```{r}
+# Load the forecast package
+library(forecast)
+# plot the closing prices using autoplot()
+autoplot(close)
+```
+
+`@sct`
+```{r}
+ex() %>% check_function("library") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("x") %>% check_equal()
+success_msg("Great!")
+```
