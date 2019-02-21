@@ -69,7 +69,7 @@ xp: 100
 ```
 
 The imported data consist of more than just one time series. 
-Follow the instructions to find out more about the data. 
+Follow the instructions to find out more about the data.
 
 `@instructions`
 - Use `head()` to get a numerical overview
