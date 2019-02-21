@@ -65,7 +65,7 @@ key: e68207ca67
 xp: 100
 ```
 
-The imported data consist of more than just one time series. 
+The data from the previous exercise are still loaded. You can check this by using `ls()`. 
 Follow the instructions to find out more about the data.
 
 `@instructions`
@@ -101,5 +101,62 @@ plot(GDAXI)
 ```{r}
 ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("head") %>% check_arg("x") %>% check_equal()
+success_msg("Great!")
+```
+
+---
+
+## Subset the downloaded data
+
+```yaml
+type: NormalExercise
+key: 62f191b4b5
+xp: 100
+```
+
+You found out that the dataset consists of more than one time series.  Each time series is contained in 
+one column. If we want to work on only one time series we need to find the corresponding column.
+Then can subset this column by either using a numerical index or, if provided, the column name (notice that this works exactly as for matrices). 
+
+`@instructions`
+- Use the `colnames()` to find the name of the time series of daily closing prices.
+- Use the name to extract the closing prices and assign the result to a new variable calles `close`. 
+- Plot the single time series `close`.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE, return.class = "ts")
+```
+
+`@sample_code`
+```{r}
+# Find the column names
+
+# Extract the closing prices 
+
+# Plot the closing prices
+
+
+```
+
+`@solution`
+```{r}
+# Find the column names
+colnames(DAX)
+# Extract the closing prices 
+close <- DAX[ ,"GDAXI.Close"]
+# Plot the closing prices
+plot(close)
+
+```
+
+`@sct`
+```{r}
+ex() %>% check_function("colnames") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("close") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
