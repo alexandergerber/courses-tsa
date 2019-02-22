@@ -17,7 +17,7 @@ as Yahoo and Google Finance and the FRED (Federal Reserve Bank of St. Louis).
 
 To import for example DAX data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
 a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE, return.class = "ts")`
-(meaning you should replace the dot by the symbol) and assign the result to a variable using `<-`. 
+(meaning you should replace the dot by the symbol) and assign the result to a variable using `<-`.
 
 `@instructions`
 - Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
@@ -116,7 +116,7 @@ xp: 100
 
 You found out that the dataset consists of more than one time series.  Each time series is contained in 
 one column. If we want to work on only one time series we need to find the corresponding column.
-Then can subset this column by either using a numerical index or, if provided, the column name (notice that this works exactly as for matrices). 
+Then can subset this column by either using a numerical index or, if provided, the column name (notice that this works exactly as for matrices).
 
 `@instructions`
 - Use the `colnames()` to find the name of the time series of daily closing prices.
@@ -173,7 +173,7 @@ xp: 100
 
 In this course we will use some of the functionality the `forecast` package provides. 
 We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, 
-`autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
+`autoplot()` makes it easier if we want to add additional information to the plot as we will see later.
 
 `@instructions`
 - Load the `forecast` package
@@ -222,7 +222,7 @@ key: 335ac38015
 xp: 100
 ```
 
-Recall the things you learned in order to import and inspect the Dow Jones data. 
+Recall the things you learned in order to import and inspect the Dow Jones data.
 
 `@instructions`
 - Import the Dow Jones Data from Yahoo Finance
