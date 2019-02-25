@@ -184,7 +184,8 @@ However, the aim of this course is to work with regular time series. We can use 
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 ```
 
 `@sample_code`
@@ -194,14 +195,20 @@ However, the aim of this course is to work with regular time series. We can use 
 
 `@solution`
 ```{r}
-DOW <- getSymbols("^DJI",auto.assign = FALSE, return.class = "ts")
-
-colnames(DOW)
+# convert to monthly
+daxMonthly <- to.monthly(DAX)
+# extract closing prices
+closeMonthly <- daxMonthly$DAX.Close
+# plot 
+plot(closeMonthly)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_function("to.monthly") %>% check_arg("x") %>% check_equal()
+ex() %>% check_object("closeMonthly") %>% check_equal()
+ex() %>% check_function("plot") %<% check_arg("x") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -220,7 +227,8 @@ by using the function `ts()`. Unfortunatly the time indices are not converted an
 specify the start date and the so called frequency, which is the number of observation per "cycle", in our per year.  
 
 `@instructions`
-Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly.
+Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
+Plot `close`.
 
 `@hint`
 
@@ -237,12 +245,19 @@ Convert `closeMonthly` to an object of class `ts` and assign it to the variable 
 
 `@solution`
 ```{r}
-
+close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
+plot(close)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_function("ts") %>% {
+  check_arg(., "data") %>% check_equal()
+  check_arg(., "start") %>% check_equal()
+  check_arg(., "frequency") %>% check_equal()
+}
+ex() %>% check_function("plot") %<% check_arg("x") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
