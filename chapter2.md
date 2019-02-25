@@ -213,7 +213,7 @@ success_msg("Great!")
 
 ---
 
-## Class TS
+## Class ts
 
 ```yaml
 type: NormalExercise
@@ -259,7 +259,7 @@ ex() %>% check_function("ts") %>% {
   check_arg(., "start") %>% check_equal()
   check_arg(., "frequency") %>% check_equal()
 }
-ex() %>% check_function("plot") %<% check_arg("x") %>% check_equal()
+ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -274,8 +274,7 @@ xp: 100
 ```
 
 In this course we will use some of the functionality the `forecast` package provides. 
-We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, 
-`autoplot()` makes it easier if we want to add additional information to the plot as we will see later.
+We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later.
 
 `@instructions`
 - Load the `forecast` package
@@ -287,8 +286,10 @@ We start with a simple one, the `autoplot()` function. For a single time series 
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI",auto.assign = FALSE, return.class = "ts")
-close <- DAX[ ,"GDAXI.Close"]
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
+daxMonthly <- to.monthly(DAX)
+closeMonthly <- daxMonthly$DAX.Close
+close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
 ```
 
 `@sample_code`
