@@ -156,8 +156,93 @@ plot(close)
 `@sct`
 ```{r}
 ex() %>% check_function("colnames") %>% check_arg("x") %>% check_equal()
-ex() %>% check_function("close") %>% check_arg("x") %>% check_equal()
+ex() %>% check_object("close") %>% check_equal()
 success_msg("Great!")
+```
+
+---
+
+## Irregular vs. Regular Time Series
+
+```yaml
+type: NormalExercise
+key: 335ac38015
+xp: 100
+```
+
+We also learned that `DAX` is of class `xts`, which is an elaborate way of dealing with time series in R. 
+For our porpuses it is enough to know, that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
+However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series. 
+
+`@instructions`
+- Convert `DAX` to a monthly series and assign it to the variable `daxMonthly`.
+- Create a variable `closeMonthly` with the monthly closing prices. 
+- Plot `closeMonthly`.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+DOW <- getSymbols("^DJI",auto.assign = FALSE, return.class = "ts")
+
+colnames(DOW)
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Class TS
+
+```yaml
+type: NormalExercise
+key: eb87762070
+xp: 100
+```
+
+For the remainder of the course we will work with time series of class `ts`. This is a class for only regular time series. 
+Some of the methods we are using in this course require time series of this class. We can convert an `xts` object to an object of class `ts`
+by using the function `ts()`. Unfortunatly the time indices are not converted and we have to add them manually. For this it is enough to 
+specify the start date and the so called frequency, which is the number of observation per "cycle", in our per year.  
+
+`@instructions`
+Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
 ```
 
 ---
@@ -209,46 +294,4 @@ autoplot(close)
 ex() %>% check_function("library") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: NormalExercise
-key: 335ac38015
-xp: 100
-```
-
-Recall the things you learned in order to import and inspect the Dow Jones data.
-
-`@instructions`
-- Import the Dow Jones Data from Yahoo Finance
-- Assign the traded volume to a new variable called `vol`
-- Visualize `vol` using `autoplot()`
-
-`@hint`
-Recall that you imported data from Yahoo using `getSymbols(.,src = "yahoo", auto.assign = FALSE, return.class = "ts")`
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-DOW <- getSymbols("^DJI",auto.assign = FALSE, return.class = "ts")
-
-colnames(DOW)
-```
-
-`@sct`
-```{r}
-
 ```
