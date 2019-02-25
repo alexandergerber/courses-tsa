@@ -114,8 +114,7 @@ xp: 100
 ```
 
 You found out that the dataset consists of more than one time series.  Each time series is contained in 
-one column. If we want to work on only one time series we need to find the corresponding column.
-Then can subset this column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
+one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
 - Use the `colnames()` to find the name of the time series of daily closing prices.
