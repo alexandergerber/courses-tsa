@@ -11,16 +11,16 @@ key: 7e8b138317
 xp: 100
 ```
 
-Before we can start to analyse a time series we need to load the data into R. A nice and easy way to do that is provided 
+Before we can start to analyse a time series we have to load data into R. A nice and easy way to do that is provided 
 by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from Yahoo Finance (`src = yahoo`) 
 and the Federal Reserve Bank of St. Louis (`src = FRED`). 
 
-To import for example data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
+To import for example DAX data from Yahoo Finance we have to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
 a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
 
 `@instructions`
-- Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
-- Load the `quantmod` package.
+- Verify that the Yahoo Finance symbol for the DAX is `GDAXI`. 
+- Load the `quantmod` package using `library()`.
 - Import the DAX data by passing the symbol as a string to `getSymbols(.,auto.assign = FALSE, return.class = "ts")` and assign the result to the variable `DAX`.
 
 `@hint`
@@ -265,6 +265,79 @@ success_msg("Great!")
 
 ---
 
+## Subsetting an Object of class ts
+
+```yaml
+type: NormalExercise
+key: 4f95d4c225
+xp: 100
+```
+
+To subset a time series by time it is most convenient to work with `window()`. 
+
+Use this function as follows: 
+- To extract a time period with a specific start and end date use
+`window(TimeSeries, start = c(year, month), end = c(year, month) )`
+- To get a subset from the start of the series until a specific end date use 
+`window(TimeSeries end = c(year, month) )`
+- To get a subset from a specific date until the end of the series use
+`window(TimeSeries end = c(year, month) )`
+
+
+`@instructions`
+Split the series of monthly closing prices (`close`) in two parts; 
+one from the Jannuary 2007 until December 2012 and on with the remaining data. 
+
+Assign the first part to the variable `closeFirst` and the second part to the variable `closeLast`.
+
+Plot the two series next to each other.
+
+`@hint`
+Split the series of monthly closing prices (`close`) in two part; 
+one from the Jannuary 2007 until December 2012 and on with the remaining data. 
+
+Plot the two series next to each other.
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
+daxMonthly <- to.monthly(DAX)
+closeMonthly <- daxMonthly$DAX.Close
+close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
+```
+
+`@sample_code`
+```{r}
+# Split the series in two parts
+
+
+# plot the 2 time series
+par(mfrow = c(1,2)) # this puts the follwing plots next to each other
+
+```
+
+`@solution`
+```{r}
+# Split the series in two parts
+closeFirst <- window(close, start = c(2007, 1), end = c(2012, 12) )
+closeLast <- window(close, start = c(2013, 1))
+# plot the 2 time series
+par(mfrow = c(1,2)) # this puts the follwing plots next to each other
+plot(closeFirst)
+plot(closeLast)
+```
+
+`@sct`
+```{r}
+ex() %>% check_object("closeFirst") %>% check_equal()
+ex() %>% check_object("closeLast") %>% check_equal()
+ex() %>% check_function("plot", index = 1) %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("plot", index = 2) %>% check_arg("x") %>% check_equal()
+```
+
+---
+
 ## The Forecast Package
 
 ```yaml
@@ -310,7 +383,7 @@ autoplot(close)
 
 `@sct`
 ```{r}
-ex() %>% check_function("library") %>% check_arg("x") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("library") %>% check_arg("package") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
