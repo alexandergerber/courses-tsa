@@ -238,6 +238,7 @@ Plot `close`.
 library(quantmod)
 DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 daxMonthly <- to.monthly(DAX)
+closeMonthly <- daxMonthly$DAX.Close
 ```
 
 `@sample_code`
