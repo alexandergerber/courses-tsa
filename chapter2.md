@@ -235,7 +235,9 @@ Plot `close`.
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
+daxMonthly <- to.monthly(DAX)
 ```
 
 `@sample_code`
