@@ -69,7 +69,7 @@ Follow the instructions to find out more about the data.
 
 `@instructions`
 - Use `head()` to get a numerical overview
-- Use `plot()` to get a graphical overview
+- Use `class()` to find out which kind of object you are working with.
 
 `@hint`
 
@@ -77,29 +77,29 @@ Follow the instructions to find out more about the data.
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-getSymbols("^GDAXI", return.class = "ts")
+DAX <- getSymbols("^GDAXI", auto.assign = FALSE)
 ```
 
 `@sample_code`
 ```{r}
 # Print out the first rows  
 
-# Plot the time series
+# Find out the class of the downloaded object
 
 ```
 
 `@solution`
 ```{r}
 # Print out the first rows  
-head(GDAXI)
-# Plot the time series
-plot(GDAXI)
+head(DAX)
+# Find out the class of the downloaded object
+class(DAX)
 ```
 
 `@sct`
 ```{r}
 ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
-ex() %>% check_function("head") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("class") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -115,11 +115,11 @@ xp: 100
 
 You found out that the dataset consists of more than one time series.  Each time series is contained in 
 one column. If we want to work on only one time series we need to find the corresponding column.
-Then can subset this column by either using a numerical index or, if provided, the column name (notice that this works exactly as for matrices).
+Then can subset this column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
 - Use the `colnames()` to find the name of the time series of daily closing prices.
-- Use the name to extract the closing prices and assign the result to a new variable calles `close`. 
+- Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close`. 
 - Plot the single time series `close`.
 
 `@hint`
@@ -128,7 +128,7 @@ Then can subset this column by either using a numerical index or, if provided, t
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI",auto.assign = FALSE, return.class = "ts")
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 ```
 
 `@sample_code`
