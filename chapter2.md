@@ -11,13 +11,12 @@ key: 7e8b138317
 xp: 100
 ```
 
-Before we can start to analyse a time series we need to load the desired data into R. A nice and easy way to do that is provided 
-by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from various sources such 
-as Yahoo and Google Finance and the FRED (Federal Reserve Bank of St. Louis). 
+Before we can start to analyse a time series we need to load the data into R. A nice and easy way to do that is provided 
+by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from Yahoo Finance (`src = yahoo`) 
+and the Federal Reserve Bank of St. Louis (`src = FRED`). 
 
-To import for example DAX data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
-a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE, return.class = "ts")`
-(meaning you should replace the dot by the symbol) and assign the result to a variable using `<-`.
+To import for example data from Yahoo Finance we need to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
+a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
 
 `@instructions`
 - Verify that the Yahoo Finance symbol for the DAX is ^GDAXI. 
@@ -46,7 +45,7 @@ a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbo
 # Load the quantmod package
 library(quantmod)
 # Import the Data
-DAX <- getSymbols("^GDAXI", auto.assign = FALSE, return.class = "ts")
+DAX <- getSymbols("^GDAXI", auto.assign = FALSE)
 ```
 
 `@sct`
