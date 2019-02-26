@@ -238,8 +238,8 @@ For example:
 	```
 
 `@instructions`
-Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
-Plot `close`.
+- Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
+- Plot `close`
 
 `@hint`
 
