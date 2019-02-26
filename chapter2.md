@@ -171,7 +171,7 @@ xp: 100
 
 We also learned that `DAX` is of class `xts`, which is an elaborate way of dealing with time series in R. 
 For our porpuses it is enough to know, that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
-However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series. 
+However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
 
 `@instructions`
 - Convert `DAX` to a monthly series and assign it to the variable `daxMonthly`.
@@ -223,7 +223,7 @@ xp: 100
 For the remainder of the course we will work with time series of class `ts`. This is a class for only regular time series. 
 Some of the methods we are using in this course require time series of this class. We can convert an `xts` object to an object of class `ts`
 by using the function `ts()`. Unfortunatly the time indices are not converted and we have to add them manually. For this it is enough to 
-specify the start date and the so called frequency, which is the number of observation per "cycle", in our per year.  
+specify the start date and the so called frequency, which is the number of observation per "cycle", in our per year.
 
 `@instructions`
 Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
@@ -281,7 +281,6 @@ Use this function as follows:
 `window(TimeSeries end = c(year, month) )`
 - To get a subset from a specific date until the end of the series use
 `window(TimeSeries end = c(year, month) )`
-
 
 `@instructions`
 Split the series of monthly closing prices (`close`) in two parts; 
