@@ -79,9 +79,6 @@ this might be true.
 An easy way to fit this model is provided by `tslm()` using the formula `y ~ trend + season`. 
 To model the seasonal component for each but one season a dummy variable is created and added to the linear regression model.
 
-
-
-
 `@instructions`
 - Produce from `conSupply` a **monthly** time series of class `ts` beginning at January 2010 until the end of the downloaded series. Assign the result to the variable `conSupply2010`. 
 - Fit a model with linear trend and constant seasonal component to the data using `tslm()` and assign the result to the variable `seasonalModel`. 
@@ -121,9 +118,7 @@ key: bf4d7783d0
 xp: 100
 ```
 
-In order to check whether our model was suitable to capture the trend and seasonal component a first step is to plot the fitted values together with the original series.  
-
-
+In order to check whether our model was suitable to capture the trend and seasonal component a first step is to plot the fitted values together with the original series.
 
 `@instructions`
 - Use `autoplot()` to plot `conSupply2010` and add the fitted values of `seasonalModel`
