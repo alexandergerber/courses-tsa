@@ -117,9 +117,9 @@ You found out that the dataset consists of more than one time series.  Each time
 one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
-- Use the `colnames()` to find the name of the time series of daily closing prices.
-- Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close`. 
-- Plot the single time series `close`.
+- Use `colnames()` to find the name of the time series of daily closing prices.
+- Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close_daily`. 
+- Plot the single time series `close_daily`.
 
 `@hint`
 
@@ -146,9 +146,9 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 # Find the column names
 colnames(DAX)
 # Extract the closing prices 
-close <- DAX[ ,"GDAXI.Close"]
+close_daily <- DAX[ ,"GDAXI.Close"]
 # Plot the closing prices
-plot(close)
+plot(close_daily)
 
 ```
 
@@ -170,13 +170,13 @@ xp: 100
 ```
 
 We also learned that `DAX` is of class `xts`, which is an elaborate way of dealing with time series in R. 
-For our porpuses it is enough to know, that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
+For our purposes it is enough to know that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
 However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
 
 `@instructions`
-- Convert `DAX` to a monthly series and assign it to the variable `daxMonthly`.
-- Create a variable `closeMonthly` with the monthly closing prices. 
-- Plot `closeMonthly`.
+- Convert `DAX` to a monthly series and assign it to the variable `close_monthly`.
+- Create a variable `close_monthly` with the monthly closing prices. 
+- Plot `close_monthly`.
 
 `@hint`
 
@@ -238,8 +238,8 @@ For example:
 	```
 
 `@instructions`
-- Convert `closeMonthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
-- Plot `close`
+- Convert `close_monthly` to an object of class `ts` and assign it to the variable `close`. Make sure to specify `start` and `frequency` accordingly. 
+- Plot `close`.
 
 `@hint`
 
@@ -284,7 +284,7 @@ key: 4f95d4c225
 xp: 100
 ```
 
-To subset a time series by time it is most convenient to work with `window()`. 
+To subset a time series according to time it is most convenient to work with `window()`. 
 
 Use this function as follows: 
 - To extract a time period with a specific start and end date use
@@ -296,17 +296,14 @@ Use this function as follows:
 
 `@instructions`
 Split the series of monthly closing prices (`close`) in two parts; 
-one from the January 2007 until December 2012 and on with the remaining data. 
+one from January 2007 until December 2012 and one with the remaining data. 
 
-Assign the first part to the variable `closeFirst` and the second part to the variable `closeLast`.
+Assign the first part to the variable `close1` and the second part to the variable `close2`.
 
 Plot the two series next to each other.
 
 `@hint`
-Split the series of monthly closing prices (`close`) in two part; 
-one from the January 2007 until December 2012 and on with the remaining data. 
 
-Plot the two series next to each other.
 
 `@pre_exercise_code`
 ```{r}
@@ -331,12 +328,12 @@ par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 `@solution`
 ```{r}
 # Split the series in two parts
-closeFirst <- window(close, start = c(2007, 1), end = c(2012, 12) )
-closeLast <- window(close, start = c(2013, 1))
+closeFirst <- window(close1, start = c(2007, 1), end = c(2012, 12) )
+closeLast <- window(close2, start = c(2013, 1))
 # plot the 2 time series
 par(mfrow = c(1,2)) # this puts the follwing plots next to each other
-plot(closeFirst)
-plot(closeLast)
+plot(close1)
+plot(close2)
 ```
 
 `@sct`
@@ -401,7 +398,7 @@ success_msg("Great!")
 
 ---
 
-## tslm()
+## lm() for time series
 
 ```yaml
 type: NormalExercise
@@ -414,7 +411,7 @@ To fit a linear model of the form
 
 $$y _t = t + u _t$$
 
-on the data we can use `tslm(y ~ trend)`. 
+to the data we can use `tslm(y ~ trend)`. 
 After the model is fitted, we can add the result to the plot using `autolayer()`. The syntax is as follows
 ```
 autoplot(data) + autolayer(fitted(model))
