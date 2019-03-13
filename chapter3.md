@@ -13,7 +13,7 @@ xp: 100
 
 Many economical time series exhibit some form of deterministic trend and seasonality. Our aim is to either estimate and substract or eliminate both components from the time series. If the remainder turns out to be stationary we can use time series models such as ARMA models to learn more about the underlying short term dependencies.     
 
-We start by downloading a time series with a strong seasonal pattern. 
+We start by downloading a time series with a strong seasonal pattern.
 
 `@instructions`
 - load the `quantmod` package
@@ -140,11 +140,6 @@ This can be done by
 autoplot(ts) + autolayer(fitted(model))
 ```
 
-
-
-
-
-
 `@instructions`
 
 
@@ -238,10 +233,6 @@ trend will be removed in the transformed series  $\Delta y _t$.
 
 In R we can use the function `diff(y, lag = 1)` to get $\Delta y _t$.
 
-
-
-
-
 `@instructions`
 
 
@@ -270,7 +261,7 @@ In R we can use the function `diff(y, lag = 1)` to get $\Delta y _t$.
 
 ---
 
-## Detect Saisonality 
+## Detect Saisonality
 
 ```yaml
 type: NormalExercise
@@ -316,9 +307,8 @@ key: 31eb5aabf6
 xp: 100
 ```
 
-
 If we assume a linear time trend and a constant seasonal pattern we can use `tslm(y ~ trend + season)` 
-to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each but one month a dummy variable was automatically introduced.  
+to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each but one month a dummy variable was automatically introduced.
 
 `@instructions`
 
