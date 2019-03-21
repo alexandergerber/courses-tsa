@@ -20,8 +20,8 @@ a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbo
 
 `@instructions`
 - Verify that the Yahoo Finance symbol for the DAX is `GDAXI`. 
-- Load the `quantmod` package using `library()`.
-- Import the DAX data by passing the symbol as a string to `getSymbols(.,auto.assign = FALSE, return.class = "ts")` and assign the result to the variable `DAX`.
+- Load the `quantmod` package with `library()`.
+- Import the DAX data by passing the symbol as a string to `getSymbols(.,auto.assign = FALSE)` and assign the result to the variable `DAX`.
 
 `@hint`
 - If you want to pass something as a string you have to use ""
@@ -64,8 +64,7 @@ key: e68207ca67
 xp: 100
 ```
 
-The data from the previous exercise are still loaded. You can check this by using `ls()`. 
-Follow the instructions to find out more about the data.
+The data from the previous exercise are still loaded. You can check this by using `ls()` which will list all variables in the working environment. Follow the instructions to find out more about the data.
 
 `@instructions`
 - Use `head()` to get a numerical overview
@@ -114,7 +113,7 @@ xp: 100
 ```
 
 You found out that the dataset consists of more than one time series.  Each time series is contained in 
-one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
+one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as for data frames).
 
 `@instructions`
 - Use `colnames()` to find the name of the time series of daily closing prices.
@@ -174,7 +173,7 @@ For our purposes it is enough to know that `xts` can handle irregular time serie
 However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
 
 `@instructions`
-- Convert `DAX` to a monthly series and assign it to the variable `close_monthly`.
+- Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`.
 - Create a variable `close_monthly` with the monthly closing prices. 
 - Plot `close_monthly`.
 
@@ -195,11 +194,11 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 `@solution`
 ```{r}
 # convert to monthly
-daxMonthly <- to.monthly(DAX)
+DAX_monthly <- to.monthly(DAX)
 # extract closing prices
-closeMonthly <- daxMonthly$DAX.Close
+close_monthly <- DAX_monthly$DAX.Close
 # plot 
-plot(closeMonthly)
+plot(close_monthly)
 ```
 
 `@sct`
@@ -226,12 +225,12 @@ by using the function `ts()`. Unfortunatly the time indices are not converted an
 specify the start date and the so called frequency, which is the number of observation per "cycle", in our case per year. 
 
 For example: 
-- a time series starting in April 2016
+- a monthly time series starting in April 2016
 
 	```
 	ts(timeSeriesData, start = c(2016, 4), frequency = 12)
 	```
-- a time series starting in the second quarter 2013
+- a quarterly time series starting in the second quarter 2013
 
 	```
 	ts(timeSeriesData, start = c(2013, 2), frequency = 4)
@@ -242,24 +241,29 @@ For example:
 - Plot `close`.
 
 `@hint`
-
+- Use e.g. `head(close_monthly)` to find the starting date.
 
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
 DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
-daxMonthly <- to.monthly(DAX)
-closeMonthly <- daxMonthly$DAX.Close
+DAX_monthly <- to.monthly(DAX)
+close_monthly <- DAX_monthly$DAX.Close
 ```
 
 `@sample_code`
 ```{r}
+# Create the ts object 
+
+# Plot the result
 
 ```
 
 `@solution`
 ```{r}
-close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
+# Create the ts object 
+close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
+# Plot the result
 plot(close)
 ```
 
@@ -291,8 +295,8 @@ Use this function as follows:
 `window(TimeSeries, start = c(year, month), end = c(year, month) )`
 - To get a subset from the start of the series until a specific end date use 
 `window(TimeSeries end = c(year, month) )`
-- To get a subset from a specific date until the end of the series use
-`window(TimeSeries end = c(year, month) )`
+- To get a subset from a specific start date until the end of the series use
+`window(TimeSeries start = c(year, month) )`
 
 `@instructions`
 Split the series of monthly closing prices (`close`) in two parts; 
@@ -309,10 +313,10 @@ Plot the two series next to each other.
 ```{r}
 library(quantmod)
 DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
-daxMonthly <- to.monthly(DAX)
-closeMonthly <- daxMonthly$DAX.Close
-close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
-success_msg("Great!")
+DAX_monthly <- to.monthly(DAX)
+close_monthly <- DAX_monthly$DAX.Close
+close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
+
 ```
 
 `@sample_code`
@@ -328,8 +332,8 @@ par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 `@solution`
 ```{r}
 # Split the series in two parts
-closeFirst <- window(close1, start = c(2007, 1), end = c(2012, 12) )
-closeLast <- window(close2, start = c(2013, 1))
+close1 <- window(close, start = c(2007, 1), end = c(2012, 12) )
+close2 <- window(close, start = c(2013, 1))
 # plot the 2 time series
 par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 plot(close1)
@@ -338,10 +342,11 @@ plot(close2)
 
 `@sct`
 ```{r}
-ex() %>% check_object("closeFirst") %>% check_equal()
-ex() %>% check_object("closeLast") %>% check_equal()
+ex() %>% check_object("close1") %>% check_equal()
+ex() %>% check_object("close2") %>% check_equal()
 ex() %>% check_function("plot", index = 1) %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("plot", index = 2) %>% check_arg("x") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -359,7 +364,7 @@ We start with a simple one, the `autoplot()` function. For a single time series 
 
 `@instructions`
 - Load the `forecast` package
-- Plot the closing prices using the autoplot function
+- Plot the closing prices using the `autoplot()` function
 
 `@hint`
 
