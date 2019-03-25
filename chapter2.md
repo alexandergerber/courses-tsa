@@ -447,19 +447,28 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 
 `@sample_code`
 ```{r}
+# create high and low
+
+
+# plot high and low together
 
 ```
 
 `@solution`
 ```{r}
+# create high and low
 high   <- ts(DAX_monthly$DAX.High, start = c(2007, 1), frequency = 12)
 low    <- ts(DAX_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
+# plot high and low together
 autoplot(high, series = "high") + autolayer(low)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("high") %>% check_equal()
+ex() %>% check_object("low") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
 ```
 
 ---
