@@ -67,8 +67,10 @@ xp: 100
 The data from the previous exercise are still loaded. You can check this by using `ls()` which will list all variables in the working environment. Follow the instructions to find out more about the data.
 
 `@instructions`
-- Use `head()` to get an overview of the downloaded data by printing out the first few rows.
-- Use `class()` to find out which kind of object you are working with.
+- Use `start()` to find out when the time series begins.
+- Use `end()` to find out when the time series ends.
+- Use `head()` to print out the first few rows.
+- Use `tail()` print out the last few rows.
 
 `@hint`
 
@@ -81,24 +83,36 @@ DAX <- getSymbols("^GDAXI", auto.assign = FALSE)
 
 `@sample_code`
 ```{r}
-# Print out the first rows  
+# Print out the start date of the time series dataset
 
-# Find out the class of the downloaded object
+# Print out the end date of the time series dataset
+
+# Print out the first few rows  
+
+# Print out the last few rows  
+
 
 ```
 
 `@solution`
 ```{r}
-# Print out the first rows  
+# Print out the start date of the time series dataset
+start(DAX)
+# Print out the end date of the time series dataset
+end(DAX)
+# Print out the first few rows  
 head(DAX)
-# Find out the class of the downloaded object
-class(DAX)
+# Print out the last few rows  
+tail(DAX)
+
 ```
 
 `@sct`
 ```{r}
-ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
-ex() %>% check_function("class") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("start") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("end") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("head") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("tail") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -116,7 +130,7 @@ You found out that the dataset consists of more than one time series.  Each time
 one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
-- Use `colnames()` to find the name of the time series of daily closing prices.
+- Use `names()` to find the name of the time series of daily closing prices.
 - Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close_daily`. 
 - Plot the single time series `close_daily` by calling `plot()`.
 
@@ -168,17 +182,18 @@ key: 335ac38015
 xp: 100
 ```
 
-We also learned that `DAX` is of class `xts`, which is an elaborate way of dealing with time series in R. 
+The downloaded `DAX` dataset is of class `xts`, which is an elaborate way of dealing with time series in R. 
 For our purposes it is enough to know that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
-However, in this course we will work on regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
+However, in this course we will work on regular time series only. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
 
 `@instructions`
+- Use the function `class()` to make sure that `DAX`  is of class `xts`.
 - Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`.
 - Create a variable `close_monthly` with the monthly closing prices. 
-- Plot `close_monthly`.
+- Plot `close_monthly` using the function `plot()`.
 
 `@hint`
-- Use head() to find out s
+
 
 `@pre_exercise_code`
 ```{r}
@@ -198,6 +213,8 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 
 `@solution`
 ```{r}
+# Find out the class of the downloaded object
+class(DAX)
 # convert the DAX data set from daily data to monthly data
 DAX_monthly <- to.monthly(DAX)
 # extract the monthly closing prices
@@ -226,8 +243,8 @@ xp: 100
 
 For the remainder of the course we will work with time series of class `ts`. This is a class for only regular time series. 
 Most of the methods we are using in this course require time series in this format. We can convert an `xts` object to an object of class `ts`
-by using the function `ts()`. Unfortunatly the time indices are not converted and we have to add them manually. For this it is enough to 
-specify the start date and the so called frequency, which is the number of observation per "cycle", in our case per year. 
+by using the function `ts()`. Unfortunately the time indices are not converted and we have to add them manually. For this it is enough to 
+specify the start date and the so called frequency, which is the number of observation per "cycle". 
 
 For example: 
 - a monthly time series starting in April 2016
@@ -299,17 +316,14 @@ Use this function as follows:
 - To extract a time period with a specific start and end date use
 `window(TimeSeries, start = c(year, month), end = c(year, month) )`
 - To get a subset from the start of the series until a specific end date use 
-`window(TimeSeries end = c(year, month) )`
+`window(TimeSeries, end = c(year, month) )`
 - To get a subset from a specific start date until the end of the series use
-`window(TimeSeries start = c(year, month) )`
+`window(TimeSeries, start = c(year, month) )`
 
 `@instructions`
-Split the series of monthly closing prices (`close`) in two parts; 
-one from January 2007 until December 2012 and one with the remaining data. 
-
-Assign the first part to the variable `close1` and the second part to the variable `close2`.
-
-Plot the two series next to each other.
+- Split the series of monthly closing prices (`close`) in two parts; one from January 2007 until December 2012 and one with the remaining data. 
+- Assign the first part to the variable `close1` and the second part to the variable `close2`.
+- Plot the two series next to each other.
 
 `@hint`
 
@@ -321,7 +335,6 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 DAX_monthly <- to.monthly(DAX)
 close_monthly <- DAX_monthly$DAX.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
-
 ```
 
 `@sample_code`
@@ -364,8 +377,8 @@ key: 20f2562914
 xp: 100
 ```
 
-In this course we will use some of the functionality the `forecast` package provides. 
-We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
+In this course we will use some of the functionality the `forecast` package provides. The functions of this package require data of class `ts`. 
+We start with the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
 
 `@instructions`
 - Load the `forecast` package
@@ -417,20 +430,20 @@ xp: 100
 ```
 
 To plot more than one time series the function `autolayer()` can be used. 
-We still initilize the plot using `autoplot()` but can then use `autolayer()` to add further information.
+We still initialize the plot using `autoplot()` but can then use `autolayer()` to add further information.
 
 The syntax is as follows
 ```
 autoplot(timeseries1) + autolayer(timeseries2) + autolayer(timeseries3) + ...
 ```
 
-This will automaticly produces a legend except for the first series in `autoplot()`. To add 
-this to the legend by adding the function parameter `series` like this `autoplot(timeseries1, series = "timeseries1")`.
+This will automatically produces a legend except for the first series in `autoplot()`. We can add 
+this to the legend by specifying the function parameter `series` like this `autoplot(timeseries1, series = "timeseries1")`.
 
 `@instructions`
 - Inspect again `DAX_monthly`. Remember that it is of class `xts`. 
 - Create the variables `high` and `low` as `ts` objects which contain the highest and lowest monthly prices.  
-- Plot the series of the highest monthly prices together with the lowest monthly prices using autoplot and autolayer.
+- Plot the series of the highest monthly prices together with the lowest monthly prices using `autoplot()` and `autolayer`.
 
 `@hint`
 
@@ -467,65 +480,6 @@ autoplot(high, series = "high") + autolayer(low)
 ```{r}
 ex() %>% check_object("high") %>% check_equal()
 ex() %>% check_object("low") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
-success_msg("Great!")
-```
-
----
-
-## lm() for time series
-
-```yaml
-type: NormalExercise
-key: df995c8906
-xp: 100
-```
-
-One way to model e.g. a time trend in time series data is to use a linear model. The `forecast` package includes the function`tslm()` which makes it easy to do so. 
-To fit a linear model of the form 
-
-$$y _t = t + u _t$$
-
-to the data we can use `tslm(y ~ trend)`. 
-After the model is fitted, we can add the result to the plot using `autolayer()`. The syntax is as follows
-```
-autoplot(data) + autolayer(fitted(model))
-```
-
-`@instructions`
-Fit a linear trend model to the closing data `close`.
-Plot the data again using `autoplot()` but add this time the linear trend estimate.
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-library(quantmod)
-library(forecast)
-DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
-daxMonthly <- to.monthly(DAX)
-closeMonthly <- daxMonthly$DAX.Close
-close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# Fit the linear Model for the trend
-trendModel<- tslm(close ~ trend)
-# Plot the closing data together with the data fitted by the trend Model 
-autoplot(close) + autolayer(fitted(trendModel))
-```
-
-`@sct`
-```{r}
-ex() %>% check_function("tslm") %>% check_arg("formula") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")

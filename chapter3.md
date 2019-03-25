@@ -11,14 +11,14 @@ key: 11ee1fa50d
 xp: 100
 ```
 
-Many economical time series exhibit some form of deterministic trend and seasonality. Our aim is to either estimate and substract or eliminate both components from the time series. If the remainder turns out to be stationary we can use e.g. ARMA models to learn more about the underlying short term dependencies.     
+Many economical time series exhibit some form of deterministic trend and seasonality. Our aim is to either estimate and subtract or eliminate both components from the time series. If the remainder turns out to be stationary we can use e.g. ARMA models to learn more about the underlying short term dependencies.     
 
 We start by downloading a time series with a strong seasonal pattern.
 
 `@instructions`
-- Load the `quantmod` and the `forecast` package.
+- Load the `quantmod`.
 - Download the time series of construction supplies (not seasonally adjusted) from `FRED` and assign it to the variable `con_supply`.
-- Visualize the Data (if you want to use `autoplot()` make sure to load the required package).
+- Visualize the Data using.
 
 `@hint`
 
@@ -47,7 +47,7 @@ library(forecast)
 # Load construction supply data
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Plot the data
-autoplot(con_supply)
+plot(con_supply)
 ```
 
 `@sct`
@@ -133,14 +133,15 @@ Since we assume a linear trend we can estimate the trend using the model
 
 $$y _t = \beta _0 + \beta_1 t + u _t.$$
 
-We can use OLS to estimate the coefficents. Note that $u _t$ contains the seasonal and the stochastic component.  As trend estimate we get
-$\hat{m} _t = \hat{\beta _0} + \hat{\beta _1} t$.
+OLS can be used to estimate the model coefficents. Note that $u _t$ contains the seasonal and the stochastic component.  As trend estimate we get
+$$\hat{m} _t = \hat{\beta _0} + \hat{\beta _1} t.$$
 
-In R the above model can be estimated by `tslm(ts ~ trend)`. A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
-This can be done by
-```
-autoplot(ts) + autolayer(fitted(model))
-```
+In R the above model can be estimated by `tslm(ts ~ trend)`. 
+The function `tslm()` extends the standard `lm()` function by adding additional functionality for time series data. 
+
+A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
+The series of fitted values can be extracted by `fitted(model)`.
+
 
 `@instructions`
 - Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
@@ -200,7 +201,7 @@ $$\hat{m}_ t = (0.5 y _{t-q} + y _{t-q+1} + \ldots +  y _{t+q-1} +  0.5 y _{t+q}
 where $d = 2q +1$.
 
 If the `frequency` attribute 
-of the time series is set correctly the function `decompose(y)` automatically decides which of the 2 version should be used.
+of the time series is set correctly the function `decompose(y)` automatically decides which of the 2 versions should be used.
 The trend estimate can be extracted by `decompose(y)$trend`.
 
 `@instructions`
@@ -250,9 +251,9 @@ key: e9d18ca8ce
 xp: 100
 ```
 
-In contrast to the two methods before we now will eliminate the trend instead of estimating it. 
+In contrast to the two before mentioned methods we now will eliminate the trend instead of estimating it. 
 This can be done by computing the first differences $\Delta y _t = y _t - y _{t-1}$. If the data contains a linear time trend then the 
-trend will be removed in the transformed series  $\Delta y _t$.  
+trend in the transformed series  $\Delta y _t$ is eliminated.  
 
 In R we can use the function `diff(y, lag = 1)` to compute $\Delta y _t$.
 
@@ -264,7 +265,11 @@ Use first differences to remove the time trend. Assign the result to `x_diff`.
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
 
 `@sample_code`
@@ -274,6 +279,8 @@ Use first differences to remove the time trend. Assign the result to `x_diff`.
 
 `@solution`
 ```{r}
+## First Differences 
+
 
 ```
 
@@ -292,23 +299,27 @@ key: 2113d183ec
 xp: 100
 ```
 
-We now know some methods to deal with a time trend. If we visualise the series after the trend is substracted or eliminated we are left with an estimate of the seasonal and the random component.  
+We now know some methods to deal with a time trend. If we visualize the series after the trend is subtracted or eliminated we are left with an estimate of the seasonal and the random component.  
 
 In our case it is easy to see the strong seasonal pattern. Sometimes this might not be the case. 
 If it is less obvious the autocorrelation function (ACF) can help to detect it. Use the function `ggAcf()` from the `forecast` package 
 to compute and plot the ACF.
 
 `@instructions`
-- Remove the trend component by substracting the trend estimate `trend_lm` from the original series and save the result as `con_supply2010_detrended`. 
+- Remove the trend component by subtracting the trend estimate `trend_lm` from the original series and save the result as `con_supply2010_detrended`. 
 - Plot the detrended series. 
-- Plot the autocorrelation function of the detrended series. Do you see what is special about ist?
+- Plot the autocorrelation function of the detrended series. Do you see what is special about it?
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
 
 `@sample_code`
@@ -336,7 +347,7 @@ key: 31eb5aabf6
 xp: 100
 ```
 
-To deal with the seasonality we can simply adjust the methods used for estimating/eliminating the time trend. 
+To deal with the seasonality we can extend the methods used for estimating/eliminating the time trend. 
 
 If we assume a linear time trend and a constant seasonal pattern we can use `tslm(y ~ trend + season)` 
 to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each but one month a dummy variable is automatically introduced.
@@ -344,24 +355,45 @@ to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each b
 `@instructions`
 - Estimate trend and seasonality using a linear model.
 - Plot the original series together with the fitted values of this model. 
-- Save an estimate of the random component as `con_supply2010_random1`.
+- Save the estimated random component as `con_supply2010_random1`.
+- Plot `con_supply2010_random1`.
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+
 
 ```
 
 `@sample_code`
 ```{r}
+# Estimate a model with trend and seasonality
+
+# Plot the series together with the fitted values
+
+# Save the estimated random component
+
+# Plot the estimated random component
 
 ```
 
 `@solution`
 ```{r}
-
+# Estimate a model with trend and seasonality
+seasonal_model <- tslm(con_supply2010 ~ trend + season)
+# Plot the series together with the fitted values
+autoplot(con_supply2010) + autolayer(fitted(seasonal_model))
+# Save the estimated random component
+con_supply2010_random1 <- residuals(seasonal_model)
+# Plot the estimated random component
+autoplot(con_supply2010_random1)
 ```
 
 `@sct`
@@ -379,19 +411,24 @@ key: 1862a60e6f
 xp: 100
 ```
 
-The function `decompose()` estimates the seasonal component as simple averages. This approach is numerical identical to the dummy variables approach from the last exercise. If the result of `decompose()` is past to `autoplot()` a nice plot of the seasonal decomposition is produced.
+The function `decompose()` estimates the seasonal component as simple averages. This approach is numerical identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a nice plot of the seasonal decomposition is produced.
 
 `@instructions`
-Use `decompose()` to estimate trend and seasonality. Assign the result `con_supply2010_decomp`.
-Plot the seasonal decomposition. 
-Extract the random component from `con_supply2010_decomp` an save it as `con_supply2010_random2´.
+- Use `decompose()` to estimate trend and seasonality. Assign the result `con_supply2010_decomp`.
+- Plot the seasonal decomposition. 
+- Extract the random component from `con_supply2010_decomp` an save it as `con_supply2010_random2`.
+- Plot `con_supply2010_random2`.
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
 
 `@sample_code`
@@ -411,7 +448,7 @@ Extract the random component from `con_supply2010_decomp` an save it as `con_sup
 
 ---
 
-## Remove Trend by Differencing
+## Eliminate Trend and Seasonality by Differencing
 
 ```yaml
 type: NormalExercise
@@ -419,27 +456,48 @@ key: 281b640848
 xp: 100
 ```
 
-We can also eliminate a constant seasonal pattern
+We can eliminate a constant seasonal pattern by using seasonal differences. For this we compute differences between  $y _t$ and  $y _{t-d}$ where $d$ is the length of one cycle. 
+$$\Delta_d y _t = y _t - y _{t-d}$$
+In R we can compute $\Delta_d y _t$ by `diff(y, lag = d)`.
+
+If there is a trend and seasonality we can eliminate both by applying 
+$$\Delta_d \Delta y _t.$$ 
+
 
 `@instructions`
-
+- Compute the first differences to eliminate the trend and assign the result to `first_diff`. 
+- Apply the operator for seasonal differences to the first differences to eliminate the seasonality and save the result as `con_supply2010_random3`.
+- Plot `con_supply2010_random3`.
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
 
 `@sample_code`
 ```{r}
+## First Differences 
 
+## Seasonal differences
+
+# Plot con_supply2010_random3
 ```
 
 `@solution`
 ```{r}
-
+# First Differences 
+first_diff <- diff(con_supply2010, lag = 1)
+# Seasonal differences
+con_supply2010_random3 <- diff(first_diff, lag = frequency(con_supply2010))
+# Plot con_supply2010_random3
+autoplot(con_supply2010_random3)
 ```
 
 `@sct`
