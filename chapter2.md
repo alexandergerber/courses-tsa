@@ -454,7 +454,7 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```{r}
 high   <- ts(DAX_monthly$DAX.High, start = c(2007, 1), frequency = 12)
 low    <- ts(DAX_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
-autoplot(high, series = "high") + autolayer(low) + autolayer()
+autoplot(high, series = "high") + autolayer(low)
 ```
 
 `@sct`
