@@ -469,6 +469,7 @@ ex() %>% check_object("high") %>% check_equal()
 ex() %>% check_object("low") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
