@@ -12,8 +12,8 @@ xp: 100
 ```
 
 Before we can start to analyse a time series we have to load data into R. A nice and easy way to do that is provided 
-by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from Yahoo Finance (`src = yahoo`) 
-and the Federal Reserve Bank of St. Louis (`src = FRED`). 
+by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from Yahoo Finance (`src = "yahoo"`) 
+and the Federal Reserve Bank of St. Louis (`src = "FRED"`). 
 
 To import for example DAX data from Yahoo Finance we have to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
 a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
@@ -67,7 +67,7 @@ xp: 100
 The data from the previous exercise are still loaded. You can check this by using `ls()` which will list all variables in the working environment. Follow the instructions to find out more about the data.
 
 `@instructions`
-- Use `head()` to get a numerical overview
+- Use `head()` to get an overview of the downloaded data by printing out the first few rows.
 - Use `class()` to find out which kind of object you are working with.
 
 `@hint`
@@ -113,12 +113,12 @@ xp: 100
 ```
 
 You found out that the dataset consists of more than one time series.  Each time series is contained in 
-one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as for data frames).
+one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
 - Use `colnames()` to find the name of the time series of daily closing prices.
 - Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close_daily`. 
-- Plot the single time series `close_daily`.
+- Plot the single time series `close_daily` by calling `plot()`.
 
 `@hint`
 
@@ -170,7 +170,7 @@ xp: 100
 
 We also learned that `DAX` is of class `xts`, which is an elaborate way of dealing with time series in R. 
 For our purposes it is enough to know that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours and for e.g. weekends and holidays.
-However, the aim of this course is to work with regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
+However, in this course we will work on regular time series. We can use the function `to.monthly()` to convert our series of daily data to monthly data. Since we get for each month of the year one observation, we can treat the newly generated series as a regular time series.
 
 `@instructions`
 - Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`.
@@ -178,7 +178,7 @@ However, the aim of this course is to work with regular time series. We can use 
 - Plot `close_monthly`.
 
 `@hint`
-
+- Use head() to find out s
 
 `@pre_exercise_code`
 ```{r}
@@ -188,16 +188,21 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 
 `@sample_code`
 ```{r}
+# convert to monthly
+
+# extract closing prices
+
+# plot the monthly cloasing prices
 
 ```
 
 `@solution`
 ```{r}
-# convert to monthly
+# convert the DAX data set from daily data to monthly data
 DAX_monthly <- to.monthly(DAX)
-# extract closing prices
+# extract the monthly closing prices
 close_monthly <- DAX_monthly$DAX.Close
-# plot 
+# plot the monthly cloasing prices
 plot(close_monthly)
 ```
 
@@ -241,7 +246,7 @@ For example:
 - Plot `close`.
 
 `@hint`
-- Use e.g. `head(close_monthly)` to find the starting date.
+- Use e.g. `head(close_monthly)` or `start(close_mothly)` to find the starting date.
 
 `@pre_exercise_code`
 ```{r}
@@ -360,7 +365,7 @@ xp: 100
 ```
 
 In this course we will use some of the functionality the `forecast` package provides. 
-We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later.
+We start with a simple one, the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
 
 `@instructions`
 - Load the `forecast` package
@@ -399,6 +404,62 @@ autoplot(close)
 ex() %>% check_function("library") %>% check_arg("package") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
+```
+
+---
+
+## Plotting Multiple Time Series in One Plot
+
+```yaml
+type: NormalExercise
+key: de074c5e7a
+xp: 100
+```
+
+To plot more than one time series the function `autolayer()` can be used. 
+We still initilize the plot using `autoplot()` but can then use `autolayer()` to add further information.
+
+The syntax is as follows
+```
+autoplot(timeseries1) + autolayer(timeseries2) + autolayer(timeseries3) + ...
+```
+
+This will automaticly produces a legend except for the first series in `autoplot()`. To add 
+this to the legend by adding the function parameter `series` like this `autoplot(timeseries1, series = "timeseries1")`.
+
+`@instructions`
+- Inspect again `DAX_monthly`. Remember that it is of class `xts`. 
+- Create the variables `high` and `low` as `ts` objects which contain the highest and lowest monthly prices.  
+- Plot the series of the highest monthly prices together with the lowest monthly prices using autoplot and autolayer.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+library(forecast)
+DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
+DAX_monthly   <- to.monthly(DAX)
+close_monthly <- DAX_monthly$DAX.Close
+close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+high   <- ts(DAX_monthly$DAX.High, start = c(2007, 1), frequency = 12)
+low    <- ts(DAX_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
+autoplot(high, series = "high") + autolayer(low) + autolayer()
+```
+
+`@sct`
+```{r}
+
 ```
 
 ---
