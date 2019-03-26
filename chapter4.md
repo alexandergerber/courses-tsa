@@ -22,7 +22,6 @@ The syntax is as follows
 arima(time_series, order = c(p,0,q))
 ```
 
-
 `@instructions`
 - Fit an ARMA(1,1) model to `con_supply2010_random1`and save the fitted model as `arma11`
 - Plot the original series together with the fitted values of the ARMA(1,1) model.

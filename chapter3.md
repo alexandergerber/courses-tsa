@@ -142,7 +142,6 @@ The function `tslm()` extends the standard `lm()` function by adding additional 
 A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
 The series of fitted values can be extracted by `fitted(model)`.
 
-
 `@instructions`
 - Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
 - Plot the original series together with the estimated linear trend.
@@ -461,8 +460,7 @@ $$\Delta_d y _t = y _t - y _{t-d}$$
 In R we can compute $\Delta_d y _t$ by `diff(y, lag = d)`.
 
 If there is a trend and seasonality we can eliminate both by applying 
-$$\Delta_d \Delta y _t.$$ 
-
+$$\Delta_d \Delta y _t.$$
 
 `@instructions`
 - Compute the first differences to eliminate the trend and assign the result to `first_diff`. 

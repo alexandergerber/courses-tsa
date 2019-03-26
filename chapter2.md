@@ -378,7 +378,7 @@ xp: 100
 ```
 
 In this course we will use some of the functionality the `forecast` package provides. The functions of this package require data of class `ts`. 
-We start with the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later. 
+We start with the `autoplot()` function. For a single time series it makes not a big difference whether we use `plot()` or `autoplot()`, however, `autoplot()` makes it easier if we want to add additional information to the plot as we will see later.
 
 `@instructions`
 - Load the `forecast` package
