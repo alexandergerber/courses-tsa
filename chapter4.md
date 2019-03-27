@@ -73,8 +73,7 @@ Box and Jenkins proposed the following:
 - choose a MA(q) process if the ACF has a cutoff after the q-th lag and the PACF decays slowly to zero
 - if PACF and ACF decay slowly to zero a mixed model should be choosen
 
-Since we are working with estimates of the ACF and PACF a cutoff means values which are close to zero (i.e. within the blue significance band). 
-
+Since we are working with estimates of the ACF and PACF a cutoff means values which are close to zero (i.e. within the blue significance band).
 
 `@instructions`
 - Plot the ACF and the PACF of `con_supply2010_random1`
@@ -124,8 +123,6 @@ The idea is to fit a variety of plausible candidate models and then choose the m
 
 If we base our decision on information criteria such as AIC we would choose among all candidate models the one with the lowest value for that criteria. 
 The AIC can be computed by passing the fitted model to the function `AIC()`.
- 
-
 
 `@instructions`
 
