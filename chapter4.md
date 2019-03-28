@@ -371,6 +371,51 @@ success_msg("Great!")
 
 ---
 
+## Information Criteria
+
+```yaml
+type: NormalExercise
+key: fb20c21242
+xp: 100
+```
+
+We can detect ARMA(p,q)-models based on ACF/PACF since neither ACF nor PACF has a clear cutoff. However, it does not tell us which model orders to choose. 
+Also for pure AR and MA time series the answers provided may not be as clear cut as one would like (e.g. if the sample size is low). 
+For this reason we might look for another way to select the best suited model. A very common choice for model selection are Information Criteria such as 
+the Akaike Information Criterion (AIC). The AIC deals with the trade-off between model fit and complexity. 
+The idea is to fit a variety of plausible candidate models and then choose the model which provides the "best" fit without overfitting the data.
+If we base our decision on information criteria such as AIC we would choose among all candidate models the one with the lowest value for that criterion. 
+The AIC can be computed by passing the fitted model to the function `AIC()`.
+
+`@instructions`
+- In the working environment contains the series `y`. Fit an AR(1), MA(1) and ARMA(1,1) model to the data and save the results as `ar1`, `ma1` and `arma11`. 
+- Compute for each model the AIC
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Select Model Order Based on Information Criteria
 
 ```yaml
