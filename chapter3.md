@@ -47,12 +47,16 @@ library(forecast)
 # Load construction supply data
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Plot the data
-plot(con_supply)
+autoplot(con_supply)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_library("quantmod")
+ex() %>% check_library("forecast")
+ex() %>% check_object("con_supply") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -115,6 +119,10 @@ autoplot(con_supply2010)
 
 `@sct`
 ```{r}
+ex() %>% check_object("con_supply_ts") %>% check_equal()
+ex() %>% check_object("con_supply2010") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 
 ```
 
@@ -176,7 +184,10 @@ autoplot(con_supply2010) + autolayer(fitted(trend_lm))
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("trend_lm") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -229,7 +240,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@solution`
 ```{r}
-# Use Decompose to estimate the trend via an moving average filter
+# Use decompose() to estimate the trend with a moving average filter
 trend_ma <- decompose(con_supply2010)$trend
 # Plot the series together with the estimated trend 
 autoplot(con_supply2010) + autolayer(trend_ma)
@@ -237,7 +248,10 @@ autoplot(con_supply2010) + autolayer(trend_ma)
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("trend_ma") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -273,19 +287,20 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-
+## First Differences 
 ```
 
 `@solution`
 ```{r}
 ## First Differences 
-
+x_diff <- diff(con_supply2010, lag = 1)
 
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("x_diff") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -319,21 +334,35 @@ library(forecast)
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+trend_lm <- tslm(con_supply2010 ~ trend)
 ```
 
 `@sample_code`
 ```{r}
+# Remove the trend
+
+# Plot the detrended series
+
+# Plot the ACF
 
 ```
 
 `@solution`
 ```{r}
-
+# Remove the trend
+con_supply2010_detrended <- con_supply2010 - fitted(trend_lm)
+# Plot the detrended series
+autoplot(con_supply2010_detrended)
+# Plot the ACF
+ggAcf(con_supply2010_detrended)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("con_supply2010_detrended") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("ggAcf") %>% check_arg("x") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -397,7 +426,11 @@ autoplot(con_supply2010_random1)
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("seasonal_model") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -432,17 +465,33 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
+# Estimate trend and seasonality using decompose
+
+# Plot the seasonal decomposition
+
+# Extract the random component
+
+# Plot the random component
 
 ```
 
 `@solution`
 ```{r}
+# Estimate trend and seasonality using decompose
+con_supply2010_decomp <- decompose(con_supply2010)
+# Plot the seasonal decomposition
+autoplot(con_supply2010_decomp)
+# Extract the random component
+con_supply2010_random2 <- con_supply2010_decomp$random
+# Plot the random component
+autoplot(con_supply2010_random2)
+
 
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
@@ -500,5 +549,5 @@ autoplot(con_supply2010_random3)
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```

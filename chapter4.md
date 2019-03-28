@@ -54,7 +54,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
@@ -115,12 +115,12 @@ $$y _t = \epsilon _t + 0.6\epsilon _{t-1} , \quad t = 1,...,1000$$ and save the 
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
 
-## Plot the ARMA simulated date
+## Plot the simulated ARMA data
 
 ```yaml
 type: NormalExercise
@@ -153,7 +153,7 @@ xp: 100
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
