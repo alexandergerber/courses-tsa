@@ -59,6 +59,107 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 ---
 
+## Simulate an ARMA Time Series
+
+```yaml
+type: NormalExercise
+key: 8fec5a03b9
+xp: 100
+```
+
+Before we continue to work on the construction supply data we will use R to learn more about the properties of ARMA time series. 
+This will help us to decide which ARMA model we should use (i.e how to choose $p$ and $q$). 
+
+We start by simulating data from an ARMA process. R provides the function `arima.sim(model, n)` which can be used to do that.
+The parameter `model` expects a list of the form 
+``
+list(ar = c(phi1, phi2, ...), ma = c(theta1, theta2, ...))
+``
+and `n` is the length of the time series that will be generated. The function returns an object of class `ts`.
+
+Example: 
+If we want to simulate $1000$ observations from the ARMA(1,2) process
+$$y _t = 0.4 y _{t-1} +  \epsilon _t + 0.6\epsilon _{t-1} + 0.3\epsilon _{t-2} $$
+we can do this with
+```
+arima.sim(model = list(ar =c(0.6), ma = c(0.6, 0.3)), n = 1000)
+``` 
+
+
+
+`@instructions`
+- Simulate data from the process 
+$$y _t = 0.9 y _{t-1} +  \epsilon _t,\quad t = 1,...,1000$$ and save the result as `ar1` 
+- Simulate data from the process 
+ $$y _t = 0.5 y _{t-1} + 0.3 y _{t-2} +  \epsilon _t,\quad t = 1,...,1000$$ and save the result as `ar2`
+- Simulate data from the process 
+$$y _t = \epsilon _t + 0.6\epsilon _{t-1} , \quad t = 1,...,1000$$ and save the result as `ma1` 
+- Simulate data from the process 
+ $$y _t = \epsilon _t + 0.6\epsilon _{t-1} + 0.3\epsilon _{t-2}, \quad t = 1,...,1000$$ and save the result as `ma2`
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Plot the ARMA simulated date
+
+```yaml
+type: NormalExercise
+key: 79e8ae9ec7
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Selecting the model order based on ACF and PACF
 
 ```yaml
