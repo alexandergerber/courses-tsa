@@ -3,7 +3,7 @@ library(remotes)
 
 install_version("forecast", "8.5")
 install_version("ggplot2", "2.2.1")
-install_version("grid.extra", "2.3")
+install_version("gridExtra", "2.3")
 install_version("dplyr", "0.7.4")
 install_version("quantmod", "0.4-13") 
 ##### Install packages in development from GitHub #####
