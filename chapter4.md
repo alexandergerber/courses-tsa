@@ -83,9 +83,7 @@ $$y _t = 0.4 y _{t-1} +  \epsilon _t + 0.6\epsilon _{t-1} + 0.3\epsilon _{t-2} $
 we can do this with
 ```
 arima.sim(model = list(ar =c(0.6), ma = c(0.6, 0.3)), n = 1000)
-``` 
-
-
+```
 
 `@instructions`
 - Simulate data from the process 
