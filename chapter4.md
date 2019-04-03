@@ -212,7 +212,7 @@ xp: 100
 
 Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent over time compared to MA-processes. 
 However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
-e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot. A more appropriate tools to help us decide which is the most likely candidate that generated the data are the estimated ACF and PACF functions. From theory we know:
+e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot. More appropriate tools to help us decide which is the most likely candidate that generated the data are the estimated ACF and PACF functions. From theory we know:
 - the PACF of an AR(p)-process has a cutoff after the p-th lag 
 - the ACF of an AR(p)-process decays slowly 
 We can make use of this knowledge by estimating ACF and PACF and look whether either one has a clear cutoff.
@@ -267,7 +267,7 @@ key: b9d186eb10
 xp: 100
 ```
 
-We have seen that the estimated ACF/PACF for AR(p) time series resemble closely what we would have expected by theory.
+We have seen that the estimated ACF/PACF for AR(p) time series resemble closely what we would have expected from theory.
 The same applies for MA processes.
 
 `@instructions`
@@ -321,7 +321,7 @@ key: 5d66faf365
 xp: 100
 ```
 
-We learnt how distinguish AR and MA models based on the ACF and PACF. But what about ARMA time series?
+We learned how to distinguish AR and MA models based on the ACF and PACF. But what about ARMA time series?
 
 `@instructions`
 - Simulate data from from the process 
@@ -416,22 +416,27 @@ The AIC can be computed by passing the fitted model to the function `AIC()`.
 
 ---
 
-## Select Model Order Based on Information Criteria
+## Choose a Model for the Construction Supply data
 
 ```yaml
 type: NormalExercise
-key: 292300d10c
+key: 0f890d38ef
 xp: 100
 ```
 
-Another approach too choose the model order is using Information Criteria such as the Akaike Information Criterion (AIC).
-The idea is to fit a variety of plausible candidate models and then choose the model which provides the "best" fit without overfitting the data.
+One possible way how to proceed in practise is as follows: 
 
-If we base our decision on information criteria such as AIC we would choose among all candidate models the one with the lowest value for that criteria. 
-The AIC can be computed by passing the fitted model to the function `AIC()`.
+1. Estimate the ACF and PACF and analyse the result
+2. If ACF/PACF already provide enough information choose the suggested model  
+3. If ACF/PACF don't give a clear answer, choose appropriate candidate models and use the AIC
+
+
+
 
 `@instructions`
-
+- Estimate ACF/PACF for the `con_supply2010_random1`. This already provides a clear answer for this example. 
+- Estimate the model suggested by `ACF/PACF` and save the model object as `final_model`
+- Check if the AIC would come to the same result. For this estimate an ARMA(1,0), ARMA(0,1), ARMA(1,1) and compute the AIC for each of those models. Then save the numerical value of the best AIC as `best_AIC`.
 
 `@hint`
 
@@ -440,6 +445,7 @@ The AIC can be computed by passing the fitted model to the function `AIC()`.
 ```{r}
 library(quantmod)
 library(forecast)
+library(gridExtra)
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
@@ -454,7 +460,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@solution`
 ```{r}
-success_msg("Great!")
+
 ```
 
 `@sct`
@@ -503,7 +509,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
@@ -541,7 +547,7 @@ xp: 100
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
@@ -579,5 +585,5 @@ xp: 100
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
