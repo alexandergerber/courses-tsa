@@ -157,7 +157,6 @@ grid.arrange(
  )
 ```
 
-
 `@instructions`
 - Plot `ar1`, `ar2`, `ma1` and `ma2` and next to each other by using the function `grid.arrange()` and look how they differ
 
@@ -268,7 +267,7 @@ xp: 100
 ```
 
 We have seen that the estimated ACF/PACF for AR(p) time series resemble closely what we would have expected by theory.
-The same applies for MA processes. 
+The same applies for MA processes.
 
 `@instructions`
 - Plot the ACF and PACF of `ma1` and `ma2` next to each other by using the functions `ggAcf`, `ggPacf` and `grid.arrange()`
@@ -321,7 +320,7 @@ key: 5d66faf365
 xp: 100
 ```
 
-We learnt how distinguish AR and MA models based on the ACF and PACF. But what about ARMA time series?  
+We learnt how distinguish AR and MA models based on the ACF and PACF. But what about ARMA time series?
 
 `@instructions`
 - Simulate data from from the process 
