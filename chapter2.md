@@ -200,7 +200,7 @@ key: 142f2066a9
 xp: 100
 ```
 
-The assumption of an linear trend is often unrealistic. To account for changes in the trend behaviour of a time series the trend can be estimated by an accordingly specified moving average filter. 
+The assumption of a linear trend is often unrealistic. To account for changes in the trend behaviour of a time series the trend can be estimated by an accordingly specified moving average filter. 
 
 For a cycle with odd length (e.g. weekly data) we can use the filter
 $$\hat{m}_ t = \frac{1}{2q +1} \sum _{j = -q}^q y _{t-j}, \qquad t = q + 1, \ldots, T-q$$
