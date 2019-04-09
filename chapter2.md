@@ -271,7 +271,7 @@ trend in the transformed series  $\Delta y _t$ is eliminated.
 In R we can use the function `diff(y, lag = 1)` to compute $\Delta y _t$.
 
 `@instructions`
-Use first differences to remove the time trend. Assign the result to `x_diff`.
+Use first differences to remove the time trend of `con_supply2010`. Assign the result to `x_diff`.
 
 `@hint`
 
