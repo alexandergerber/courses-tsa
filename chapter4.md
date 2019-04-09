@@ -120,13 +120,13 @@ set.seed(1)
 ```{r}
 set.seed(1)
 # Simulate the AR(1) time series
-ar1 <- arima.sim(model = list(ar = c(0.9)))
+ar1 <- arima.sim(1000, model = list(ar = c(0.9)))
 # Simulate the AR(2) time series
-ar2 <- arima.sim(model = list(ar = c(0.5, 0.4)))
+ar2 <- arima.sim(1000, model = list(ar = c(0.5, 0.4)))
 # Simulate the MA(1) time series
-ma1 <- arima.sim(model = list(ma = c(0.6)))
+ma1 <- arima.sim(1000, model = list(ma = c(0.6)))
 # Simulate the MA(2) time series
-ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)))
+ma2 <- arima.sim(1000, model = list(ma = c(0.6, 0.3)))
 ```
 
 `@sct`
