@@ -168,7 +168,7 @@ plot(close_daily)
 `@sct`
 ```{r}
 ex() %>% check_function("colnames") %>% check_arg("x") %>% check_equal()
-ex() %>% check_object("close") %>% check_equal()
+ex() %>% check_object("close_daily") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -226,7 +226,7 @@ plot(close_monthly)
 `@sct`
 ```{r}
 ex() %>% check_function("to.monthly") %>% check_arg("x") %>% check_equal()
-ex() %>% check_object("closeMonthly") %>% check_equal()
+ex() %>% check_object("close_monthly") %>% check_equal()
 ex() %>% check_function("plot") %<% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
