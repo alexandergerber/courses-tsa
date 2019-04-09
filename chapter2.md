@@ -215,7 +215,7 @@ of the time series is set correctly the function `decompose(y)` automatically de
 The trend estimate can be extracted by `decompose(y)$trend`.
 
 `@instructions`
-- Estimate the trend using a moving average filter and assign the result to `trend_ma`.
+- Estimate the trend of `con_supply2010` using a moving average filter and assign the result to `trend_ma`.
 - Produce a plot with the original data and the moving average trend.
 
 `@hint`
