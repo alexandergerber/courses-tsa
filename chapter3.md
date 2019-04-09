@@ -202,7 +202,51 @@ success_msg("Great!")
 
 ---
 
-## ACF and PACF of AR time series
+## ACF and PACF of ARMA Models
+
+```yaml
+type: NormalExercise
+key: fc82ca2ade
+xp: 100
+```
+
+Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent over time compared to MA-processes. 
+However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
+e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot.
+
+However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order. 
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## ACF and PACF of a Simulated AR Time Series
 
 ```yaml
 type: NormalExercise
@@ -259,7 +303,7 @@ success_msg("Great!")
 
 ---
 
-## ACF and PACF of MA time series
+## ACF and PACF of a simulated MA  Time Series
 
 ```yaml
 type: NormalExercise
@@ -313,7 +357,7 @@ success_msg("Great!")
 
 ---
 
-## ACF and PACF of ARMA time series
+## ACF and PACF of a simulated ARMA Time Series
 
 ```yaml
 type: NormalExercise
