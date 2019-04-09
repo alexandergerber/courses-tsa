@@ -227,7 +227,7 @@ plot(close_monthly)
 ```{r}
 ex() %>% check_function("to.monthly") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("close_monthly") %>% check_equal()
-ex() %>% check_function("plot") %<% check_arg("x") %>% check_equal()
+ex() %>% check_function("plot") %>%  check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
