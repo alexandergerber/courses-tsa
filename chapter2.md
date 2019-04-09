@@ -126,7 +126,7 @@ key: 62f191b4b5
 xp: 100
 ```
 
-You found out that the dataset consists of more than one time series.  Each time series is contained in 
+You found out that the dataset consists of more than one time series (namely Open, High, Low, Close, Volume and Adjusted).  Each time series is contained in 
 one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
