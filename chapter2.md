@@ -157,7 +157,7 @@ DAX <- getSymbols("^GDAXI",auto.assign = FALSE)
 `@solution`
 ```{r}
 # Find the column names
-colnames(DAX)
+names(DAX)
 # Extract the closing prices 
 close_daily <- DAX[ ,"GDAXI.Close"]
 # Plot the closing prices
@@ -167,7 +167,7 @@ plot(close_daily)
 
 `@sct`
 ```{r}
-ex() %>% check_function("colnames") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("names") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("close_daily") %>% check_equal()
 success_msg("Great!")
 ```
