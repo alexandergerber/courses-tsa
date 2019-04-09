@@ -16,9 +16,9 @@ Many economical time series exhibit some form of deterministic trend and seasona
 We start by downloading a time series with a strong seasonal pattern.
 
 `@instructions`
-- Load the `quantmod`.
+- Load the package `quantmod`.
 - Download the time series of construction supplies (not seasonally adjusted) from `FRED` and assign it to the variable `con_supply`.
-- Visualize the Data using.
+- Visualize the Data using `autoplot`.
 
 `@hint`
 
