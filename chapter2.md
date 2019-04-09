@@ -131,7 +131,7 @@ one column. We can extract one column by either using a numerical index, the col
 
 `@instructions`
 - Use `names()` to find the name of the time series of daily closing prices.
-- Use one of the subsetting methods to extract the closing prices and assign the result to a new variable called `close_daily`. 
+- Use a subsetting methods to extract the closing prices and assign the result to a new variable called `close_daily`. 
 - Plot the single time series `close_daily` by calling `plot()`.
 
 `@hint`
