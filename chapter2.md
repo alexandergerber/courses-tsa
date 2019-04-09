@@ -367,7 +367,7 @@ success_msg("Great!")
 
 ---
 
-## Linear Model for trend and seasonality
+## Linear Model for Trend and Seasonality
 
 ```yaml
 type: NormalExercise
@@ -381,7 +381,7 @@ If we assume a linear time trend and a constant seasonal pattern we can use `tsl
 to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each but one month a dummy variable is automatically introduced.
 
 `@instructions`
-- Estimate trend and seasonality using a linear model.
+- Estimate trend and seasonality of `con_supply2010` using a linear model.
 - Plot the original series together with the fitted values of this model. 
 - Save the estimated random component as `con_supply2010_random1`.
 - Plot `con_supply2010_random1`.
@@ -446,7 +446,7 @@ xp: 100
 The function `decompose()` estimates the seasonal component as simple averages. This approach is numerical identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a nice plot of the seasonal decomposition is produced.
 
 `@instructions`
-- Use `decompose()` to estimate trend and seasonality. Assign the result `con_supply2010_decomp`.
+- Use `decompose()` to estimate trend and seasonality of `con_supply2010`. Assign the result `con_supply2010_decomp`.
 - Plot the seasonal decomposition. 
 - Extract the random component from `con_supply2010_decomp` an save it as `con_supply2010_random2`.
 - Plot `con_supply2010_random2`.
@@ -512,7 +512,7 @@ If there is a trend and seasonality we can eliminate both by applying
 $$\Delta_d \Delta y _t.$$
 
 `@instructions`
-- Compute the first differences to eliminate the trend and assign the result to `first_diff`. 
+- Compute the first differences of `con_supply2010` to eliminate the trend and assign the result to `first_diff`. 
 - Apply the operator for seasonal differences to the first differences to eliminate the seasonality and save the result as `con_supply2010_random3`.
 - Plot `con_supply2010_random3`.
 
