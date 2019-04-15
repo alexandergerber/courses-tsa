@@ -234,7 +234,7 @@ ex() %>% check_function("autoplot", index  = 4) %>% check_arg("object") %>% chec
 
 ---
 
-## ACF and PACF of ARMA Models
+## ACF and PACF of AR and MA Models
 
 ```yaml
 type: NormalExercise
@@ -242,14 +242,139 @@ key: fc82ca2ade
 xp: 100
 ```
 
-Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent over time compared to MA-processes. 
-However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
+Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent compared to MA-processes. 
+However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it could also hard to distinguish an AR process with 
 e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot.
 
 However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order.
+The function `ARMAacf()` can be used to compute the theoretical ACF or PACF of any ARMA model. 
+The syntax for the ACF of a ARMA model (which of course includes AR(p) and MA(q) models as special cases) is
+```
+ARMAacf(ar = c(phi1, phi2, ...), ma = c(theta1, theta2, ...), lag = number_of_lags)
+```
+To obtain the PACF add `pacf = TRUE` to the function call. 
+
 
 `@instructions`
+Compute the first 10 values of the ACF and the PACF the following processes 
+\begin{align}
+y _t &= 0.5 y _{t-1} + \epsilon _t \\\\
+y _t &= 0.4 y _{t-1} + 0.3 y _{t-2} + \epsilon _t \\\\
+y _t &=  \epsilon _t + 0.8 \epsilon _{t-1} \\\\
+y _t &=  \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2} 
+\end{align}
+What are the differences?
 
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+# ACF and PACF of the AR(1) process
+
+
+# ACF and PACF of the AR(2) process
+
+
+# ACF and PACF of the MA(1) process
+
+
+# ACF and PACF of the MA(2) process
+
+
+```
+
+`@solution`
+```{r}
+# ACF and PACF of an AR(1)
+ARMAacf(ar = c(0.5), lag = 10)
+ARMAacf(ar = c(0.5), lag = 10, pacf = TRUE)
+# ACF and PACF of an AR(2)
+ARMAacf(ar = c(0.5, 0.3), lag = 10)
+ARMAacf(ar = c(0.5, 0.3), lag = 10, pacf = TRUE)
+# ACF and PACF of an MA(1)
+ARMAacf(ma = c(0.7), lag = 10)
+ARMAacf(ma = c(0.7), lag = 10, pacf = TRUE)
+# ACF and PACF of an MA(2)
+ARMAacf(ma = c(0.7, 0.3), lag = 10)
+ARMAacf(ma = c(0.7, 0.3), lag = 10, pacf = TRUE)
+```
+
+`@sct`
+```{r}
+ex() %>% check_function("ARMAacf", index  = 1) %>% {
+  check_arg(., "ar") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+}
+
+ex() %>% check_function("ARMAacf", index  = 2) %>% {
+  check_arg(., "ar") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+  check_arg(., "pacf") %>% check_equal()
+}
+
+ex() %>% check_function("ARMAacf", index  = 3) %>% {
+  check_arg(., "ar") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+  }
+
+ex() %>% check_function("ARMAacf", index  = 4) %>% {
+  check_arg(., "ar") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+  check_arg(., "pacf") %>% check_equal()
+}
+
+ex() %>% check_function("ARMAacf", index  = 5) %>% {
+  check_arg(., "ma") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+}
+
+ex() %>% check_function("ARMAacf", index  = 6) %>% {
+  check_arg(., "ma") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+  check_arg(., "pacf") %>% check_equal()
+}
+
+ex() %>% check_function("ARMAacf", index  = 7) %>% {
+  check_arg(., "ma") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+}
+
+
+ex() %>% check_function("ARMAacf", index  = 8) %>% {
+  check_arg(., "ma") %>% check_equal()
+  check_arg(., "lag.max") %>% check_equal()
+  check_arg(., "pacf") %>% check_equal()
+}
+success_msg("Great!")
+```
+
+---
+
+## ACF and PACF of an ARMA Process
+
+```yaml
+type: NormalExercise
+key: c3e61c892f
+xp: 100
+```
+
+In the previous exercise we found out that  
+- the ACF of an AR(p)-process decays slowly 
+- the PACF of an AR(p)-process has a cutoff after the p-th lag 
+- the ACF of an MA(q)-process  has a cutoff after the q-th lag 
+- the PACF of an MA(p)-process decays slowly 
+
+But what about ARMA(p,q) processes? 
+
+`@instructions`
+Compute the ACF and the PACF of the process
+y _t &= 0.8 y _{t-1} \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2}
 
 `@hint`
 
@@ -284,9 +409,9 @@ key: fd98368e58
 xp: 100
 ```
 
-Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent over time compared to MA-processes. 
+Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent compared to MA-processes. 
 However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
-e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot. More appropriate tools to help us decide which is the most likely candidate that generated the data are the estimated ACF and PACF functions. From theory we know:
+e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot. More appropriate tools to help us decide what the most likely candidate model that generated the data are the estimated ACF and PACF functions. From theory we know:
 - the PACF of an AR(p)-process has a cutoff after the p-th lag 
 - the ACF of an AR(p)-process decays slowly 
 We can make use of this knowledge by estimating ACF and PACF and look whether either one has a clear cutoff.
