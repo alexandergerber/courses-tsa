@@ -374,7 +374,7 @@ But what about ARMA(p,q) processes?
 
 `@instructions`
 Compute the ACF and the PACF of the process
-y _t &= 0.8 y _{t-1} \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2}
+$$y _t = 0.8 y _{t-1} \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2}$$
 
 `@hint`
 
@@ -409,15 +409,15 @@ key: fd98368e58
 xp: 100
 ```
 
-Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent compared to MA-processes. 
-However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
-e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot. More appropriate tools to help us decide what the most likely candidate model that generated the data are the estimated ACF and PACF functions. From theory we know:
-- the PACF of an AR(p)-process has a cutoff after the p-th lag 
-- the ACF of an AR(p)-process decays slowly 
-We can make use of this knowledge by estimating ACF and PACF and look whether either one has a clear cutoff.
+To choose an appropriate model we can make use of the knowledge about the theoretical ACF and PACF. 
+In practice we do of course not know these functions, however, we can use estimates of the ACF and PACF in order to try to spot if a characteristic feature of one of the here considered models is observable.  
+
+The ACF/PACF can be estimated and plotted by the functions `ggAcf() ggPacf()` of the `forecast` package.
+In the 2. exercise of this chapter we already simulated some AR and MA time series.   
 
 `@instructions`
-- Plot the ACF and PACF of `ar1` and `ar2` next to each other by using the functions `ggAcf`, `ggPacf` and `grid.arrange()`
+- Plot the ACF and PACF of `ar1` and `ar2` next to each other by using the functions `ggAcf()`, `ggPacf()` and `grid.arrange()`
+- Do the same for `ma1` and `ma2`
 
 `@hint`
 
@@ -440,6 +440,7 @@ ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 `@sample_code`
 ```{r}
 # Plot the ACF/PACF of the AR(1) and AR(2) time series
+
 ```
 
 `@solution`
@@ -449,6 +450,13 @@ grid.arrange(
   ggAcf(ar1), ggPacf(ar1), 
   ggAcf(ar2), ggPacf(ar2)
 )
+
+# Plot the ACF/PACF of the MA(1) and MA(2) time series
+grid.arrange(
+  ggAcf(ma1), ggPacf(ma1), 
+  ggAcf(ma2), ggPacf(ma2)
+)
+
 ```
 
 `@sct`
