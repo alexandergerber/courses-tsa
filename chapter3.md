@@ -214,9 +214,7 @@ Based on the plots we can see that time series generated from an AR-process are 
 However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it would be also hard to distinguish an AR process with 
 e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot.
 
-However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order. 
-
-
+However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order.
 
 `@instructions`
 
