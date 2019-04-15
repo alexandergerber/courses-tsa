@@ -22,11 +22,12 @@ The syntax is as follows
 arima(time_series, order = c(p,0,q))
 ```
 
+
 `@instructions`
 - Fit an ARMA(1,1) model to `con_supply2010_random1`and save the fitted model as `arma11`.
-- Extract the fitted values of the estimated model by using the function `fitted()`.
-- Extract the residuals of the estimated model by using the function `residuals()`.
 - Compute summary statistics for the model by using the function `summary()`.
+- Extract the fitted values of the estimated model by using the function `fitted()` and assign the result to `arma11_fit`.
+- Extract the residuals of the estimated model by using the function `residuals()` and assign the result to `arma11_res`.
 
 `@hint`
 
@@ -45,17 +46,36 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sample_code`
 ```{r}
+## Fit a arma 1 model to con_supply2010_random1
+
+## Compute summary statistics
+
+## Extract the residuals
+
+## Extract the residuals
 
 ```
 
 `@solution`
 ```{r}
+## Fit a arma 1 model to con_supply2010_random1
+arma11 <- arima(con_supply2010_random1)
+## Compute summary statistics
+summary(arma11)
+## Extract the residuals
+arma11_res <- residuals(arma11)
+## Extract the residuals
+arma11_fit <- fitted(arma11)
 
 ```
 
 `@sct`
 ```{r}
 success_msg("Great!")
+ex() %>% check_object("arma11") %>% check_equal()
+ex() %>% check_object("arma11_res") %>% check_equal()
+ex() %>% check_object("arma11_fit") %>% check_equal()
+ex() %>% check_function("summary") %>% check_arg("object") %>% check_equal()
 ```
 
 ---
@@ -131,6 +151,10 @@ ma2 <- arima.sim(1000, model = list(ma = c(0.6, 0.3)))
 
 `@sct`
 ```{r}
+ex() %>% check_object("ar1") %>% check_equal()
+ex() %>% check_object("ar2") %>% check_equal()
+ex() %>% check_object("ma1") %>% check_equal()
+ex() %>% check_object("ma2") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -157,6 +181,10 @@ grid.arrange(
     autoplot(yn)
  )
 ```
+
+Remark: `gridExtra()` is a function contained in the package `gridExtra`, which here is already loaded.
+
+
 
 `@instructions`
 - Plot `ar1`, `ar2`, `ma1` and `ma2` and next to each other by using the function `grid.arrange()` and look how they differ
@@ -198,6 +226,10 @@ grid.arrange(
 `@sct`
 ```{r}
 success_msg("Great!")
+ex() %>% check_function("autoplot", index  = 1) %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autoplot", index  = 2) %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autoplot", index  = 3) %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autoplot", index  = 4) %>% check_arg("object") %>% check_equal()
 ```
 
 ---
@@ -550,7 +582,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@solution`
 ```{r}
-
+best_model <- auto.arima(con_supply2010_random1)
 ```
 
 `@sct`
