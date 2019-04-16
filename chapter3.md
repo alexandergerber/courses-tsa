@@ -57,7 +57,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@solution`
 ```{r}
-## Fit a arma 1 model to con_supply2010_random1
+## Fit a arma 11 model to con_supply2010_random1
 arma11 <- arima(con_supply2010_random1)
 ## Compute summary statistics
 summary(arma11)
@@ -181,7 +181,7 @@ grid.arrange(
  )
 ```
 
-Remark: `gridExtra()` is a function contained in the package `gridExtra`, which here is already loaded.
+Remark: `grid.arrange()` is a function contained in the package `gridExtra`, which is already loaded.
 
 `@instructions`
 - Plot `ar1`, `ar2`, `ma1` and `ma2` and next to each other by using the function `grid.arrange()` and look how they differ
