@@ -22,7 +22,6 @@ The syntax is as follows
 arima(time_series, order = c(p,0,q))
 ```
 
-
 `@instructions`
 - Fit an ARMA(1,1) model to `con_supply2010_random1`and save the fitted model as `arma11`.
 - Compute summary statistics for the model by using the function `summary()`.
@@ -184,8 +183,6 @@ grid.arrange(
 
 Remark: `gridExtra()` is a function contained in the package `gridExtra`, which here is already loaded.
 
-
-
 `@instructions`
 - Plot `ar1`, `ar2`, `ma1` and `ma2` and next to each other by using the function `grid.arrange()` and look how they differ
 
@@ -252,8 +249,7 @@ The syntax for the ACF of a ARMA model (which of course includes AR(p) and MA(q)
 ```
 ARMAacf(ar = c(phi1, phi2, ...), ma = c(theta1, theta2, ...), lag = number_of_lags)
 ```
-To obtain the PACF add `pacf = TRUE` to the function call. 
-
+To obtain the PACF add `pacf = TRUE` to the function call.
 
 `@instructions`
 Compute the first 10 values of the ACF and the PACF the following processes 
@@ -370,7 +366,7 @@ In the previous exercise we found out that
 - the ACF of an MA(q)-process  has a cutoff after the q-th lag 
 - the PACF of an MA(p)-process decays slowly 
 
-But what about ARMA(p,q) processes? 
+But what about ARMA(p,q) processes?
 
 `@instructions`
 Compute the ACF and the PACF of the process
@@ -413,7 +409,7 @@ To choose an appropriate model we can make use of the knowledge about the theore
 In practice we do of course not know these functions, however, we can use estimates of the ACF and PACF in order to try to spot if a characteristic feature of one of the here considered models is observable.  
 
 The ACF/PACF can be estimated and plotted by the functions `ggAcf() ggPacf()` of the `forecast` package.
-In the 2. exercise of this chapter we already simulated some AR and MA time series.   
+In the 2. exercise of this chapter we already simulated some AR and MA time series.
 
 `@instructions`
 - Plot the ACF and PACF of `ar1` and `ar2` next to each other by using the functions `ggAcf()`, `ggPacf()` and `grid.arrange()`
