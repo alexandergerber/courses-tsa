@@ -45,7 +45,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sample_code`
 ```{r}
-## Fit a arma 1 model to con_supply2010_random1
+## Fit an arma11 model to con_supply2010_random1
 
 ## Compute summary statistics
 
