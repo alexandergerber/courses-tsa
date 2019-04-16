@@ -245,14 +245,14 @@ e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot.
 
 However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order.
 The function `ARMAacf()` can be used to compute the theoretical ACF or PACF of any ARMA model. 
-The syntax for the ACF of a ARMA model (which of course includes AR(p) and MA(q) models as special cases) is
+The syntax for the ACF of an ARMA model (which of course includes AR(p) and MA(q) models as special cases) is
 ```
 ARMAacf(ar = c(phi1, phi2, ...), ma = c(theta1, theta2, ...), lag = number_of_lags)
 ```
 To obtain the PACF add `pacf = TRUE` to the function call.
 
 `@instructions`
-Compute the first 10 values of the ACF and the PACF the following processes 
+Compute the first 10 values of the ACF and PACF of the following processes 
 \begin{align}
 y _t &= 0.5 y _{t-1} + \epsilon _t \\\\
 y _t &= 0.4 y _{t-1} + 0.3 y _{t-2} + \epsilon _t \\\\
