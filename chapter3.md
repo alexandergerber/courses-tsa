@@ -483,8 +483,8 @@ key: 5d66faf365
 xp: 100
 ```
 
-As we found out earlier the ACF and PACF of an ARMA(p,q) model decay both slowly to zero without an obvious cutoff. Hence, we can distinguish a ARMA time series from an AR and MA time series. 
-However, it is not easy to determine the model order p and q from this.
+As we found out earlier the ACF and PACF of an ARMA(p,q) model decay both slowly to zero without an obvious cutoff. Hence, we can distinguish an ARMA time series from an AR and MA time series. The same should be visible for their estimated counterparts.
+
 
 `@instructions`
 - Simulate data from from the process 
@@ -544,7 +544,7 @@ xp: 100
 
 We can detect ARMA(p,q)-models based on ACF/PACF since neither ACF nor PACF has a clear cutoff. However, it does not tell us which model orders to choose. 
 Also for pure AR and MA time series the answers provided may not be as clear cut as one would like (e.g. if the sample size is low). 
-For this reason we might look for another way to select the best suited model. A very common choice for model selection are Information Criteria such as 
+For this reason we might look for another way to select the best suited model. A very common choice for model selection are information criteria such as 
 the Akaike Information Criterion (AIC). The AIC deals with the trade-off between model fit and complexity. 
 The idea is to fit a variety of plausible candidate models and then choose the model which provides the "best" fit without overfitting the data.
 If we base our decision on information criteria such as AIC we would choose among all candidate models the one with the lowest value for that criterion. 
@@ -552,29 +552,49 @@ The AIC can be computed by passing the fitted model to the function `AIC()`.
 
 `@instructions`
 - In the working environment contains the series `y`. Fit an AR(1), MA(1) and ARMA(1,1) model to the data and save the results as `ar1`, `ma1` and `arma11`. 
-- Compute for each model the AIC
+- Compute for each model the AIC. Which model would you choose?
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
-
+y <- arima.sim(order = list(ma = 0.9), n = 1000)
 ```
 
 `@sample_code`
 ```{r}
+# Fit the 3 models
+
+
+
+# Compute for each model the AIC
+
+
 
 ```
 
 `@solution`
 ```{r}
-
+# Fit the 3 models
+ar1 <- arima(y, order = c(1,0,0))
+ma1 <- arima(y, order = c(0,0,1))
+arma11 <- arima(y, order = c(1,0,1))
+# Compute for each model the AIC
+AIC(ar1)
+AIC(ma1)
+AIC(arma11)
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("ar1") %>% check_equal()
+ex() %>% check_object("ma1") %>% check_equal()
+ex() %>% check_object("arma1") %>% check_equal()
+ex() %>% check_function("AIC", index  = 1) %>% check_equal()
+ex() %>% check_function("AIC", index  = 2) %>% check_equal()
+ex() %>% check_function("AIC", index  = 3) %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -620,12 +640,14 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@solution`
 ```{r}
-
+# ACF and PACF
+ggAcf(con_supply2010_random1)
+ggPacf(con_supply2010_random1)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ---
