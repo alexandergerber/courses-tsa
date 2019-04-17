@@ -635,6 +635,16 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sample_code`
 ```{r}
+# ACF and PACF
+
+
+# estimate the final model 
+
+# Check if AIC comes to same result
+
+
+
+## Best AIC
 
 ```
 
@@ -643,10 +653,22 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # ACF and PACF
 ggAcf(con_supply2010_random1)
 ggPacf(con_supply2010_random1)
+# estimate the final model 
+final_model <- arima(con_supply2010_random1, order = c(1,0,0))
+# Check if AIC comes to same result
+AIC(arima(con_supply2010_random1, order = c(1,0,0)))
+AIC(arima(con_supply2010_random1, order = c(0,0,1)))
+AIC(arima(con_supply2010_random1, order = c(1,0,1)))
+## Best AIC
+best_AIC <- AIC(arima(con_supply2010_random1, order = c(1,0,0)))
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_function("ggAcf") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("ggPacf") %>% check_arg("x") %>% check_equal()
+ex() %>% check_object("final_model") %>% check_equal()
+ex() %>% check_object("best_AIC") %>% check_equal()
 success_msg("Great!")
 ```
 
