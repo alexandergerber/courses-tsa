@@ -483,7 +483,8 @@ key: 5d66faf365
 xp: 100
 ```
 
-We learned how to distinguish AR and MA models based on the ACF and PACF. But what about ARMA time series?
+As we found out earlier the ACF and PACF of an ARMA(p,q) model decay both slowly to zero without an obvious cutoff. Hence, we can distinguish a ARMA time series from an AR and MA time series. 
+However, it is not easy to determine the model order p and q from this. 
 
 `@instructions`
 - Simulate data from from the process 
