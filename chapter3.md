@@ -532,7 +532,8 @@ success_msg("Great!")
 ex() %>% check_object("arma11") %>% check_equal()
 ex() %>% check_function("grid.arrange") %>% {
   check_arg(., "...")
-}
+  check_arg(., "...")
+} %>% check_equal()
 ```
 
 ---
