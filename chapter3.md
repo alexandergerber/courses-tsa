@@ -590,9 +590,9 @@ AIC(arma11)
 ex() %>% check_object("ar1") %>% check_equal()
 ex() %>% check_object("ma1") %>% check_equal()
 ex() %>% check_object("arma1") %>% check_equal()
-ex() %>% check_function("AIC", index  = 1) %>% check_equal()
-ex() %>% check_function("AIC", index  = 2) %>% check_equal()
-ex() %>% check_function("AIC", index  = 3) %>% check_equal()
+ex() %>% check_function("AIC", index  = 1) %>% check_argument("model") %>%check_equal()
+ex() %>% check_function("AIC", index  = 2) %>% check_argument("model")%>% check_equal()
+ex() %>% check_function("AIC", index  = 3) %>% check_argument("model")%>% check_equal()
 success_msg("Great!")
 ```
 
