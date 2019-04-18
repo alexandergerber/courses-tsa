@@ -485,7 +485,6 @@ xp: 100
 
 As we found out earlier the ACF and PACF of an ARMA(p,q) model decay both slowly to zero without an obvious cutoff. Hence, we can distinguish an ARMA time series from an AR and MA time series. The same should be visible for their estimated counterparts.
 
-
 `@instructions`
 - Simulate data from from the process 
 $$y _t = 0.7 y _{t-1} +  \epsilon _t + 0.5 \epsilon _{t-1},\quad t = 1,...,1000$$ and save the result as `arma11` 
