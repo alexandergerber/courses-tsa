@@ -778,6 +778,7 @@ final_model_resid <- residuals(final_model)
 
 `@sample_code`
 ```{r}
+# Perform the Ljung-Box test
 
 ```
 
