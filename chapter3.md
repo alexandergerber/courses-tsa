@@ -760,7 +760,6 @@ To perform the test in R the function  `Box.test()` can be used with the followi
 Box.test(ts, lag = number_of_lags, type = "Ljung-Box")
 ```
 
-
 `@instructions`
 - Test $H_0$ whether there is autocorrelation left in `final_model_resid` of the last exercise using the Ljung-Box test with the rule of thumb from above
 
