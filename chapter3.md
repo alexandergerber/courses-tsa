@@ -811,16 +811,34 @@ key: a7a4e557dc
 xp: 100
 ```
 
+For both model selection and model diagnostic, the `forecast` package provides convenience functions which do most of what we have done in the previous exercises automatically. 
+The first one is `auto.arima()`. This functions fits a lot of different models returns the model with the best result in terms of a specified criteria (e.g. AIC).
 
+The second one is `checkresiduals()`. If provided with an model object this function extracts the residuals, performs a Ljung-Box test and plots the ACF. 
+
+The syntax is as follows:
+```
+fitted_model <- auto.arima(time_series, ic = "aic") 
+checkresiduals(fitted_model)
+``` 
 
 `@instructions`
-
+- Use `auto.arima()` to find the best model for `con_supply2010_random1` based on the AIC and save it as `final_model`
+- Perform some diagnostic checks using `checkresiduals()` on the residuals of the estimated model
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
+library(quantmod)
+library(forecast)
+library(gridExtra)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+seasonal_model <- tslm(con_supply2010 ~ trend + season)
+con_supply2010_random1 <- residuals(seasonal_model)
 
 ```
 
@@ -831,10 +849,16 @@ xp: 100
 
 `@solution`
 ```{r}
+# Fit the model using auto.arima
+final_model <- auto.arima(con_supply2010_random1, ic = "aic")
+# Perform diagnostic checks
+final_model %>% checkresiduals()
 
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_qbject("final_model") %>% check_equal()
+ex() %>% check_function("checkresiduals") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
