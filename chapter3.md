@@ -790,7 +790,7 @@ Box.test(final_model_resid, lag = sqrt(length(final_model_resid)), type = "Ljung
 `@sct`
 ```{r}
 ex() %>% check_function("Box.test") %>%{
-  check_arg(., "model") %>% check_equal()
+  check_arg(., "x") %>% check_equal()
   check_arg(., "lag") %>% check_equal()
   check_arg(., "type") %>% check_equal()
   }
