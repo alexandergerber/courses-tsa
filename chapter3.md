@@ -750,7 +750,7 @@ xp: 100
 ```
 
 Another way of testing whether the residuals resemble white noise is to use a hypothesis test such as the Ljung-Box test. 
-The nullhypothesis that the data are uncorrelated is tested against the alternative that autocorrelation is present.
+The null hypothesis that the data are uncorrelated is tested against the alternative that autocorrelation is present.
 The idea behind the test is to accumulate the autocorrelations at each each individual lag to one test statistic in order to test the overall autocorrelation in the data. 
 There is one critical choice to make: How many lags to include into the test statistic. However, as a rule of thumb you can choose the number of lags as $\sqrt{T}$, where us the length of the time series.  
 
