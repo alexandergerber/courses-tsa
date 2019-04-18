@@ -630,6 +630,7 @@ con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
 con_supply2010_random1 <- residuals(seasonal_model)
+
 ```
 
 `@sample_code`
@@ -691,7 +692,8 @@ In order to test to the 5% level if the residuals are white noise we could count
 100 displayed autocorrelations are outside the bounds we would reject the hypothesis that the residuals are white noise.
 
 `@instructions`
-
+- Extract the residuals of the final model 
+- Plot the ACF of the residuals and decide if they look like white noise
 
 `@hint`
 
@@ -705,20 +707,31 @@ con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
 con_supply2010_random1 <- residuals(seasonal_model)
+final_model <- auto.arima(con_supply2010_random1)
 ```
 
 `@sample_code`
 ```{r}
+# Extract the residuals of the final model
+
+# Plot the ACF of the residuals and decide if they look like white noise
+
 
 ```
 
 `@solution`
 ```{r}
-best_model <- auto.arima(con_supply2010_random1)
+# Extract the residuals of the final model
+final_model_resid <- residuals(final_model)
+# Plot the ACF of the residuals and decide if they look like white noise
+ggAcf(final_model)
+
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_object("final_model_resid") %>% check_equal()
+ex() %>% check_function("ggAcf") %>% check_argument("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -732,17 +745,35 @@ key: 006d98c393
 xp: 100
 ```
 
+Another way of testing whether the residuals resemble white noise is to use a hypothesis test such as the Ljung-Box test. 
+The nullhypothesis that the data are uncorrelated is tested against the alternative that autocorrelation is present.
+The idea behind the test is to accumulate the autocorrelations at each each individual lag to one test statistic in order to test the overall autocorrelation in the data. 
+There is one critical choice to make: How many lags to include into the test statistic. However, as a rule of thumb you can choose the number of lags as $\sqrt{T}$, where us the length of the time series.  
+
+To perform the test in R the function  `Box.test()` can be used with the following syntax:
+
+```
+Box.test(ts, lag = number_of_lags, type = "Ljung-Box")
+```
 
 
 `@instructions`
-
+- Test $H_0$ whether there is autocorrelation left in `final_model_resid` of the last exercise using the Ljung-Box test with the rule of thumb from above
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+seasonal_model <- tslm(con_supply2010 ~ trend + season)
+con_supply2010_random1 <- residuals(seasonal_model)
+final_model <- auto.arima(con_supply2010_random1)
+final_model_resid <- residuals(final_model)
 ```
 
 `@sample_code`
@@ -752,11 +783,17 @@ xp: 100
 
 `@solution`
 ```{r}
-
+# Perform the Ljung-Box test
+Box.test(final_model_resid, lag = sqrt(length(final_model_resid)), type = "Ljung-Box")
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_function("Box.test") %>%{
+  check_arg(., "model") %>% check_equal()
+  check_arg(., "lag") %>% check_equal()
+  check_arg(., "type") %>% check_equal()
+  }
 success_msg("Great!")
 ```
 
