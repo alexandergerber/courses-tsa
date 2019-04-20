@@ -562,7 +562,7 @@ The AIC can be computed by passing the fitted model to the function `AIC()`.
 
 `@pre_exercise_code`
 ```{r}
-y <- arima.sim(order = list(ma = 0.9), n = 1000)
+y <- arima.sim(model = list(ma = 0.9), n = 1000)
 ```
 
 `@sample_code`
@@ -735,7 +735,7 @@ ggAcf(final_model_resid)
 `@sct`
 ```{r}
 ex() %>% check_object("final_model_resid") %>% check_equal()
-ex() %>% check_function("ggAcf") %>% check_argument("x") %>% check_equal()
+ex() %>% check_function("ggAcf") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
