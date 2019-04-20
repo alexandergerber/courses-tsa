@@ -820,7 +820,7 @@ The syntax is as follows:
 ```
 fitted_model <- auto.arima(time_series, ic = "aic") 
 checkresiduals(fitted_model)
-``` 
+```
 
 `@instructions`
 - Use `auto.arima()` to find the best model for `con_supply2010_random1` based on the AIC and save it as `final_model`
