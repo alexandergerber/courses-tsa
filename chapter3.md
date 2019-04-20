@@ -728,7 +728,7 @@ final_model <- auto.arima(con_supply2010_random1)
 # Extract the residuals of the final model
 final_model_resid <- residuals(final_model)
 # Plot the ACF of the residuals and decide if they look like white noise
-ggAcf(final_model)
+ggAcf(final_model_resid)
 
 ```
 
@@ -858,7 +858,7 @@ final_model %>% checkresiduals()
 
 `@sct`
 ```{r}
-ex() %>% check_qbject("final_model") %>% check_equal()
+ex() %>% check_object("final_model") %>% check_equal()
 ex() %>% check_function("checkresiduals") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
