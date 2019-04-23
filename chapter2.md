@@ -77,17 +77,17 @@ where
 
 - $m _t$ is the trend component
 - $s _t$ is the seasonal component
-- $X _t$ is the random component
+- $X _t$ is the random component.
 
 We start by assuming that the seasonal pattern is simply repeating without any change, i.e. $s _t = s _{t+d}$, where $d$ is the length of one cycle.
 
-Furthermore we assume a linear time trend. 
+Furthermore, we assume a linear time trend. 
 
 In practice it is unlikely to find a time series for which these assumptions hold. However, for some parts of a time series 
 this might be true.
 
 `@instructions`
-- Produce from `con_supply` a **monthly** time series of class `ts` beginning at January 2010 until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
+- Produce a **monthly** time series of class `ts` from `con_supply`  beginning at January 2010 until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
 - Plot `con_supply2010` to see whether the above stated assumptions approximately hold.
 
 `@hint`
@@ -264,7 +264,7 @@ key: e9d18ca8ce
 xp: 100
 ```
 
-In contrast to the two before mentioned methods we now will eliminate the trend instead of estimating it. 
+In contrast to the two before mentioned methods we will now eliminate the trend instead of estimating it. 
 This can be done by computing the first differences $\Delta y _t = y _t - y _{t-1}$. If the data contains a linear time trend then the 
 trend in the transformed series  $\Delta y _t$ is eliminated.  
 
@@ -287,12 +287,12 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-## First Differences 
+## First differences 
 ```
 
 `@solution`
 ```{r}
-## First Differences 
+# First differences 
 x_diff <- diff(con_supply2010, lag = 1)
 
 ```
@@ -443,12 +443,12 @@ key: 1862a60e6f
 xp: 100
 ```
 
-The function `decompose()` estimates the seasonal component as simple averages. This approach is numerical identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a nice plot of the seasonal decomposition is produced.
+The function `decompose()` estimates the seasonal component as simple averages. This approach is numerically identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a nice plot of the seasonal decomposition is produced.
 
 `@instructions`
 - Use `decompose()` to estimate trend and seasonality of `con_supply2010`. Assign the result `con_supply2010_decomp`.
 - Plot the seasonal decomposition. 
-- Extract the random component from `con_supply2010_decomp` an save it as `con_supply2010_random2`.
+- Extract the random component from `con_supply2010_decomp` and save it as `con_supply2010_random2`.
 - Plot `con_supply2010_random2`.
 
 `@hint`
