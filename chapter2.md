@@ -3,7 +3,7 @@ title: 'Trend and Seasonality'
 description: ""
 ---
 
-## Download data with seasonality
+## Download Data with Seasonality
 
 ```yaml
 type: NormalExercise
@@ -18,7 +18,7 @@ We start by downloading a time series with a strong seasonal pattern.
 `@instructions`
 - Load the package `quantmod`.
 - Download the time series of construction supplies (not seasonally adjusted) from `FRED` and assign it to the variable `con_supply`.
-- Visualize the Data using `autoplot`.
+- Visualize the data using `autoplot`.
 
 `@hint`
 
@@ -41,7 +41,7 @@ We start by downloading a time series with a strong seasonal pattern.
 
 `@solution`
 ```{r}
-# Load Packages
+# Load packages
 library(quantmod)
 library(forecast)
 # Load construction supply data
@@ -61,7 +61,7 @@ success_msg("Great!")
 
 ---
 
-## The additive decomposition model
+## The Additive Decomposition Model
 
 ```yaml
 type: NormalExercise
