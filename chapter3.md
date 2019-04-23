@@ -15,7 +15,7 @@ After we removed trend and seasonality the time series of construction supplies 
 Hence, we can start to use ARMA models to analyse the short term dependencies. For this we will continue to work with 
 the residuals of the linear trend + seasonality model `con_supply2010_random1`.  
 
-The function `arima()` is the standard tool to fit ARMA(p,q) Models in R. 
+The function `arima()` is the standard tool to fit ARMA(p,q) models in R. 
 The syntax is as follows
 
 ```
@@ -181,7 +181,7 @@ grid.arrange(
  )
 ```
 
-Remark: `grid.arrange()` is a function contained in the package `gridExtra`, which is already loaded.
+Note: `grid.arrange()` is a function contained in the package `gridExtra`, which is already loaded.
 
 `@instructions`
 - Plot `ar1`, `ar2`, `ma1` and `ma2` and next to each other by using the function `grid.arrange()` and look how they differ
@@ -240,7 +240,7 @@ xp: 100
 ```
 
 Based on the plots we can see that time series generated from an AR-process are generally smoother and are more persistent compared to MA-processes. 
-However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it could also hard to distinguish an AR process with 
+However, it is hard to distinguish an AR(1) form an AR(2) or a MA(1) from a MA(2) process. Furthermore it could also be hard to distinguish an AR process with 
 e.g. $\phi = 0.2$ from an MA process by mere inspection of the plot.
 
 However, knowledge about the characteristic ACF and PACF of different kind of models can help to determine the model order.
@@ -419,7 +419,7 @@ xp: 100
 ```
 
 To choose an appropriate model we can make use of the knowledge about the theoretical ACF and PACF. 
-In practice we do of course not know these functions, however, we can use estimates of the ACF and PACF in order to try to spot if a characteristic feature of one of the here considered models is observable.  
+In practice we do not know these functions, however, we can use estimates of the ACF and PACF in order to try to spot if a characteristic feature of one of the here considered models is observable.  
 
 The ACF/PACF can be estimated and plotted by the functions `ggAcf() ggPacf()` of the `forecast` package.
 In the 2. exercise of this chapter we already simulated some AR and MA time series.
@@ -450,6 +450,9 @@ ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 ```{r}
 # Plot the ACF/PACF of the AR(1) and AR(2) time series
 
+
+
+# Plot the ACF/PACF of the MA(1) and MA(2) time series
 ```
 
 `@solution`
@@ -475,7 +478,7 @@ success_msg("Great!")
 
 ---
 
-## ACF and PACF of a simulated ARMA Time Series
+## ACF and PACF of a Simulated ARMA Time Series
 
 ```yaml
 type: NormalExercise
@@ -546,7 +549,7 @@ xp: 100
 ```
 
 We can detect ARMA(p,q)-models based on ACF/PACF since neither ACF nor PACF has a clear cutoff. However, it does not tell us which model orders to choose. 
-Also for pure AR and MA time series the answers provided may not be as clear cut as one would like (e.g. if the sample size is low). 
+Also for pure AR and MA time series the answers provided may not be as clear-cut as one would like (e.g. if the sample size is low). 
 For this reason we might look for another way to select the best suited model. A very common choice for model selection are information criteria such as 
 the Akaike Information Criterion (AIC). The AIC deals with the trade-off between model fit and complexity. 
 The idea is to fit a variety of plausible candidate models and then choose the model which provides the "best" fit without overfitting the data.
@@ -554,8 +557,8 @@ If we base our decision on information criteria such as AIC we would choose amon
 The AIC can be computed by passing the fitted model to the function `AIC()`.
 
 `@instructions`
-- In the working environment contains the series `y`. Fit an AR(1), MA(1) and ARMA(1,1) model to the data and save the results as `ar1`, `ma1` and `arma11`. 
-- Compute for each model the AIC. Which model would you choose?
+- The working environment contains the series `y`. Fit an AR(1), MA(1) and ARMA(1,1) model to the data and save the results as `ar1`, `ma1` and `arma11`. 
+- Compute the AIC for each model. Which model would you choose?
 
 `@hint`
 
@@ -571,7 +574,7 @@ y <- arima.sim(model = list(ma = 0.9), n = 1000)
 
 
 
-# Compute for each model the AIC
+# Compute the AIC for each model
 
 
 
@@ -583,7 +586,7 @@ y <- arima.sim(model = list(ma = 0.9), n = 1000)
 ar1 <- arima(y, order = c(1,0,0))
 ma1 <- arima(y, order = c(0,0,1))
 arma11 <- arima(y, order = c(1,0,1))
-# Compute for each model the AIC
+# Compute the AIC for each model
 AIC(ar1)
 AIC(ma1)
 AIC(arma11)
@@ -602,7 +605,7 @@ success_msg("Great!")
 
 ---
 
-## Choose a Model for the Construction Supply data
+## Choose a Model for the Construction Supply Data
 
 ```yaml
 type: NormalExercise
@@ -610,10 +613,10 @@ key: 0f890d38ef
 xp: 100
 ```
 
-One possible way how to proceed in practise is as follows: 
+One possible way how to proceed in practice is as follows: 
 
 1. Estimate the ACF and PACF and analyse the result.
-2. If ACF/PACF already provide enough information choose the suggested model.  
+2. If ACF/PACF already provide enough information, choose the suggested model.  
 3. If ACF/PACF don't give a clear answer, choose appropriate candidate models and use the AIC.
 
 `@instructions`
@@ -642,13 +645,13 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # ACF and PACF
 
 
-# estimate the final model 
+# Estimate the final model 
 
 # Check if AIC comes to same result
 
 
 
-## Best AIC
+# Best AIC
 
 ```
 
@@ -657,13 +660,13 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # ACF and PACF
 ggAcf(con_supply2010_random1)
 ggPacf(con_supply2010_random1)
-# estimate the final model 
+# Estimate the final model 
 final_model <- arima(con_supply2010_random1, order = c(1,0,0))
 # Check if AIC comes to same result
 AIC(arima(con_supply2010_random1, order = c(1,0,0)))
 AIC(arima(con_supply2010_random1, order = c(0,0,1)))
 AIC(arima(con_supply2010_random1, order = c(1,0,1)))
-## Best AIC
+# Best AIC
 best_AIC <- AIC(arima(con_supply2010_random1, order = c(1,0,0)))
 ```
 
