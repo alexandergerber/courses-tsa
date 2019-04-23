@@ -530,16 +530,17 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-## First Differences 
+# First differences 
 
-## Seasonal differences
+# Seasonal differences
 
 # Plot con_supply2010_random3
+
 ```
 
 `@solution`
 ```{r}
-# First Differences 
+# First differences 
 first_diff <- diff(con_supply2010, lag = 1)
 # Seasonal differences
 con_supply2010_random3 <- diff(first_diff, lag = frequency(con_supply2010))
