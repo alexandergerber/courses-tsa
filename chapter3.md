@@ -3,7 +3,7 @@ title: 'ARMA Models'
 description: ""
 ---
 
-## Fitting an ARMA model
+## Fitting ARMA Models
 
 ```yaml
 type: NormalExercise
@@ -45,23 +45,23 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 `@sample_code`
 ```{r}
-## Fit an arma11 model to con_supply2010_random1
+# Fit an arma11 model to con_supply2010_random1
 
-## Compute summary statistics
+# Compute summary statistics
 
-## Extract the residuals
+# Extract the residuals
 
-## Extract the residuals
+# Extract the residuals
 
 ```
 
 `@solution`
 ```{r}
-## Fit a arma 11 model to con_supply2010_random1
+# Fit a arma 11 model to con_supply2010_random1
 arma11 <- arima(con_supply2010_random1)
-## Compute summary statistics
+# Compute summary statistics
 summary(arma11)
-## Extract the residuals
+# Extract the residuals
 arma11_res <- residuals(arma11)
 ## Extract the residuals
 arma11_fit <- fitted(arma11)
