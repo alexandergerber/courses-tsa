@@ -18,7 +18,7 @@ We start by downloading a time series with a strong seasonal pattern.
 `@instructions`
 - Load the package `quantmod`.
 - Download the time series of construction supplies (not seasonally adjusted) from `FRED` and assign it to the variable `con_supply`.
-- Visualize the data using `autoplot`.
+- Visualize the data using `autoplot()`.
 
 `@hint`
 
@@ -30,10 +30,10 @@ We start by downloading a time series with a strong seasonal pattern.
 
 `@sample_code`
 ```{r}
-# Load Packages
+# Load packages
 
 
-# Load construction supply data
+# Load the construction supply data
 
 # Plot the data
 
@@ -44,7 +44,7 @@ We start by downloading a time series with a strong seasonal pattern.
 # Load packages
 library(quantmod)
 library(forecast)
-# Load construction supply data
+# Load the construction supply data
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Plot the data
 autoplot(con_supply)
@@ -69,7 +69,7 @@ key: 7c986018c3
 xp: 100
 ```
 
-The most basic model dealing with a trend and a seasonal pattern is the additive decomposition model 
+The most basic model dealing with a trend and seasonal pattern is the additive decomposition model 
 
 $$Y _t = m _t + s_t + X _t$$
 
@@ -87,7 +87,8 @@ In practice it is unlikely to find a time series for which these assumptions hol
 this might be true.
 
 `@instructions`
-- Produce a **monthly** time series of class `ts` from `con_supply`  beginning at January 2010 until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
+- Produce a **monthly** time series of class `ts` from `con_supply` Assign the result to the variable `con_supply_ts`. 
+- Subset the series so that it starts at January 2010 and goes until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
 - Plot `con_supply2010` to see whether the above stated assumptions approximately hold.
 
 `@hint`
@@ -105,6 +106,7 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Produce monthly time series of class ts
 
 # Plot con_supply2010
+
 ```
 
 `@solution`
