@@ -15,7 +15,7 @@ xp: 100
 Before we can start to analyse a time series we have to load data into R. A nice and easy way to do that is provided 
 by the `quantmod` package. The package contains the function `getSymbols()` which can be used to import data from Yahoo Finance (`src = "yahoo"`) 
 and the Federal Reserve Bank of St. Louis (`src = "FRED"`). 
-
+abc
 For example, to import DAX data from Yahoo Finance we have to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
 a search engine (search e.g. for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
 
