@@ -122,7 +122,7 @@ success_msg("Great!")
 
 ---
 
-## Subset the downloaded data
+## Subset the Downloaded Data
 
 ```yaml
 type: NormalExercise
@@ -155,7 +155,6 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 
 
 # Plot the closing prices
-
 
 
 ```
