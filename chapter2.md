@@ -33,7 +33,9 @@ The Symbol is `IPB54100N`.
 # Load packages
 
 
+
 # Load the construction supply data
+
 
 # Plot the data
 
@@ -44,8 +46,10 @@ The Symbol is `IPB54100N`.
 # Load packages
 library(quantmod)
 library(forecast)
+
 # Load the construction supply data
 con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+
 # Plot the data
 autoplot(con_supply)
 ```
@@ -105,6 +109,8 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 ```{r}
 # Produce monthly time series of class ts
 
+
+
 # Plot con_supply2010
 
 ```
@@ -114,6 +120,7 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Produce monthly time series of class ts
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+
 # Plot con_supply2010
 autoplot(con_supply2010)
 
@@ -172,6 +179,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Fit the trend model 
 
+
 # Plot the series together with the estimated trend 
 
 ```
@@ -180,6 +188,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Fit the trend model 
 trend_lm <- tslm(con_supply2010 ~ trend)
+
 # Plot the series together with the estimated trend 
 autoplot(con_supply2010) + autolayer(fitted(trend_lm))
 ```
@@ -236,6 +245,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Use Decompose to estimate the trend via an moving average filter
 
+
 # Plot the series together with the estimated trend 
 
 ```
@@ -244,6 +254,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Use decompose() to estimate the trend with a moving average filter
 trend_ma <- decompose(con_supply2010)$trend
+
 # Plot the series together with the estimated trend 
 autoplot(con_supply2010) + autolayer(trend_ma)
 ```
@@ -343,7 +354,9 @@ trend_lm <- tslm(con_supply2010 ~ trend)
 ```{r}
 # Remove the trend
 
+
 # Plot the detrended series
+
 
 # Plot the ACF
 
@@ -353,8 +366,10 @@ trend_lm <- tslm(con_supply2010 ~ trend)
 ```{r}
 # Remove the trend
 con_supply2010_detrended <- con_supply2010 - fitted(trend_lm)
+
 # Plot the detrended series
 autoplot(con_supply2010_detrended)
+
 # Plot the ACF
 ggAcf(con_supply2010_detrended)
 ```
@@ -406,9 +421,12 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Estimate a model with trend and seasonality
 
+
 # Plot the series together with the fitted values
 
+
 # Save the estimated random component
+
 
 # Plot the estimated random component
 
@@ -418,10 +436,13 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Estimate a model with trend and seasonality
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
+
 # Plot the series together with the fitted values
 autoplot(con_supply2010) + autolayer(fitted(seasonal_model))
+
 # Save the estimated random component
 con_supply2010_random1 <- residuals(seasonal_model)
+
 # Plot the estimated random component
 autoplot(con_supply2010_random1)
 ```
@@ -469,9 +490,12 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Estimate trend and seasonality using decompose
 
+
 # Plot the seasonal decomposition
 
+
 # Extract the random component
+
 
 # Plot the random component
 
@@ -481,10 +505,13 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # Estimate trend and seasonality using decompose
 con_supply2010_decomp <- decompose(con_supply2010)
+
 # Plot the seasonal decomposition
 autoplot(con_supply2010_decomp)
+
 # Extract the random component
 con_supply2010_random2 <- con_supply2010_decomp$random
+
 # Plot the random component
 autoplot(con_supply2010_random2)
 
@@ -534,7 +561,9 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # First differences 
 
+
 # Seasonal differences
+
 
 # Plot con_supply2010_random3
 
@@ -544,8 +573,10 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```{r}
 # First differences 
 first_diff <- diff(con_supply2010, lag = 1)
+
 # Seasonal differences
 con_supply2010_random3 <- diff(first_diff, lag = frequency(con_supply2010))
+
 # Plot con_supply2010_random3
 autoplot(con_supply2010_random3)
 ```

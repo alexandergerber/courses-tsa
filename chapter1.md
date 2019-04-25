@@ -308,6 +308,7 @@ close_monthly <- DAX_monthly$DAX.Close
 ```{r}
 # Create the ts object 
 
+
 # Plot the result
 
 ```
@@ -316,6 +317,7 @@ close_monthly <- DAX_monthly$DAX.Close
 ```{r}
 # Create the ts object 
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
+
 # Plot the result
 plot(close)
 ```
@@ -432,6 +434,7 @@ close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
 ```{r}
 # Load the forecast package
 
+
 # Plot the closing prices using autoplot()
 
 ```
@@ -440,6 +443,7 @@ close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
 ```{r}
 # Load the forecast package
 library(forecast)
+
 # Plot the closing prices using autoplot()
 autoplot(close)
 ```
@@ -495,6 +499,7 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 # Create high and low
 
 
+
 # Plot high and low together
 
 ```
@@ -504,6 +509,7 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 # Create high and low
 high   <- ts(DAX_monthly$DAX.High, start = c(2007, 1), frequency = 12)
 low    <- ts(DAX_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
+
 # Plot high and low together
 autoplot(high, series = "high") + autolayer(low)
 ```

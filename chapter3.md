@@ -47,9 +47,12 @@ con_supply2010_random1 <- residuals(seasonal_model)
 ```{r}
 # Fit an arma11 model to con_supply2010_random1
 
+
 # Compute summary statistics
 
+
 # Extract the residuals
+
 
 # Extract the residuals
 
@@ -59,10 +62,13 @@ con_supply2010_random1 <- residuals(seasonal_model)
 ```{r}
 # Fit a arma 11 model to con_supply2010_random1
 arma11 <- arima(con_supply2010_random1)
+
 # Compute summary statistics
 summary(arma11)
+
 # Extract the residuals
 arma11_res <- residuals(arma11)
+
 ## Extract the residuals
 arma11_fit <- fitted(arma11)
 
@@ -128,9 +134,12 @@ $$y _t = \epsilon _t + 0.6\epsilon _{t-1} , \quad t = 1,...,1000$$ and save the 
 set.seed(1)
 # Simulate the AR(1) time series
 
+
 # Simulate the AR(2) time series
 
+
 # Simulate the MA(1) time series
+
 
 # Simulate the MA(2) time series
 ```
@@ -140,10 +149,13 @@ set.seed(1)
 set.seed(1)
 # Simulate the AR(1) time series
 ar1 <- arima.sim(1000, model = list(ar = c(0.9)))
+
 # Simulate the AR(2) time series
 ar2 <- arima.sim(1000, model = list(ar = c(0.5, 0.4)))
+
 # Simulate the MA(1) time series
 ma1 <- arima.sim(1000, model = list(ma = c(0.6)))
+
 # Simulate the MA(2) time series
 ma2 <- arima.sim(1000, model = list(ma = c(0.6, 0.3)))
 ```
@@ -196,10 +208,13 @@ library(forecast)
 set.seed(1)
 # Simulate the AR(1) time series
 ar1 <- arima.sim(model = list(ar = c(0.9)), n = 1000)
+
 # Simulate the AR(2) time series
 ar2 <- arima.sim(model = list(ar = c(0.5, 0.4)), n = 1000)
+
 # Simulate the MA(1) time series
 ma1 <- arima.sim(model = list(ma = c(0.6)), n = 1000)
+
 # Simulate the MA(2) time series 
 ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 ```
@@ -274,10 +289,13 @@ What are the differences?
 # ACF and PACF of the AR(1) process
 
 
+
 # ACF and PACF of the AR(2) process
 
 
+
 # ACF and PACF of the MA(1) process
+
 
 
 # ACF and PACF of the MA(2) process
@@ -290,12 +308,15 @@ What are the differences?
 # ACF and PACF of an AR(1)
 ARMAacf(ar = c(0.5), lag = 10)
 ARMAacf(ar = c(0.5), lag = 10, pacf = TRUE)
+
 # ACF and PACF of an AR(2)
 ARMAacf(ar = c(0.5, 0.3), lag = 10)
 ARMAacf(ar = c(0.5, 0.3), lag = 10, pacf = TRUE)
+
 # ACF and PACF of an MA(1)
 ARMAacf(ma = c(0.7), lag = 10)
 ARMAacf(ma = c(0.7), lag = 10, pacf = TRUE)
+
 # ACF and PACF of an MA(2)
 ARMAacf(ma = c(0.7, 0.3), lag = 10)
 ARMAacf(ma = c(0.7, 0.3), lag = 10, pacf = TRUE)
@@ -452,6 +473,8 @@ ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 
 
 
+
+
 # Plot the ACF/PACF of the MA(1) and MA(2) time series
 ```
 
@@ -513,6 +536,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 set.seed(3)
 # Simulate a ARMA(1,1) time series
 
+
 # Plot ACF and PACF
 
 ```
@@ -522,6 +546,7 @@ set.seed(3)
 set.seed(3)
 # Simulate a ARMA(1,1) time series
 arma11 <- arima.sim(model = list(ar = 0.8, ma = 0.6), n = 1000)
+
 # Plot ACF and PACF
 grid.arrange(
   ggAcf(arma11),
@@ -571,6 +596,7 @@ y <- arima.sim(model = list(ma = 0.9), n = 1000)
 `@sample_code`
 ```{r}
 # Fit the 3 models
+
 
 
 
@@ -645,9 +671,12 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # ACF and PACF
 
 
+
 # Estimate the final model 
 
+
 # Check if AIC comes to same result
+
 
 
 
@@ -660,12 +689,15 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # ACF and PACF
 ggAcf(con_supply2010_random1)
 ggPacf(con_supply2010_random1)
+
 # Estimate the final model 
 final_model <- arima(con_supply2010_random1, order = c(1,0,0))
+
 # Check if AIC comes to same result
 AIC(arima(con_supply2010_random1, order = c(1,0,0)))
 AIC(arima(con_supply2010_random1, order = c(0,0,1)))
 AIC(arima(con_supply2010_random1, order = c(1,0,1)))
+
 # Best AIC
 best_AIC <- AIC(arima(con_supply2010_random1, order = c(1,0,0)))
 ```
@@ -721,6 +753,7 @@ final_model <- auto.arima(con_supply2010_random1)
 ```{r}
 # Extract the residuals of the final model
 
+
 # Plot the ACF of the residuals and decide if they look like white noise
 
 
@@ -730,6 +763,7 @@ final_model <- auto.arima(con_supply2010_random1)
 ```{r}
 # Extract the residuals of the final model
 final_model_resid <- residuals(final_model)
+
 # Plot the ACF of the residuals and decide if they look like white noise
 ggAcf(final_model_resid)
 
@@ -854,6 +888,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 ```{r}
 # Fit the model using auto.arima
 final_model <- auto.arima(con_supply2010_random1, ic = "aic")
+
 # Perform diagnostic checks
 final_model %>% checkresiduals()
 
