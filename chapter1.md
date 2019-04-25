@@ -237,6 +237,7 @@ close_monthly <- DAX_monthly$DAX.Close
 
 # Plot the monthly cloasing prices
 plot(close_monthly)
+
 ```
 
 `@sct`
