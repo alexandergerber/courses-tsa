@@ -36,7 +36,9 @@ a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbo
 ```{r}
 # Load the quantmod package
 
+
 # Import the Data with getSymbols()
+
 
 
 ```
@@ -45,6 +47,7 @@ a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbo
 ```{r}
 # Load the quantmod package
 library(quantmod)
+
 # Import the data
 DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```
