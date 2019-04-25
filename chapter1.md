@@ -20,11 +20,11 @@ For example, to import DAX data from Yahoo Finance we have to find the symbol Ya
 a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
 
 `@instructions`
-- Verify that the Yahoo Finance symbol for the DAX is `^GDAXI`. 
 - Load the `quantmod` package with `library()`.
 - Import the DAX data by passing the symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` and assign the result to the variable `DAX`.
 
 `@hint`
+- The Yahoo Finance symbol for the DAX is `^GDAXI`.
 - If you want to pass something as a string you have to use "".
 
 `@pre_exercise_code`
@@ -55,6 +55,11 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 `@sct`
 ```{r}
 ex() %>% check_library("quantmod")
+ex() %>% check_function("getSymbols") %>% 
+  check_arg(., "Symbols") %>% check_equal()
+  check_arg(., "src") %>% check_equal()
+  check_arg(., "auto.assign") %>% check_equal()
+  }
 success_msg("Great!")
 ```
 
@@ -176,6 +181,7 @@ plot(close_daily)
 ```{r}
 ex() %>% check_function("names") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("close_daily") %>% check_equal()
+ex() %>% check_function("plot") %>% check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -242,6 +248,7 @@ plot(close_monthly)
 
 `@sct`
 ```{r}
+ex() %>% check_function("class") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("to.monthly") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("close_monthly") %>% check_equal()
 ex() %>% check_function("plot") %>%  check_arg("x") %>% check_equal()

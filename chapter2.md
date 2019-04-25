@@ -16,12 +16,12 @@ Many economical time series exhibit some form of deterministic trend and seasona
 We start by downloading a time series with a strong seasonal pattern.
 
 `@instructions`
-- Load the package `quantmod`.
+- Load the packages `quantmod` and `forecast`
 - Download the time series of construction supplies (not seasonally adjusted) from `FRED` and assign it to the variable `con_supply`.
 - Visualize the data using `autoplot()`.
 
 `@hint`
-
+The Symbol is `IPB54100N`.
 
 `@pre_exercise_code`
 ```{r}
@@ -89,7 +89,7 @@ this might be true.
 `@instructions`
 - Produce a **monthly** time series of class `ts` from `con_supply` Assign the result to the variable `con_supply_ts`. 
 - Subset the series so that it starts at January 2010 and goes until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
-- Plot `con_supply2010` to see whether the above stated assumptions approximately hold.
+- Plot `con_supply2010` to see whether the above stated assumptions approximately hold (use `autoplot()` for this).
 
 `@hint`
 
