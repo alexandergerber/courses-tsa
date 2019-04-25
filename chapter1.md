@@ -55,7 +55,7 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 `@sct`
 ```{r}
 ex() %>% check_library("quantmod")
-ex() %>% check_function("getSymbols") %>% 
+ex() %>% check_function("getSymbols") %>% {
   check_arg(., "Symbols") %>% check_equal()
   check_arg(., "src") %>% check_equal()
   check_arg(., "auto.assign") %>% check_equal()
