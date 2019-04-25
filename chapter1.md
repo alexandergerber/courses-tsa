@@ -203,11 +203,12 @@ xp: 100
 
 The downloaded `DAX` dataset is of class `xts`, which is an elaborate way of dealing with time series in R. 
 For our purposes it is enough to know that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours, weekends and holidays.
-However, in this course we will work on regular time series only. We can use the function `to.monthly()` to convert our `xts` series of daily data to monthly data. Since we get one observation for each month of the year, we can treat the newly generated series as a regular time series.
+However, in this course we will work on regular time series only. We can use the function `to.monthly()` to convert our `xts` series of daily data to monthly data. 
+Since we get one observation for each month of the year, we can treat the newly generated series as a regular time series.
 
 `@instructions`
 - Use the function `class()` to make sure that `DAX`  is of class `xts`.
-- Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`.
+- Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`. What exactly is the function `to.monthly()` doing?
 - Create a variable `close_monthly` with the monthly closing prices. 
 - Plot `close_monthly` using the function `plot()`.
 
