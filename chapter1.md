@@ -94,9 +94,12 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Print out the start date of the time series dataset
 
+
 # Print out the end date of the time series dataset
 
+
 # Print out the first few rows  
+
 
 # Print out the last few rows  
 
@@ -107,10 +110,13 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Print out the start date of the time series dataset
 start(DAX)
+
 # Print out the end date of the time series dataset
 end(DAX)
+
 # Print out the first rows  
 head(DAX)
+
 # Print out the last rows  
 tail(DAX)
 
