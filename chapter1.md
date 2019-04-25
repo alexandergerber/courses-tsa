@@ -138,7 +138,7 @@ xp: 100
 By printing the first few rows you found out that the dataset consists of more than one time series (namely Open, High, Low, Close, Volume and Adjusted). Each time series is contained in one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
-- Use `names()` to find the name of the time series of daily closing prices.
+- Use `names()` to find the name of the time series of daily closing prices. The data set `DAX` is still loaded. 
 - Use a subsetting method to extract the closing prices and assign the result to a new variable called `close_daily`. 
 - Plot the single time series `close_daily` by calling `plot()`.
 
