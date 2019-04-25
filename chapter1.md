@@ -56,7 +56,7 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 ex() %>% check_library("quantmod")
 ex() %>% check_function("getSymbols") %>% 
-  check_arg(., "Symbols") %>% check_equal()
+  check_arg(., "symbols") %>% check_equal()
   check_arg(., "src") %>% check_equal()
   check_arg(., "auto.assign") %>% check_equal()
   }
@@ -365,6 +365,7 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 # Split the series in two parts
 
 
+
 # Plot the 2 time series
 par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 
@@ -375,6 +376,7 @@ par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 # Split the series in two parts
 close1 <- window(close, start = c(2007, 1), end = c(2012, 12))
 close2 <- window(close, start = c(2013, 1))
+
 # Plot the 2 time series
 par(mfrow = c(1,2)) # this puts the follwing plots next to each other
 plot(close1)
