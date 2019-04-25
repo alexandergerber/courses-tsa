@@ -147,9 +147,12 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Find the column names
 
+
 # Extract the closing prices 
 
+
 # Plot the closing prices
+
 
 
 ```
@@ -158,8 +161,10 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Find the column names
 names(DAX)
+
 # Extract the closing prices 
 close_daily <- DAX[ ,"GDAXI.Close"]
+
 # Plot the closing prices
 plot(close_daily)
 
