@@ -212,11 +212,15 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Find out the class of the downloaded object
 
+
 # Convert the DAX data set from daily data to monthly data
+
 
 # Extract the monthly closing prices
 
+
 # Plot the monthly cloasing prices
+
 
 ```
 
@@ -224,10 +228,13 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```{r}
 # Find out the class of the downloaded object
 class(DAX)
+
 # Convert the DAX data set from daily data to monthly data
 DAX_monthly <- to.monthly(DAX)
+
 # Extract the monthly closing prices
 close_monthly <- DAX_monthly$DAX.Close
+
 # Plot the monthly cloasing prices
 plot(close_monthly)
 ```
