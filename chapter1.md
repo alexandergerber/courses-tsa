@@ -17,7 +17,7 @@ by the `quantmod` package. The package contains the function `getSymbols()` whic
 and the Federal Reserve Bank of St. Louis (`src = "FRED"`). 
 
 For example, to import DAX data from Yahoo Finance we have to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
-a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
+a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(Symbols = .,src = "yahoo", auto.assign = FALSE)` (replace the dot by the symbol) and assign the result to a variable using `<-`.
 
 `@instructions`
 - Load the `quantmod` package with `library()`.
