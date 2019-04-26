@@ -79,8 +79,8 @@ $$Y _t = m _t + s_t + X _t$$
 
 where 
 
-- $m _t$ is the trend component
-- $s _t$ is the seasonal component
+- $m _t$ is the trend component,
+- $s _t$ is the seasonal component,
 - $X _t$ is the random component.
 
 We start by assuming that the seasonal pattern is simply repeating without any change, i.e. $s _t = s _{t+d}$, where $d$ is the length of one cycle.
@@ -110,6 +110,8 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 # Produce monthly time series of class ts
 
 
+# Subset the series from Jan. 2010 until the end
+
 
 # Plot con_supply2010
 
@@ -119,6 +121,8 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 ```{r}
 # Produce monthly time series of class ts
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+
+# Subset the series from Jan. 2010 until the end
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 # Plot con_supply2010
@@ -150,18 +154,18 @@ Since we assume a linear trend we can estimate the trend using the model
 
 $$y _t = \beta _0 + \beta_1 t + u _t.$$
 
-OLS can be used to estimate the model coefficents. Note that $u _t$ contains the seasonal and the stochastic component.  As trend estimate we get
-$$\hat{m} _t = \hat{\beta _0} + \hat{\beta _1} t.$$
+OLS can be used to estimate the model coefficents. Note that $u _t$ contains the seasonal and the stochastic component.  The trend estimate is
+$$\widehat{m} _t = \widehat{\beta _0} + \widehat{\beta _1} t.$$
 
 In R the above model can be estimated by `tslm(ts ~ trend)`. 
-The function `tslm()` extends the standard `lm()` function by adding additional functionality for time series data. 
+The function `tslm()` extends the standard `lm()` function by providing additional functionality for time series data. 
 
 A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
 The series of fitted values can be extracted by `fitted(model)`.
 
 `@instructions`
 - Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
-- Plot the original series together with the estimated linear trend.
+- Plot the original series together with the estimated linear trend (use `autoplot()` and `autolayer()` for this).
 
 `@hint`
 
@@ -211,14 +215,14 @@ key: 142f2066a9
 xp: 100
 ```
 
-The assumption of a linear trend is often unrealistic. To account for changes in the trend behaviour of a time series the trend can be estimated by an accordingly specified moving average filter. 
+The assumption of a linear trend is often not realistic. To account for changes in the trend behavior of a time series the trend can be estimated by an accordingly specified moving average filter. 
 
 For a cycle with odd length (e.g. weekly data) we can use the filter
-$$\hat{m}_ t = \frac{1}{2q +1} \sum _{j = -q}^q y _{t-j}, \qquad t = q + 1, \ldots, T-q$$
+$$\widehat{m}_ t = \frac{1}{2q +1} \sum _{j = -q}^q y _{t-j}, \qquad t = q + 1, \ldots, T-q,$$
 where we choose $q$ such that $d = 2q$. 
 
 In case of an even cycle length one should use 
-$$\hat{m}_ t = (0.5 y _{t-q} + y _{t-q+1} + \ldots +  y _{t+q-1} +  0.5 y _{t+q})$$
+$$\widehat{m}_ t = (0.5 y _{t-q} + y _{t-q+1} + \ldots +  y _{t+q-1} +  0.5 y _{t+q}),$$
 where $d = 2q +1$.
 
 If the `frequency` attribute 
@@ -227,7 +231,7 @@ The trend estimate can be extracted by `decompose(y)$trend`.
 
 `@instructions`
 - Estimate the trend of `con_supply2010` using a moving average filter and assign the result to `trend_ma`.
-- Produce a plot with the original data and the moving average trend.
+- Produce a plot with the original data and the moving average trend (use `autoplot()` and `autolayer()` for this).
 
 `@hint`
 
@@ -243,7 +247,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-# Use Decompose to estimate the trend via an moving average filter
+# Use decompose() to estimate the trend via an moving average filter
 
 
 # Plot the series together with the estimated trend 
@@ -264,7 +268,7 @@ autoplot(con_supply2010) + autolayer(trend_ma)
 ex() %>% check_object("trend_ma") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
-success_msg("Great!")
+success_msg("Great! Can you guess why there are 12 rows missing?")
 ```
 
 ---
@@ -277,14 +281,15 @@ key: e9d18ca8ce
 xp: 100
 ```
 
-In contrast to the two before mentioned methods we will now eliminate the trend instead of estimating it. 
+In contrast to the two methods mentioned before we will now eliminate the trend instead of estimating it. 
 This can be done by computing the first differences $\Delta y _t = y _t - y _{t-1}$. If the data contains a linear time trend then the 
 trend in the transformed series  $\Delta y _t$ is eliminated.  
 
 In R we can use the function `diff(y, lag = 1)` to compute $\Delta y _t$.
 
 `@instructions`
-Use first differences to remove the time trend of `con_supply2010`. Assign the result to `x_diff`.
+- Compute first differences to remove the time trend of `con_supply2010`. Assign the result to `x_diff`.
+- Plot the differenced series (use `autoplot()` for this).
 
 `@hint`
 
@@ -300,22 +305,29 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-## First differences
+# Compute first differences
+
+
+# Plot the differenced series
 
 
 ```
 
 `@solution`
 ```{r}
-# First differences 
+# Compute first differences 
 x_diff <- diff(con_supply2010, lag = 1)
+
+# Plot the differenced series
+autoplot(x_diff)
 
 ```
 
 `@sct`
 ```{r}
 ex() %>% check_object("x_diff") %>% check_equal()
-success_msg("Great!")
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+success_msg("Great! The differenced series contains no trend anymore.")
 ```
 
 ---
@@ -336,7 +348,7 @@ to compute and plot the ACF.
 
 `@instructions`
 - Remove the trend component by subtracting the trend estimate `trend_lm` from the original series and save the result as `con_supply2010_detrended`. 
-- Plot the detrended series. 
+- Plot the detrended series (use `autoplot()` for this). 
 - Plot the autocorrelation function of the detrended series. Do you see what is special about it?
 
 `@hint`
@@ -397,16 +409,16 @@ xp: 100
 To deal with the seasonality we can extend the methods used for estimating/eliminating the time trend. 
 
 If we assume a linear time trend and a constant seasonal pattern we can use `tslm(y ~ trend + season)` 
-to estimate $m _t$ and $s _t$ . This will run an OLS regression where for each but one month a dummy variable is automatically introduced.
+to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the trend regressor, for each but one month a dummy variable is automatically included.
 
 `@instructions`
 - Estimate trend and seasonality of `con_supply2010` using a linear model.
-- Plot the original series together with the fitted values of this model. 
+- Plot the original series together with the fitted values of this model (use `autoplot()` and `autolayer()` for this). 
 - Save the estimated random component as `con_supply2010_random1`.
-- Plot `con_supply2010_random1`.
+- Plot `con_supply2010_random1` (use `autoplot()` for this).
 
 `@hint`
-
+- The residuals of a model can be extracted by `residuals(model)`.
 
 `@pre_exercise_code`
 ```{r}
@@ -432,6 +444,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 # Plot the estimated random component
 
+
 ```
 
 `@solution`
@@ -447,14 +460,16 @@ con_supply2010_random1 <- residuals(seasonal_model)
 
 # Plot the estimated random component
 autoplot(con_supply2010_random1)
+
 ```
 
 `@sct`
 ```{r}
 ex() %>% check_object("seasonal_model") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autoplot", index = 1) %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_object("con_supply2010_random1") %>% check_equal()
+ex() %>% check_function("autoplot", index = 2) %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -468,16 +483,16 @@ key: 1862a60e6f
 xp: 100
 ```
 
-The function `decompose()` estimates the seasonal component as simple averages. This approach is numerically identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a nice plot of the seasonal decomposition is produced.
+The function `decompose()` estimates the seasonal component by computing simple averages. This approach is numerically identical to the dummy variables approach from the last exercise. If the result of `decompose()` is passed to `autoplot()` a neat plot of the seasonal decomposition is produced.
 
 `@instructions`
-- Use `decompose()` to estimate trend and seasonality of `con_supply2010`. Assign the result `con_supply2010_decomp`.
-- Plot the seasonal decomposition. 
+- Use `decompose()` to estimate the trend and seasonality of `con_supply2010`. Assign the result to `con_supply2010_decomp`.
+- Plot the seasonal decomposition.
 - Extract the random component from `con_supply2010_decomp` and save it as `con_supply2010_random2`.
-- Plot `con_supply2010_random2`.
+- Plot `con_supply2010_random2` (use `autoplot()` for this as well).
 
 `@hint`
-
+- The random component can be extracted by `decompose(series)$random`.
 
 `@pre_exercise_code`
 ```{r}
@@ -500,6 +515,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 
 # Plot the random component
+
 
 ```
 
@@ -517,11 +533,14 @@ con_supply2010_random2 <- con_supply2010_decomp$random
 # Plot the random component
 autoplot(con_supply2010_random2)
 
-
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_object("con_supply2010_decomp") %>% check_equal()
+ex() %>% check_function("autoplot", index = 1) %>% check_arg("object") %>% check_equal()
+ex() %>% check_object("con_supply2010_random2") %>% check_equal()
+ex() %>% check_function("autoplot", index = 2) %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -535,8 +554,8 @@ key: 281b640848
 xp: 100
 ```
 
-We can eliminate a constant seasonal pattern by using seasonal differences. For this we compute differences between  $y _t$ and  $y _{t-d}$ where $d$ is the length of one cycle. 
-$$\Delta_d y _t = y _t - y _{t-d}$$
+We can eliminate a constant seasonal pattern by using seasonal differences. For this we compute differences between  $y _t$ and  $y _{t-d}$ where $d$ is the length of one cycle
+$$\Delta_d y _t = y _t - y _{t-d}.$$
 In R we can compute $\Delta_d y _t$ by `diff(y, lag = d)`.
 
 If there is a trend and seasonality we can eliminate both by applying 
@@ -545,10 +564,10 @@ $$\Delta_d \Delta y _t.$$
 `@instructions`
 - Compute the first differences of `con_supply2010` to eliminate the trend and assign the result to `first_diff`. 
 - Apply the operator for seasonal differences to the first differences to eliminate the seasonality and save the result as `con_supply2010_random3`.
-- Plot `con_supply2010_random3`.
+- Plot `con_supply2010_random3` (use autoplot() for this).
 
 `@hint`
-
+- Remember that $d=12$ for the series at hand.
 
 `@pre_exercise_code`
 ```{r}
@@ -569,6 +588,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 # Plot con_supply2010_random3
 
+
 ```
 
 `@solution`
@@ -581,9 +601,13 @@ con_supply2010_random3 <- diff(first_diff, lag = frequency(con_supply2010))
 
 # Plot con_supply2010_random3
 autoplot(con_supply2010_random3)
+
 ```
 
 `@sct`
 ```{r}
+ex() %>% check_object("first_diff") %>% check_equal()
+ex() %>% check_object("con_supply2010_random3") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
