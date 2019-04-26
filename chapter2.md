@@ -300,7 +300,9 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@sample_code`
 ```{r}
-## First differences 
+## First differences
+
+
 ```
 
 `@solution`
@@ -458,7 +460,7 @@ success_msg("Great!")
 
 ---
 
-## Estimate Trend and Seasonality using Decompose
+## Estimate Trend and Seasonality Using Decompose
 
 ```yaml
 type: NormalExercise

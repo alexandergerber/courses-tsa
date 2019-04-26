@@ -171,7 +171,7 @@ success_msg("Great!")
 
 ---
 
-## Plot the simulated ARMA data
+## Plot the Simulated ARMA Data
 
 ```yaml
 type: NormalExercise
@@ -222,6 +222,12 @@ ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 `@sample_code`
 ```{r}
 # Plot all 4 series next to each other
+
+
+
+
+
+
 ```
 
 `@solution`
@@ -405,6 +411,7 @@ $$y _t = 0.8 y _{t-1} +  \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2}
 ```{r}
 # Compute ACF and PACF of the ARMA process
 
+
 ```
 
 `@solution`
@@ -476,6 +483,11 @@ ma2 <- arima.sim(model = list(ma = c(0.6, 0.3)), n = 1000)
 
 
 # Plot the ACF/PACF of the MA(1) and MA(2) time series
+
+
+
+
+
 ```
 
 `@solution`
