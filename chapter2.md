@@ -219,11 +219,11 @@ The assumption of a linear trend is often not realistic. To account for changes 
 
 For a cycle with odd length (e.g. weekly data) we can use the filter
 $$\widehat{m}_ t = \frac{1}{2q +1} \sum _{j = -q}^q y _{t-j}, \qquad t = q + 1, \ldots, T-q,$$
-where we choose $q$ such that $d = 2q$. 
+where we choose $q$ such that $d = 2q + 1$. 
 
 In case of an even cycle length one should use 
 $$\widehat{m}_ t = (0.5 y _{t-q} + y _{t-q+1} + \ldots +  y _{t+q-1} +  0.5 y _{t+q}),$$
-where $d = 2q +1$.
+where $d = 2q$.
 
 If the `frequency` attribute 
 of the time series is set correctly the function `decompose(y)` automatically decides which of the 2 versions should be used.
