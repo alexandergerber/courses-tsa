@@ -316,16 +316,16 @@ ARMAacf(ar = c(0.5), lag = 10)
 ARMAacf(ar = c(0.5), lag = 10, pacf = TRUE)
 
 # ACF and PACF of an AR(2)
-ARMAacf(ar = c(0.5, 0.3), lag = 10)
-ARMAacf(ar = c(0.5, 0.3), lag = 10, pacf = TRUE)
+ARMAacf(ar = c(0.4, 0.3), lag = 10)
+ARMAacf(ar = c(0.4, 0.3), lag = 10, pacf = TRUE)
 
 # ACF and PACF of an MA(1)
-ARMAacf(ma = c(0.7), lag = 10)
-ARMAacf(ma = c(0.7), lag = 10, pacf = TRUE)
+ARMAacf(ma = c(0.8), lag = 10)
+ARMAacf(ma = c(0.8), lag = 10, pacf = TRUE)
 
 # ACF and PACF of an MA(2)
-ARMAacf(ma = c(0.7, 0.3), lag = 10)
-ARMAacf(ma = c(0.7, 0.3), lag = 10, pacf = TRUE)
+ARMAacf(ma = c(1.5, -0.6), lag = 10)
+ARMAacf(ma = c(1.5, -0.6), lag = 10, pacf = TRUE)
 ```
 
 `@sct`
