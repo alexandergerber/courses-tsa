@@ -115,7 +115,7 @@ arima.sim(model = list(ar =c(0.6), ma = c(0.6, 0.3)), n = 1000)
 - Simulate data from the process 
 $$y _t = 0.9 y _{t-1} +  \epsilon _t,\quad t = 1,...,1000$$ and save the result as `ar1` 
 - Simulate data from the process 
- $$y _t = 0.5 y _{t-1} + 0.3 y _{t-2} +  \epsilon _t,\quad t = 1,...,1000$$ and save the result as `ar2`
+ $$y _t = 0.5 y _{t-1} + 0.4 y _{t-2} +  \epsilon _t,\quad t = 1,...,1000$$ and save the result as `ar2`
 - Simulate data from the process 
 $$y _t = \epsilon _t + 0.6\epsilon _{t-1} , \quad t = 1,...,1000$$ and save the result as `ma1` 
 - Simulate data from the process 
