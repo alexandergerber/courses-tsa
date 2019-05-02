@@ -449,7 +449,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 `@solution`
 ```{r}
-# Estimate a model with trend and seasonality and assing it to `seasonal_model`
+# Estimate a model with trend and seasonality
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
 
 # Plot the series together with the fitted values
