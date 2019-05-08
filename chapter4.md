@@ -31,6 +31,8 @@ All later observed data form the test set because we use those to test the forec
 
 `@pre_exercise_code`
 ```{r}
+library(quantmod)
+library(forecast)
 con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
@@ -60,4 +62,234 @@ test <- window(con_supply2010, start = c(2018,1))
 ex() %>% check_object("train") %>% check_equal()
 ex() %>% check_object("test") %>% check_equal()
 success_msg("Great!")
+```
+
+---
+
+## Estimate a  Model for Trend and Seasonality
+
+```yaml
+type: NormalExercise
+key: 1f04a8aad5
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Forecast the Seasonal Model
+
+```yaml
+type: NormalExercise
+key: af875b0bad
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Dynamic and Static Forecasts for ARMA Models 1
+
+```yaml
+type: NormalExercise
+key: 05ad85824e
+xp: 100
+```
+
+We distinguish 2 types of forecasts: 
+
+- dynamic forecasts predict multiple steps into the future (i.e. n-step-ahead)
+- static forecasts predict only one step into the future (i.e. 1-step-ahead)
+
+Lets start with an example of a dynamic forecast for an ARMA-model. 
+
+
+
+
+`@instructions`
+- Fit an AR(1)-model to `train_random` and save the resulting object as `ar1_mod`. 
+- Use `forecast()` to predict the values for the next year of the random component and save the result as `ar1_dyn_pred`.
+- Use `autoplot()` to visualize the predicted values. What do you observe?
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+```
+
+`@sample_code`
+```{r}
+# Fit the AR(1) model 
+
+
+# Forecast the Values for the next year
+
+
+# Plot the forecast
+
+```
+
+`@solution`
+```{r}
+# Fit the AR(1) model 
+ar1_mod <- Arima(train_random, order = c(1,0,0))
+
+# Forecast the Values for the next year
+ar1_dyn_pred <- forecast(ar1_mod, h = 24)
+
+# Plot the Forecast
+autoplot(ar1_dyn_pred)
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Dynamic and Static Forecasts for ARMA Models 2
+
+```yaml
+type: NormalExercise
+key: 785d9a6669
+xp: 100
+```
+
+You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much for predictions which are more than a couple of steps ahead of the current value. 
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Model Selection Based on Static Forecast
+
+```yaml
+type: NormalExercise
+key: 9d347a23b0
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
 ```
