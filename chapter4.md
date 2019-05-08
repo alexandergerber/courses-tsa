@@ -3,7 +3,7 @@ title: Forecasting
 description: ""
 ---
 
-## Training and Test data 
+## Training and Test data
 
 ```yaml
 type: NormalExercise
@@ -20,7 +20,7 @@ In practice we therefore wind back and pretend that only data until a specific d
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
-All later observed data form the test set because we use those to test the forecasting performance. 
+All later observed data form the test set because we use those to test the forecasting performance.
 
 `@instructions`
 - Create a training data set containing all observations of `con_supply2010` until the end of `2017` and assign it to the variable `train`
@@ -162,10 +162,7 @@ We distinguish 2 types of forecasts:
 - dynamic forecasts predict multiple steps into the future (i.e. n-step-ahead)
 - static forecasts predict only one step into the future (i.e. 1-step-ahead)
 
-Lets start with an example of a dynamic forecast for an ARMA-model. 
-
-
-
+Lets start with an example of a dynamic forecast for an ARMA-model.
 
 `@instructions`
 - Fit an AR(1)-model to `train_random` and save the resulting object as `ar1_mod`. 
@@ -229,7 +226,7 @@ xp: 100
 ```
 
 You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much for predictions which are more than a couple of steps ahead of the current value. Usually, For MA-Models there is even less dependence over time. 
-Usually, ARMA-Models are used to perform 1-step ahead-forecasts.  
+Usually, ARMA-Models are used to perform 1-step ahead-forecasts.
 
 `@instructions`
 
