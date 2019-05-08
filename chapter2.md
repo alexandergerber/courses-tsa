@@ -412,7 +412,7 @@ If we assume a linear time trend and a constant seasonal pattern we can use `tsl
 to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the trend regressor, for each but one month a dummy variable is automatically included.
 
 `@instructions`
-- Estimate trend and seasonality of `con_supply2010` using a linear model and assign it to `seasonal_model`
+- Estimate trend and seasonality of `con_supply2010` using a linear model and assign it to `seasonal_model`.
 - Plot the original series together with the fitted values of this model (use `autoplot()` and `autolayer()` for this). 
 - Save the estimated random component as `con_supply2010_random1`.
 - Plot `con_supply2010_random1` (use `autoplot()` for this).
