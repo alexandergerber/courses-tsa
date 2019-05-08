@@ -15,12 +15,12 @@ One of the main purposes of time series analysis is to predict future values of 
 If we are looking for a model aiming to predict the future we would like to choose the model with the "best" forecasting performance (i.e. "best" out-of-sample fit).
 Compare this to  chapter 3 where we chose a model based on its in-sample fit. 
 
-In order to evaluate our forecast of future values we would have to wait until we observe the future values. 
-In practice we therefore wind back and pretend that only data until a specific date in the past were observed . 
+In order to evaluate our forecast of future values we would have to wait until those were observed. 
+In practice we therefore wind back and pretend that only data until a specific date in the past are available. 
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
-All later observed data from the test set because we use those to test the forecasting performance. 
+All later observed data form the test set because we use those to test the forecasting performance. 
 
 `@instructions`
 - Create a training data set containing all observations of `con_supply2010` until the end of `2017` and assign it to the variable `train`
