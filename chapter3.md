@@ -675,7 +675,6 @@ con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
 con_supply2010_random1 <- residuals(seasonal_model)
-
 ```
 
 `@sample_code`
