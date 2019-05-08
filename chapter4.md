@@ -228,7 +228,8 @@ key: 785d9a6669
 xp: 100
 ```
 
-You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much for predictions which are more than a couple of steps ahead of the current value. 
+You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much for predictions which are more than a couple of steps ahead of the current value. Usually, For MA-Models there is even less dependence over time. 
+Usually, ARMA-Models are used to perform 1-step ahead-forecasts.  
 
 `@instructions`
 
