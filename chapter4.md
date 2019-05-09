@@ -206,7 +206,7 @@ con_supply_random <- ts(c(train_rndm, test_rndm), start=start(train_rndm), frequ
 ex() %>% check_object("train_rndm") %>% check_equal()
 ex() %>% check_function("residuals", index  = 1)
 ex() %>% check_object("test_seas") %>% check_equal()
-ex() %>% check_function("forecast", index  = 2) %>% check_arg("h") %>% check_equal()
+ex() %>% check_function("forecast", index  = 1) %>% check_arg("h") %>% check_equal()
 ex() %>% check_object("test_rndm") %>% check_equal()
 ex() %>% check_object("con_supply_random") %>% check_equal()
 success_msg("You Rock!")
