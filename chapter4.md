@@ -146,9 +146,11 @@ Furthermore, it is usually desired to predict the deterministic components for t
 `train` and `test` as well as `seas_mod` are already available in your working environment.
 
 `@instructions`
-- Calculate the random component of the train dataset
+- Calculate the random component of the train dataset and assign it to `train_rndm`
 
-- Predict the random component for the time of the test dataset
+- Predict the seasonal component of the test data and assign it to `test_seas`
+
+- Calculate the random component of the test data and assign it to `test_rndm`
 
 `@hint`
 
