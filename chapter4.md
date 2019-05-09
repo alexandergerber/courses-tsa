@@ -182,7 +182,7 @@ train_random <- residuals(seas_mod)
 
 
 # Merge train and test together without trend and season
-con_supply_random <- ts(c(___ , ___), start= start(___), frequency= frequency(___))
+con_supply_random <- ts(c(### , ###), start= start(###), frequency= frequency(###))
 ```
 
 `@solution`
