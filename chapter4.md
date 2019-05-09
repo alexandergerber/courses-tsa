@@ -139,11 +139,11 @@ key: af875b0bad
 xp: 100
 ```
 
-In this Exercise we want to extract the random component of our time Series. 
+In this Exercise, we want to extract the random component of our time Series. 
 
 You will use that data later to evaluate our model predictions.
 
-`train` and `test` as well as `seas_mod` are already available in your working environment.
+`train`, `test` and `seas_mod` are already available in your working environment.
 
 `@instructions`
 - Calculate the random component of the train dataset and assign it to `train_rndm`
