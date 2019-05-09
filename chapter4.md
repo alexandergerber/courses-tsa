@@ -139,9 +139,9 @@ key: af875b0bad
 xp: 100
 ```
 
-Now that you successfully estimated the seasonal model we can use it to extract the random component of our time series.
-To do we can use the residuals of our model to get the random component of our training data.
-Furthermore, it is usually desired to predict the deterministic components for the future. We do that to calculate the random component of our test dataset. You will use that data later to evaluate your model predictictions.
+In this Exercise we want to extract the random component of our time Series. 
+
+You will use that data later to evaluate our model predictions.
 
 `train` and `test` as well as `seas_mod` are already available in your working environment.
 
