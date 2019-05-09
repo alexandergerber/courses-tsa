@@ -191,7 +191,7 @@ con_supply_random <- ts(c(___ , ___), start= start(___), frequency= frequency(__
 train_rndm <- residuals(seas_mod)
 
 # Forecast Season + Trend for the test data
-test_seas <- forecast(seas_mod, h = length(con_supply_test))$mean
+test_seas <- forecast(seas_mod, h = length(test))$mean
 
 # Detrend and Deseasonalize test data
 test_rndm <- test - test_seas
