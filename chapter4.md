@@ -148,9 +148,11 @@ Furthermore, it is usually desired to predict the deterministic components for t
 `@instructions`
 - Calculate the random component of the train dataset and assign it to `train_rndm`
 
-- Predict the seasonal component of the test data and assign it to `test_seas`
+- Predict the seasonal component of the test data and assign it to `test_seas`. You can use `forecast()` for this.
 
 - Calculate the random component of the test data and assign it to `test_rndm`
+
+- Create `con_supply_random` a time series that combines `train_rndm` and `test_rndm` you can use `ts()` for that.
 
 `@hint`
 
