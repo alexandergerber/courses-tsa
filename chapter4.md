@@ -148,14 +148,16 @@ You will use that data later to evaluate our model predictions.
 `@instructions`
 - Calculate the random component of the train dataset and assign it to `train_rndm`
 
-- Predict the seasonal component of the test data and assign it to `test_seas`. You can use `forecast()` for this.
+- Predict the seasonal component of the test data and assign it to `test_seas`. You can use `forecast()` for this and access the prediction with `$mean`.
 
 - Calculate the random component of the test data and assign it to `test_rndm`
 
 - Create `con_supply_random` a time series that combines `train_rndm` and `test_rndm` you can use `ts()` for that.
 
 `@hint`
+- Remember that the random component is that part of our seasonal model that can't be explained by seasonality or trend.
 
+-
 
 `@pre_exercise_code`
 ```{r}
