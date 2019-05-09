@@ -157,7 +157,7 @@ You will use that data later to evaluate our model predictions.
 `@hint`
 - Remember that the random component is that part of our seasonal model that can't be explained by seasonality or trend.
 
-- When forecasting you have to specify how many steps you want to predict. Here the steps should be equal to the number of observations in the test data.
+- When forecasting you have to specify how many steps you want to predict. In our example the steps should be equal to the number of observations in the test data.
 
 -
 
