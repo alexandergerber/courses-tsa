@@ -15,8 +15,8 @@ One of the main purposes of time series analysis is to predict future values of 
 If we are looking for a model aiming to predict the future we would like to choose the model with the "best" forecasting performance (i.e. "best" out-of-sample fit).
 Compare this to Chapter 3 where we chose a model based on its in-sample fit. 
 
-In order to evaluate our forecast of future values we would have to wait until those were observed. 
-In practice we therefore wind back and pretend that only data until a specific date in the past are available. 
+In order to evaluate our forecast of future values, we would have to wait until those were observed. 
+In practice, we, therefore, wind back and pretend that only data until a specific date in the past are available. 
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
@@ -139,10 +139,16 @@ key: af875b0bad
 xp: 100
 ```
 
+Now that you successfully estimated the seasonal model we can use it to extract the random component of our time series.
+To do we can use the residuals of our model to get the random component of our training data.
+Furthermore, it is usually desired to predict the deterministic components for the future. We do that to calculate the random component of our test dataset. You will use that data later to evaluate your model predictictions.
 
+`train` and `test` as well as `seas_mod` are already available in your working environment.
 
 `@instructions`
+- Calculate the random component of the train dataset
 
+- Predict the random component for the time of the test dataset
 
 `@hint`
 
