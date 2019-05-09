@@ -172,7 +172,17 @@ train_random <- residuals(seas_mod)
 
 `@sample_code`
 ```{r}
+# Detrend and Deseasonalize training data
+train_rndm <- residuals(seas_mod)
 
+# Forecast Season + Trend for the test data
+test_seas <- forecast(seas_mod, h = length(con_supply_test))$mean
+
+# Detrend and Deseasonalize test data
+test_rndm <- test - test_seas
+
+# Merge train and test together without trend and season
+con_supply_random <- ts(c(train_rndm, test_rndm), start=start(train_rndm), frequency=frequency(train_rndm))
 ```
 
 `@solution`
@@ -187,7 +197,7 @@ test_seas <- forecast(seas_mod, h = length(con_supply_test))$mean
 test_rndm <- test - test_seas
 
 # Merge train and test together without trend and season
-con_supply_random <- ts(c(con_supply_train_clean, con_supply_test_clean), start=start(con_supply_train_clean), frequency=frequency(con_supply_train_clean))
+con_supply_random <- ts(c(train_rndm, test_rndm), start=start(train_rndm), frequency=frequency(train_rndm))
 
 ```
 
