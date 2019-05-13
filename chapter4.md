@@ -255,7 +255,7 @@ seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
 test_random <- test - test_seas
-all_random <- ts(c(train_rndm, test_rndm), start=start(train_random), frequency=frequency(test_random))
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
 
 ```
 
@@ -336,7 +336,7 @@ seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
 test_random <- test - test_seas
-all_random <- ts(c(train_rndm, test_rndm), start=start(train_random), frequency=frequency(test_random))
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
 
 ```
 
