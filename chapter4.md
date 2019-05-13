@@ -179,9 +179,6 @@ train_random <- residuals(seas_mod)
 
 `@sample_code`
 ```{r}
-# Detrend and Deseasonalize training data
-
-
 # Forecast Season + Trend for the test data
 
 
@@ -207,9 +204,8 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 
 `@sct`
 ```{r}
-ex() %>% check_function("residuals", index  = 1)
 ex() %>% check_object("test_seas") %>% check_equal()
-ex() %>% check_function("forecast", index  = 1) %>% check_arg("h") %>% check_equal()
+ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
 ex() %>% check_object("test_random") %>% check_equal()
 ex() %>% check_object("all_random") %>% check_equal()
 success_msg("You Rock!")
@@ -355,7 +351,7 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 `@solution`
 ```{r}
 # Fit ARMA(1,1) model
-arma11 <- Arima(train_random, model = c(1,0,1))
+arma11 <- Arima(train_random, order = c(1,0,1))
 
 # 1-step-ahead predictions
 fitted_all <- fitted(Arima(all_random, model = arma11))
