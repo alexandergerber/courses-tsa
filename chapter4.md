@@ -16,7 +16,7 @@ If we are looking for a model aiming to predict the future we would like to choo
 Compare this to Chapter 3 where we chose a model based on its in-sample fit. 
 
 In order to evaluate our forecast of future values, we would have to wait until those were observed. 
-In practice, we, therefore, wind back and pretend that only data until a specific date in the past are available. 
+In practice, we therefore wind back and pretend that only data until a specific date in the past are available. 
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
@@ -174,6 +174,7 @@ train <- window(con_supply2010, end = c(2017,12))
 test <- window(con_supply2010, start = c(2018,1))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
+
 ```
 
 `@sample_code`
@@ -193,17 +194,14 @@ con_supply_random <- ts(c(    ,    ), start= start(   ), frequency= frequency(  
 
 `@solution`
 ```{r}
-# Detrend and Deseasonalize training data
-train_rndm <- residuals(seas_mod)
-
 # Forecast Season + Trend for the test data
 test_seas <- forecast(seas_mod, h = length(test))$mean
 
 # Detrend and Deseasonalize test data
-test_rndm <- test - test_seas
+test_random <- test - test_seas
 
 # Merge train and test together without trend and season
-con_supply_random <- ts(c(train_rndm, test_rndm), start=start(train_rndm), frequency=frequency(train_rndm))
+all_random <- ts(c(train_rndm, test_rndm), start=start(train_random), frequency=frequency(test_random))
 
 ```
 
@@ -256,6 +254,10 @@ train <- window(con_supply2010, end = c(2017,12))
 test <- window(con_supply2010, start = c(2018,1))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
+test_seas <- forecast(seas_mod, h = length(test))$mean
+test_random <- test - test_seas
+all_random <- ts(c(train_rndm, test_rndm), start=start(train_random), frequency=frequency(test_random))
+
 ```
 
 `@sample_code`
@@ -285,7 +287,10 @@ autoplot(ar1_dyn_pred)
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("ar1_mod") %>% check_equal()
+ex() %>% check_object("ar1_dyn_pred") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_argument("x") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -298,33 +303,76 @@ key: 785d9a6669
 xp: 100
 ```
 
-You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much for predictions which are more than a couple of steps ahead of the current value. Usually, For MA-Models there is even less dependence over time. 
-Usually, ARMA-Models are used to perform 1-step ahead-forecasts.
+You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much value for predictions which are more than a couple of steps ahead of the present. For MA-Models there is even less dependence over time. 
+For this reason ARMA-Models are usually used to perform (or improve) 1-step-ahead forecasts. 
+What we want to do here is to produce 1-step-ahead forecasts for the entire test sample. This can be done as follows: 
+
+1. Estimate the model coefficients on the training data (all data up to time $T$)
+2. Use the estimated model and all Information available up to time $T$ to predict $y_{T+1}$
+3. Use the estimated model and all Information available up to time $T+1$ to predict $y_{T+2}$
+4. Continue until you have for every observation in the test data a prediction. 
+
+With the function `Arima()` it is easy to accomplish that:
+```
+Arima(data, model = estimated_model)
+```
+
 
 `@instructions`
-
+- Fit an ARMA(1,1) model to the training data
+- Use the estimated model to compute 1-step-ahead forecasts for the entire test set
 
 `@hint`
 
 
 `@pre_exercise_code`
 ```{r}
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+test_seas <- forecast(seas_mod, h = length(test))$mean
+test_random <- test - test_seas
+all_random <- ts(c(train_rndm, test_rndm), start=start(train_random), frequency=frequency(test_random))
 
 ```
 
 `@sample_code`
 ```{r}
+# Fit ARMA(1,1) model
+
+
+# 1-step-ahead predictions
+
+
+# Extract test set predictions
 
 ```
 
 `@solution`
 ```{r}
+# Fit ARMA(1,1) model
+arma11 <- Arima(train_random, model = c(1,0,1))
+
+# 1-step-ahead predictions
+fitted_all <- fitted(Arima(all_random, arma11))
+
+# Extract test set predictions
+fitted_test <- fitted_all[-(1:length(train))]
 
 ```
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("arma11") %>% check_equal()
+ex() %>% check_object("fitted_all") %>% check_equal()
+ex() %>% check_object("fitted_test") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
@@ -362,5 +410,5 @@ xp: 100
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
