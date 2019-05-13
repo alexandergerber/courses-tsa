@@ -317,7 +317,6 @@ With the function `Arima()` it is easy to accomplish that:
 Arima(data, model = estimated_model)
 ```
 
-
 `@instructions`
 - Fit an ARMA(1,1) model to the training data
 - Use the estimated model to compute 1-step-ahead forecasts for the entire test set
