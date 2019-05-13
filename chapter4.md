@@ -201,7 +201,7 @@ test_seas <- forecast(seas_mod, h = length(test))$mean
 test_random <- test - test_seas
 
 # Merge train and test together without trend and season
-all_random <- ts(c(train_rndm, test_random), start=start(train_random), frequency=frequency(test_random))
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
 
 ```
 
@@ -288,7 +288,7 @@ autoplot(ar1_dyn_pred)
 ```{r}
 ex() %>% check_object("ar1_mod") %>% check_equal()
 ex() %>% check_object("ar1_dyn_pred") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
 ```
 
