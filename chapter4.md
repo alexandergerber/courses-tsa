@@ -225,8 +225,7 @@ For later use we also want to detrend and deseasonalize the test data.
 Furthermore, we need the cleaned training and test data combined in one data set. 
 
 Note that this is not equivalent to what we have done in chapter 3 because there we used all data for the estimation.
-Here the estimation was only based on a part of the complete data set. 
-
+Here the estimation was only based on a part of the complete data set.
 
 `@instructions`
 - Compute the random component of the test data and assign it to `test_random`.
