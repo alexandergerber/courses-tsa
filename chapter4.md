@@ -16,7 +16,7 @@ If we are looking for a model aiming to predict the future we would like to choo
 Compare this to Chapter 3 where we chose a model based on its in-sample fit. 
 
 In order to evaluate our forecast of future values, we would have to wait until those were observed. 
-In practice, we therefore wind back and pretend that only data until a specific date in the past are available. 
+In practice, we therefore wind back and pretend that only data until a specific date in the past are available (lets call that day $T$). 
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
@@ -25,6 +25,7 @@ All later observed data form the test set because we use those to test the forec
 `@instructions`
 - Create a training data set containing all observations of `con_supply2010` until the end of `2017` and assign it to the variable `train`.
 - Create a test data set containing the remaining data and assign it to the variable `test`.
+- Note: `train` and `test` will be for the rest of this chapter in your working environment.
 
 `@hint`
 
@@ -76,11 +77,14 @@ key: 1f04a8aad5
 xp: 100
 ```
 
-Before we are able to estimate some ARMA model and provide forecasts for it we have to account for trend and seasonality in our data.
+Before we can forecast we need to repeat the steps from the previous two chapters on the training data:
+
+- deal with trend and seasonality 
+- fit an ARMA model to the residuals. 
 
 For simplicity let us again assume the classical additive decomposition model with a linear time trend and a constant seasonality cycle for our data.
 Making this assumption crucially simplifies things in a forecasting setting as it implies that both components behave deterministically in the future.
-So we are not only able to estimate and remove these components for our train data, but are also able to easily forecast these components and remove them for our test data.
+So we are not only able to estimate and remove these components for our training data, but are also able to easily forecast these components and remove them for our test data.
 
 In this exercise you will first estimate trend and seasonality and remove it from the train data. The next exercise then shows you how to precisely handle these components to extract the random component from the test data.
 
@@ -139,20 +143,21 @@ key: af875b0bad
 xp: 100
 ```
 
-In this Exercise, we want to extract the random component of our time Series. 
+Now we have estimated a model that handles trend and seasonality for the training data. 
+Our next aim is to use this model to predict the trend and the seasonal component of the test data. 
 
-You will use that data later to evaluate our model predictions.
+For this task the `forecast` package provides the function `forecast()`. 
+This function can be used as follows: 
 
-`train`, `test` and `seas_mod` are already available in your working environment.
+```
+forecast(fitted_model, h = number_of_steps_to_forecast)
+```
+This results in a point forecast but also provides prediction intervals. 
+For now we are only interested in the former which can be accessed by `$mean`.
 
 `@instructions`
-- Calculate the random component of the train dataset and assign it to `train_rndm`.
-
-- Predict the seasonal component of the test data and assign it to `test_seas`. You can use `forecast()` for this and access the prediction with `$mean`.
-
-- Calculate the random component of the test data and assign it to `test_rndm`.
-
-- Create `con_supply_random` a time series that combines `train_rndm` and `test_rndm` you can use `ts()` for that.
+- Use `seas_mod` to predict the seasonal component of the test data and assign the point forecast to `test_seas`.
+- Plot the test data together with your trend and seasonality forecast
 
 `@hint`
 - Remember that the random component is that part of our seasonal model that can't be explained by seasonality or trend.
@@ -182,11 +187,8 @@ train_random <- residuals(seas_mod)
 # Forecast Season + Trend for the test data
 
 
-# Detrend and Deseasonalize test data
+# Plot your forecast
 
-
-# Merge train and test together without trend and season
-con_supply_random <- ts(c(    ,    ), start= start(   ), frequency= frequency(   ))
 ```
 
 `@solution`
@@ -194,11 +196,7 @@ con_supply_random <- ts(c(    ,    ), start= start(   ), frequency= frequency(  
 # Forecast Season + Trend for the test data
 test_seas <- forecast(seas_mod, h = length(test))$mean
 
-# Detrend and Deseasonalize test data
-test_random <- test - test_seas
-
-# Merge train and test together without trend and season
-all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
+# Plot your forecast
 
 ```
 
@@ -211,6 +209,68 @@ ex() %>% check_object("all_random") %>% check_equal()
 success_msg("You Rock!")
 
 
+```
+
+---
+
+## Prepare the Test Data
+
+```yaml
+type: NormalExercise
+key: 7cd3b028f5
+xp: 100
+```
+
+For later use we also want to detrend and deseasonalize the test data. 
+Furthermore, we need the cleaned training and test data combined in one data set. 
+
+Note that this is not equivalent to what we have done in chapter 3 because there we used all data for the estimation.
+Here the estimation was only based on a part of the complete data set. 
+
+
+`@instructions`
+- Compute the random component of the test data and assign it to `test_random`.
+- Create `all_random` a time series that combines `train_random` and `test_random`.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+```
+
+`@sample_code`
+```{r}
+# Detrend and Deseasonalize test data
+
+
+# Merge train and test together without trend and season
+con_supply_random <- ts(c(    ,    ), start= start(   ), frequency= frequency(   ))
+```
+
+`@solution`
+```{r}
+# Detrend and Deseasonalize test data
+test_random <- test - test_seas
+
+# Merge train and test together without trend and season
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
+```
+
+`@sct`
+```{r}
+ex() %>% check_object("test_random") %>% check_equal()
+ex() %>% check_object("all_random") %>% check_equal()
+success_msg("You Rock!")
 ```
 
 ---
