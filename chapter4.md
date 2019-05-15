@@ -16,7 +16,7 @@ If we are looking for a model aiming to predict the future we would like to choo
 Compare this to Chapter 3 where we chose a model based on its in-sample fit. 
 
 In order to evaluate our forecast of future values, we would have to wait until those were observed. 
-In practice, we therefore wind back and pretend that only data until a specific date in the past are available (lets call that day $T$). 
+In practice, we therefore wind back and pretend that only data until a specific date in the past are available. 
 Then the remaining data can be used to evaluate the forecast. 
 
 We call all values up to this specific date the training data because we use those to "train" (i.e. estimate) our model.
