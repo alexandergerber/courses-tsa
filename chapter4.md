@@ -592,9 +592,11 @@ for(i in 1:nrow(grid)){
 
 `@solution`
 ```{r}
+predictions <- list()
 
 for(i in 1:length(mods)){
-  pred <- fitted(Arima(all_random, model = mods[[i]]))
+  predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
+  mses[i] <- mean((predictions[[i]] - test_random)^2)
 }
 
 
