@@ -491,17 +491,14 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 `@sample_code`
 ```{r}
 # Expand a grid of possible model orders
-grid <- expand.grid(0:2,0:2)
+
 
 # Create an empty list `mods` where the models can be stored
 
-mods <-  list()
 
 # Write a for loop that iterates over the rows of your grid and estimates the models
 
-for(i in 1:nrow(grid)){
-  mods[[i]] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
-}
+
 ```
 
 `@solution`
