@@ -437,10 +437,35 @@ key: 9d347a23b0
 xp: 100
 ```
 
+Forecasting is also a great way to do model selection. It is pretty straightforward:
 
+1. Estimate a variety of models that might be good.
+2. Predict the values for the test period.
+3. Compute a performance measure e.g. the MSE.
+4. Find out which model has the lowest MSE.
+
+You are asked to perform the first step in this exercise. Its the most challenging one.
+
+Whenever we are doing the same thing multiple times but with different values it's a great opportunity to use a for loop.
+
+Furthermore we need to gather all possible model orders in a matrix in order to use them in our for loop. This matrix can be easily created using the `expand.grid()` function.
+
+Here is a small example:
+`expand.grid(0:1,3:4)`
+This will give you the following matrix.
+
+  Var1 Var2
+1    0    3
+2    1    3
+3    0    4
+4    1    4
+
+Now it's time to practise!
 
 `@instructions`
+- Expand a grid of possible model orders. Consider orders from 0 to 2 for both, MA and AR, components.
 
+- Write a for loop that iterates over the rows of your grid and estimates the models
 
 `@hint`
 
@@ -452,12 +477,32 @@ xp: 100
 
 `@sample_code`
 ```{r}
+# Expand a grid of possible model orders
+grid <- expand.grid(0:2,0:2)
 
+# Create an empty list `mods` where the models can be stored
+
+mods <-  list()
+
+# Write a for loop that iterates over the rows of your grid and estimates the models
+
+for(i in 1:nrow(grid)){
+  mods[i] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
+}
 ```
 
 `@solution`
 ```{r}
+# Expand a grid of possible model orders
+grid <- expand.grid(0:2,0:2)
 
+# Create an empty list `mods` where the models can be stored
+
+mods <-  list()
+
+for(i in 1:nrow(grid)){
+  mods[i] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
+}
 ```
 
 `@sct`
