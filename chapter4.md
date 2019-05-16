@@ -587,7 +587,18 @@ for(i in 1:nrow(grid)){
 
 `@sample_code`
 ```{r}
+# Create `predictions` and `mses`
+predictions <- list()
+mses <- c()
 
+# Write the for loop
+for(i in 1:length(mods)){
+  predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
+  mses[i] <- mean((predictions[[i]] - test_random)^2)
+}
+
+# Save the best model
+best.model <- mods[[which.min(mses)]]
 ```
 
 `@solution`
@@ -599,7 +610,7 @@ for(i in 1:length(mods)){
   mses[i] <- mean((predictions[[i]] - test_random)^2)
 }
 
-
+best.model <- mods[[which.min(mses)]]
 ```
 
 `@sct`
