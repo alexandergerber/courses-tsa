@@ -204,8 +204,6 @@ test_seas <- forecast(seas_mod, h = length(test))$mean
 ```{r}
 ex() %>% check_object("test_seas") %>% check_equal()
 ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
-ex() %>% check_object("test_random") %>% check_equal()
-ex() %>% check_object("all_random") %>% check_equal()
 success_msg("You Rock!")
 
 
