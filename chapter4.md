@@ -500,7 +500,7 @@ mods <-  list()
 # Write a for loop that iterates over the rows of your grid and estimates the models
 
 for(i in 1:nrow(grid)){
-  mods[i] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
+  mods[[i]] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
 }
 ```
 
@@ -514,7 +514,7 @@ grid <- expand.grid(0:2,0:2)
 mods <-  list()
 
 for(i in 1:nrow(grid)){
-  mods[i] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
+  mods[[i]] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
 }
 ```
 
