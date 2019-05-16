@@ -620,7 +620,6 @@ best.model <- mods[[which.min(mses)]]
 `@sct`
 ```{r}
 ex() %>% check_object("predictions") %>% check_equal()
-ex() %>% check_function("expand.grid") 
 ex() %>% check_object("mses") %>% check_equal()
 ex() %>% check_function("fitted") 
 ex() %>% check_function("Arima") 
