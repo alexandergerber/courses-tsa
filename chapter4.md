@@ -454,11 +454,12 @@ Here is a small example:
 `expand.grid(0:1,3:4)`
 This will give you the following matrix.
 
-  Var1 Var2
-1    0    3
-2    1    3
-3    0    4
-4    1    4
+|   | Var1 | Var2 |
+|---|------|------|
+| 1 | 0    | 3    |
+| 2 | 1    | 3    |
+| 3 | 0    | 4    |
+| 4 | 1    | 4    |
 
 Now it's time to practise!
 
