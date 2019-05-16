@@ -520,5 +520,10 @@ for(i in 1:nrow(grid)){
 
 `@sct`
 ```{r}
-success_msg("Great!")
+ex() %>% check_object("grid") %>% check_equal()
+ex() %>% check_function("expand.grid") 
+ex() %>% check_object("mods") %>% check_equal()
+ex() %>% check_function("Arima") %>% check_arg("order") %>% check_equal()
+success_msg("Awesome!")
+
 ```
