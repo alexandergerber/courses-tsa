@@ -243,6 +243,7 @@ train <- window(con_supply2010, end = c(2017,12))
 test <- window(con_supply2010, start = c(2018,1))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
+test_seas <- forecast(seas_mod, h = length(test))$mean
 ```
 
 `@sample_code`
