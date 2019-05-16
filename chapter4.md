@@ -429,7 +429,7 @@ success_msg("Great!")
 
 ---
 
-## Model Selection Based on Static Forecast
+## Model Selection Based on Static Forecast 1
 
 ```yaml
 type: NormalExercise
@@ -527,7 +527,7 @@ success_msg("Awesome!")
 
 ---
 
-## Model Selection Based on Static Forecast
+## Model Selection Based on Static Forecast 2
 
 ```yaml
 type: NormalExercise
