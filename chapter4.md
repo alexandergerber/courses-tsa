@@ -545,10 +545,14 @@ Recall the 4 steps from Exercise 7:
 We finished step 1. Let's do the last three steps!
 
 `@instructions`
+- Compute one step ahead predictions for the whole test data and for each model. Use a for loop for this.
 
+- In the same for loop. Extract the fitted values from your predictions and compute the MSE.
+
+- Save the model with the lowest MSE into `best.model`.
 
 `@hint`
-
+- Recall from exercise 6 how to compute one step ahead predictions.
 
 `@pre_exercise_code`
 ```{r}
