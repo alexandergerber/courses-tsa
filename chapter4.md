@@ -544,7 +544,11 @@ Recall the 4 steps from Exercise 7:
 
 We finished step 1. Let's do the last three steps!
 
+`mods` and `test_random` is already loaded in your working environment.
+
 `@instructions`
+- Create `predictions`: an empty list for your predictions and ``
+
 - Compute one step ahead predictions for the whole test data and for each model. Use a for loop for this.
 
 - In the same for loop. Extract the fitted values from your predictions and compute the MSE.
@@ -552,11 +556,33 @@ We finished step 1. Let's do the last three steps!
 - Save the model with the lowest MSE into `best.model`.
 
 `@hint`
+- use `list()` to create an empty list and `c()` to create an empty vector.
+
 - Recall from exercise 6 how to compute one step ahead predictions.
+
+- Recall how the MSE is defined. You need your computed predictions and the test data.
+
+- You can use `which.min()` to evaluate which is the smallest element of a vector.
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+test_seas <- forecast(seas_mod, h = length(test))$mean
+test_random <- test - test_seas
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
+grid <- expand.grid(0:2,0:2)
+mods <-  list()
+for(i in 1:nrow(grid)){
+  mods[[i]] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
+}
 ```
 
 `@sample_code`
@@ -566,6 +592,9 @@ We finished step 1. Let's do the last three steps!
 
 `@solution`
 ```{r}
+
+for(i in 1:length(mods))
+fitted_all <- fitted(Arima(all_random, model = arma11))
 
 ```
 
