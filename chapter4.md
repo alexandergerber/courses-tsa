@@ -439,10 +439,10 @@ xp: 100
 
 Forecasting is also a great way to do model selection. It is pretty straightforward:
 
-1. Estimate a variety of models that might be good.
+1. Estimate a variety of models.
 2. Predict the values for the test period.
 3. Compute a performance measure e.g. the MSE.
-4. Find out which model has the lowest MSE.
+4. Evaluate the performance measure.
 
 You are asked to perform the first step in this exercise. Its the most challenging one.
 
