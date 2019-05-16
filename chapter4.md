@@ -593,7 +593,7 @@ mses <- c()
 
 # Write the for loop
 for(i in 1:length(mods)){
-  predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
+  predictions[[i]] <- fitted(Arima(test_random, model = mods[[i]]))
   mses[i] <- mean((predictions[[i]] - test_random)^2)
 }
 
@@ -609,7 +609,7 @@ mses <- c()
 
 # Write the for loop
 for(i in 1:length(mods)){
-  predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
+  predictions[[i]] <- fitted(Arima(test_random, model = mods[[i]]))
   mses[i] <- mean((predictions[[i]] - test_random)^2)
 }
 
@@ -619,5 +619,11 @@ best.model <- mods[[which.min(mses)]]
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("predictions") %>% check_equal()
+ex() %>% check_function("expand.grid") 
+ex() %>% check_object("mses") %>% check_equal()
+ex() %>% check_function("fitted") 
+ex() %>% check_function("Arima") 
+ex() %>% check_object("best.model") %>% check_equal()
+success_msg("Awesome!")
 ```
