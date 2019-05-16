@@ -444,11 +444,9 @@ Forecasting is also a great way to do model selection. It is pretty straightforw
 3. Compute a performance measure e.g. the MSE.
 4. Evaluate the performance measure.
 
-You are asked to perform the first step in this exercise. Its the most challenging one.
+You are asked to perform the first step in this exercise. Its the most challenging one. For estimating a variety of models we can use a `for()` loop.
 
-Whenever we are doing the same thing multiple times but with different values it's a great opportunity to use a for loop.
-
-Furthermore we need to gather all possible model orders in a matrix in order to use them in our for loop. This matrix can be easily created using the `expand.grid()` function.
+Furthermore, we need to gather all possible model orders in a matrix in order to use them in our for loop. This matrix can be easily created using the `expand.grid()` function.
 
 Here is a small example:
 `expand.grid(0:1,3:4)`
