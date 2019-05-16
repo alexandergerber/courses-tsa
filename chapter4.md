@@ -547,7 +547,7 @@ We finished step 1. Let's do the last three steps!
 `mods` and `test_random` is already loaded in your working environment.
 
 `@instructions`
-- Create `predictions`: an empty list for your predictions and ``
+- Create `predictions`: an empty list for your predictions and `mses`: an empty vector for the MSE's.
 
 - Compute one step ahead predictions for the whole test data and for each model. Use a for loop for this.
 
@@ -593,8 +593,10 @@ for(i in 1:nrow(grid)){
 `@solution`
 ```{r}
 
-for(i in 1:length(mods))
-fitted_all <- fitted(Arima(all_random, model = arma11))
+for(i in 1:length(mods)){
+  pred <- fitted(Arima(all_random, model = mods[[i]]))
+}
+
 
 ```
 
