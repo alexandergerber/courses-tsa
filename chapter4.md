@@ -461,6 +461,9 @@ This will give you the following matrix.
 | 3 | 0 | 4 |
 | 4 | 1 | 4 |
 
+
+`train_random` is already loaded in your working environment.
+
 Now it's time to practise!
 
 `@instructions`
@@ -473,7 +476,18 @@ Now it's time to practise!
 
 `@pre_exercise_code`
 ```{r}
-
+library(quantmod)
+library(forecast)
+con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+train <- window(con_supply2010, end = c(2017,12)) 
+test <- window(con_supply2010, start = c(2018,1))
+seas_mod <- tslm(train ~ trend + season)
+train_random <- residuals(seas_mod)
+test_seas <- forecast(seas_mod, h = length(test))$mean
+test_random <- test - test_seas
+all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
 ```
 
 `@sample_code`
