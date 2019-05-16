@@ -440,7 +440,7 @@ xp: 100
 Forecasting is also a great way to do model selection. It is pretty straightforward:
 
 1. Estimate a variety of models.
-2. Predict the values for the test period.
+2. Make a one step ahead predictions for the test period.
 3. Compute a performance measure e.g. the MSE.
 4. Evaluate the performance measure.
 
@@ -522,5 +522,50 @@ ex() %>% check_function("expand.grid")
 ex() %>% check_object("mods") %>% check_equal()
 ex() %>% check_function("Arima") %>% check_arg("order") %>% check_equal()
 success_msg("Awesome!")
+
+```
+
+---
+
+## Model Selection Based on Static Forecast
+
+```yaml
+type: NormalExercise
+key: dad13b9fc0
+xp: 100
+```
+
+Recall the 4 steps from Exercise 7:
+
+1. Estimate a variety of models.
+2. Make a one step ahead predictions for the test period.
+3. Compute a performance measure e.g. the MSE.
+4. Evaluate the performance measure.
+
+We finished step 1. Let's do the last three steps!
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
 
 ```
