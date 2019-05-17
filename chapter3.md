@@ -557,7 +557,7 @@ set.seed(3)
 ```{r}
 set.seed(3)
 # Simulate a ARMA(1,1) time series
-arma11 <- arima.sim(model = list(ar = 0.8, ma = 0.6), n = 1000)
+arma11 <- arima.sim(model = list(ar = 0.7, ma = 0.5), n = 1000)
 
 # Plot ACF and PACF
 grid.arrange(
