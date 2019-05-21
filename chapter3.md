@@ -719,7 +719,7 @@ ex() %>% check_function("ggAcf") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("ggPacf") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("final_model") %>% check_equal()
 ex() %>% check_object("best_AIC") %>% check_equal()
-success_msg("Great!")
+success_msg("😀!")
 ```
 
 ---
