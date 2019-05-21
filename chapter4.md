@@ -23,7 +23,7 @@ We call all values up to this specific date the training data because we use tho
 All later observed data form the test set because we use those to test the forecasting performance.
 
 `@instructions`
-- Create a training data set containing all observations of `con_supply2010` until the end of `2017` and assign it to the variable `train`.
+- Create a training data set containing all observations of `con_supply2010` until the April 2018 and assign it to the variable `train`.
 - Create a test data set containing the remaining data and assign it to the variable `test`.
 - Note: `train` and `test` will be for the rest of this chapter in your working environment.
 
@@ -34,9 +34,10 @@ All later observed data form the test set because we use those to test the forec
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
 ```
 
@@ -53,10 +54,10 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
 `@solution`
 ```{r}
 # The training data 
-train <- window(con_supply2010, end = c(2017,12))
+train <- window(con_supply2010, end = c(2018,4))
 
 # The test data 
-test <- window(con_supply2010, start = c(2018,1))
+test <- window(con_supply2010, start = c(2018,5))
 
 ```
 
@@ -79,8 +80,8 @@ xp: 100
 
 Before we can forecast we need to repeat the steps from the previous two chapters on the training data:
 
-- deal with trend and seasonality 
-- fit an ARMA model to the residuals. 
+1. Estimate trend and seasonality 
+2. Fit an ARMA model to the residuals. 
 
 For simplicity let us again assume the classical additive decomposition model with a linear time trend and a constant seasonality cycle for our data.
 Making this assumption crucially simplifies things in a forecasting setting as it implies that both components behave deterministically in the future.
@@ -97,11 +98,12 @@ So we are not only able to estimate and remove these components for our training
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 ```
 
 `@sample_code`
@@ -155,7 +157,7 @@ For now we are only interested in the former which can be accessed by `$mean`.
 
 `@instructions`
 - Use `seas_mod` to predict the seasonal component of the test data and assign the point forecast to `pred_seas`.
-- Plot the test data together with your trend and seasonality forecast
+- Plot the test data together with your trend and seasonality forecast.
 
 `@hint`
 - Remember that the random component is that part of our seasonal model that can't be explained by seasonality or trend.
@@ -170,11 +172,12 @@ For now we are only interested in the former which can be accessed by `$mean`.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 
@@ -224,7 +227,7 @@ Note that this is not equivalent to what we have done in chapter 3 because there
 Here the estimation was only based on the training data set.
 
 `@instructions`
-- Compute the random component of the test data and assign it to `test_random`.
+- Compute the random component of the test data by subtracting the predicted trend and seasonality from the test data and assign it to `test_random`.
 - Create `all_random` a time series that combines `train_random` and `test_random`.
 
 `@hint`
@@ -234,11 +237,12 @@ Here the estimation was only based on the training data set.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test  <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
@@ -298,11 +302,12 @@ Lets start with an example of a dynamic forecast for an ARMA-model.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
@@ -381,11 +386,12 @@ As data you should provide the complete detrended and deseasonalized data set (n
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
@@ -473,11 +479,12 @@ This will give you the following matrix.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2018,12))
-train <- window(con_supply2010, end = c(2017,12)) 
-test <- window(con_supply2010, start = c(2018,1))
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
+test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
 test_seas <- forecast(seas_mod, h = length(test))$mean
@@ -563,10 +570,11 @@ We already completed step 1.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2019,4))
-train <- window(con_supply2010, end = c(2018,4)) 
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
 test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
@@ -643,10 +651,11 @@ We also need to remember that we need to add the seasonal and the random compone
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply     <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
-con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2019,4))
-train <- window(con_supply2010, end = c(2018,4)) 
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
+con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+train <- window(con_supply2010, end = c(2018,4))
 test <- window(con_supply2010, start = c(2018,5))
 seas_mod <- tslm(train ~ trend + season)
 train_random <- residuals(seas_mod)
