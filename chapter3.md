@@ -243,11 +243,11 @@ grid.arrange(
 
 `@sct`
 ```{r}
-success_msg("Great!")
 ex() %>% check_function("autoplot", index  = 1) %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autoplot", index  = 2) %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autoplot", index  = 3) %>% check_arg("object") %>% check_equal()
 ex() %>% check_function("autoplot", index  = 4) %>% check_arg("object") %>% check_equal()
+success_msg("You're the king of arima.sim!")
 ```
 
 ---
