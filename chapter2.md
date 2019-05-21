@@ -92,7 +92,7 @@ this might be true.
 
 `@instructions`
 - Produce a **monthly** time series of class `ts` from `con_supply` Assign the result to the variable `con_supply_ts`. 
-- Subset the series so that it starts at January 2010 and goes until the end of the downloaded series. Assign the result to the variable `con_supply2010`.
+- Subset the series so that it starts at January 2010 and ends in April 2019. Assign the result to the variable `con_supply2010`.
 - Plot `con_supply2010` to see whether the above stated assumptions approximately hold (use `autoplot()` for this).
 
 `@hint`
@@ -123,7 +123,7 @@ con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 
 # Subset the series from Jan. 2010 until the end
-con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
+con_supply2010 <- window(con_supply_ts, start = c(2010, 1), end = c(2019,4))
 
 # Plot con_supply2010
 autoplot(con_supply2010)
@@ -174,7 +174,8 @@ The series of fitted values can be extracted by `fitted(model)`.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
@@ -199,10 +200,10 @@ autoplot(con_supply2010) + autolayer(fitted(trend_lm))
 
 `@sct`
 ```{r}
-ex() %>% check_object("trend_lm") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
-success_msg("Great!")
+#ex() %>% check_object("trend_lm") %>% check_equal()
+#ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+#ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+#success_msg("Great!")
 ```
 
 ---
@@ -240,7 +241,8 @@ The trend estimate can be extracted by `decompose(y)$trend`.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
@@ -298,7 +300,8 @@ In R we can use the function `diff(y, lag = 1)` to compute $\Delta y _t$.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
@@ -358,7 +361,8 @@ to compute and plot the ACF.
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 trend_lm <- tslm(con_supply2010 ~ trend)
@@ -424,7 +428,8 @@ to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides t
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts  <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 
@@ -498,7 +503,8 @@ The function `decompose()` estimates the seasonal component by computing simple 
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```
@@ -573,7 +579,8 @@ $$\Delta_d \Delta y _t.$$
 ```{r}
 library(quantmod)
 library(forecast)
-con_supply <- getSymbols("IPB54100N", src = "FRED", auto.assign = FALSE)
+download.file("https://assets.datacamp.com/production/repositories/4944/datasets/6ad23686e37c771ff807b4d6060bb0ec9a2f543e/con_supply.rda", destfile = "con_supply.rda")
+load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 ```

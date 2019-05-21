@@ -846,7 +846,7 @@ ex() %>% check_function("Box.test") %>%{
   check_arg(., "lag") %>% check_equal()
   check_arg(., "type") %>% check_equal()
   }
-success_msg("¯\_(ツ)_/¯")
+success_msg("Great")
 ```
 
 ---
