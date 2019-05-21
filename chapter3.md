@@ -638,7 +638,7 @@ ex() %>% check_object("arma11") %>% check_equal()
 ex() %>% check_function("AIC", index  = 1) %>% check_arg("object") %>%check_equal()
 ex() %>% check_function("AIC", index  = 2) %>% check_arg("object")%>% check_equal()
 ex() %>% check_function("AIC", index  = 3) %>% check_arg("object")%>% check_equal()
-success_msg("Great!")
+success_msg("Wonderful!")
 ```
 
 ---
