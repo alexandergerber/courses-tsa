@@ -64,7 +64,7 @@ test <- window(con_supply2010, start = c(2018,1))
 ```{r}
 ex() %>% check_object("train") %>% check_equal()
 ex() %>% check_object("test") %>% check_equal()
-success_msg("Great!")
+success_msg("You made this look trivial!")
 ```
 
 ---
@@ -128,7 +128,7 @@ train_random <- residuals(seas_mod)
 ```{r}
 ex() %>% check_object("seas_mod") %>% check_equal()
 ex() %>% check_object("train_random") %>% check_equal()
-success_msg("Great!")
+success_msg("That was too easy huh?")
 ```
 
 ---
@@ -202,7 +202,7 @@ autoplot(test, series = "test") + autolayer(pred_seas)
 ```{r}
 ex() %>% check_object("pred_seas") %>% check_equal()
 ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
-success_msg("You Rock!")
+success_msg("Keep grinding!")
 
 
 ```
@@ -341,7 +341,7 @@ autoplot(ar1_dyn_pred)
 ex() %>% check_object("ar1_mod") %>% check_equal()
 ex() %>% check_object("ar1_dyn_pred") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-success_msg("Great!")
+success_msg("Like a boss!")
 ```
 
 ---
@@ -427,7 +427,7 @@ fitted_test <- window(fitted_all, start = c(2018,1))
 ex() %>% check_object("arma11") %>% check_equal()
 ex() %>% check_object("fitted_all") %>% check_equal()
 ex() %>% check_object("fitted_test") %>% check_equal()
-success_msg("Great!")
+success_msg("Yay!")
 ```
 
 ---
@@ -612,7 +612,7 @@ best_model <- mods[[which.min(mse)]]
 ex() %>% check_object("predictions") %>% check_equal()
 ex() %>% check_object("mse") %>% check_equal()
 ex() %>% check_object("best_model") %>% check_equal()
-success_msg("Awesome!")
+success_msg("Fantastic!")
 ```
 
 ---
