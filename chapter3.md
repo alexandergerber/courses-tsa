@@ -846,7 +846,7 @@ ex() %>% check_function("Box.test") %>%{
   check_arg(., "lag") %>% check_equal()
   check_arg(., "type") %>% check_equal()
   }
-success_msg("Great!")
+success_msg("¯\_(ツ)_/¯")
 ```
 
 ---
@@ -909,5 +909,5 @@ final_model %>% checkresiduals()
 ```{r}
 ex() %>% check_object("final_model") %>% check_equal()
 ex() %>% check_function("checkresiduals") %>% check_arg("object") %>% check_equal()
-success_msg("Great!")
+success_msg("Badass!")
 ```
