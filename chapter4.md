@@ -23,7 +23,7 @@ We call all values up to this specific date the training data because we use tho
 All later observed data form the test set because we use those to test the forecasting performance.
 
 `@instructions`
-- Create a training data set containing all observations of `con_supply2010` until the April 2018 and assign it to the variable `train`.
+- Create a training data set containing all observations of `con_supply2010` until April 2018 and assign it to the variable `train`.
 - Create a test data set containing the remaining data and assign it to the variable `test`.
 - Note: `train` and `test` will be for the rest of this chapter in your working environment.
 
@@ -83,7 +83,7 @@ Before we can forecast we need to repeat the steps from the previous two chapter
 1. Estimate trend and seasonality 
 2. Fit an ARMA model to the residuals. 
 
-For simplicity let us again assume the classical additive decomposition model with a linear time trend and a constant seasonality cycle for our data.
+For simplicity let us again assume the classical additive decomposition model with a linear time trend and a constant seasonality cycle.
 Making this assumption crucially simplifies things in a forecasting setting as it implies that both components behave deterministically in the future.
 So we are not only able to estimate and remove these components for our training data, but are also able to easily forecast these components and remove them from our test data.
 
@@ -154,6 +154,7 @@ forecast(fitted_model, h = number_of_steps_to_forecast)
 ```
 This results in a point forecast but also provides prediction intervals. 
 For now we are only interested in the former which can be accessed by `$mean`.
+
 
 `@instructions`
 - Use `seas_mod` to predict the seasonal component of the test data and assign the point forecast to `pred_seas`.
