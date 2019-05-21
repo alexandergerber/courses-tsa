@@ -60,7 +60,7 @@ ex() %>% check_function("getSymbols") %>% {
   check_arg(., "src") %>% check_equal()
   check_arg(., "auto.assign") %>% check_equal()
   }
-success_msg("Great!")
+success_msg("Import export business I guess ;)")
 ```
 
 ---
