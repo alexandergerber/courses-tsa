@@ -433,7 +433,7 @@ ex() %>% check_function("ARMAacf", index  = 2) %>% {
   check_arg(., "lag.max") %>% check_equal()
   check_arg(., "pacf") %>% check_equal()
 }
-success_msg("Great job!")
+success_msg("ARMAzing!")
 ```
 
 ---
