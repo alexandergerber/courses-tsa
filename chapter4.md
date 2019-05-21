@@ -367,8 +367,7 @@ You accomplish that with the function Arima:
 ```
 Arima(data, model = estimated_model)
 ```
-As data you should provide the complete detrended and deseasonalized data set (not only the test data) because otherwise there would be especially for the first couple of forecasts nothing to condition on (i.e. in the AR(1) case  $y_{T+1} = c + \phi y _{T} + \epsilon _t$ you need $y _T$ which is the last observation of the training data). 
-
+As data you should provide the complete detrended and deseasonalized data set (not only the test data) because otherwise there would be especially for the first couple of forecasts nothing to condition on (i.e. in the AR(1) case  $y_{T+1} = c + \phi y _{T} + \epsilon _t$ you need $y _T$ which is the last observation of the training data).
 
 `@instructions`
 - Fit an ARMA(1,1) model to the training data
@@ -540,7 +539,7 @@ Recall the 4 steps the last exercise:
 3. Compute a performance measure e.g. the MSE for every model
 4. Select the model with the best performance
 
-We already completed step 1. 
+We already completed step 1.
 
 `@instructions`
 - Create `predictions`, an empty list for your predictions, and `mse`, an empty vector for the MSE's.
@@ -629,8 +628,7 @@ xp: 100
 The MA(1) model provided the best out-of-sample forecast for the random component. Equipped with this knowledge we can make a forecast for the future. 
 It would be a waste of information if we only used the training data set for our final model. Hence, we reestimate our final model with all available data. 
 
-We also need to remember that we need to add the seasonal and the random component to get our final forecast. 
-
+We also need to remember that we need to add the seasonal and the random component to get our final forecast.
 
 `@instructions`
 - Estimate the MA(1) model using `àll_random` and assign it to `final_arma_model`
