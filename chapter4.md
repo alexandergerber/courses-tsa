@@ -698,5 +698,5 @@ ex() %>% check_object("forecast_random") %>% check_equal()
 ex() %>% check_object("seasonal_model") %>% check_equal()
 ex() %>% check_object("forecast_season") %>% check_equal()
 ex() %>% check_object("forecast_final") %>% check_equal()
-success_msg("Great")
+success_msg("Unbelievable!")
 ```
