@@ -155,7 +155,6 @@ forecast(fitted_model, h = number_of_steps_to_forecast)
 This results in a point forecast but also provides prediction intervals. 
 For now we are only interested in the former which can be accessed by `$mean`.
 
-
 `@instructions`
 - Use `seas_mod` to predict the seasonal component of the test data and assign the point forecast to `pred_seas`.
 - Plot the test data together with your trend and seasonality forecast.
@@ -292,7 +291,7 @@ We distinguish 2 types of forecasts:
 Lets start with an example of a dynamic forecast for an ARMA-model.
 
 `@instructions`
-- Fit an AR(1)-model to `train_random` and save the resulting object as `ar1_mod`. 
+- Fit an AR(1)-model to `train_random` and save the resulting object as `ar1_model`. 
 - Use `forecast()` to predict the values for the next year of the random component and save the result as `ar1_dyn_pred`.
 - Use `autoplot()` to visualize the predicted values. What do you observe?
 
@@ -332,10 +331,10 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 `@solution`
 ```{r}
 # Fit the AR(1) model 
-ar1_mod <- Arima(train_random, order = c(1,0,0))
+ar1_model <- Arima(train_random, order = c(1,0,0))
 
 # Forecast the Values for the next year
-ar1_dyn_pred <- forecast(ar1_mod, h = 24)
+ar1_dyn_pred <- forecast(ar1_model, h = 24)
 
 # Plot the Forecast
 autoplot(ar1_dyn_pred)
@@ -344,7 +343,7 @@ autoplot(ar1_dyn_pred)
 
 `@sct`
 ```{r}
-ex() %>% check_object("ar1_mod") %>% check_equal()
+ex() %>% check_object("ar1_model") %>% check_equal()
 ex() %>% check_object("ar1_dyn_pred") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Like a boss!")
@@ -360,25 +359,26 @@ key: 785d9a6669
 xp: 100
 ```
 
-You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much value for predictions which are more than a couple of steps ahead of the present. For MA-Models there is even less dependence over time. 
+You could see in the exercise before that the dynamic forecast of an AR-Model converges very fast to its mean and hence provides not much value for predictions which are more than a couple of steps ahead of the present. This is true for all members of the ARMA(p,q) family. 
 For this reason ARMA-Models are usually used to perform 1-step-ahead forecasts. 
-What we want to do here is to produce 1-step-ahead forecasts for the entire test sample. This can be done as follows: 
+What we want to do here is to produce 1-step-ahead forecasts for the entire test sample. 
+This can be done as follows: 
 
 1. Estimate the model coefficients on the training data (all data up to time $T$)
 2. Use the estimated model and all Information available up to time $T$ to predict $y_{T+1}$
 3. Use the estimated model and all Information available up to time $T+1$ to predict $y_{T+2}$
 4. Continue until you have for every observation in the test data a prediction. 
 
-You accomplish that with the function Arima:
+This can be accomplish by using the function Arima from the `forecast`: 
 ```
 Arima(data, model = estimated_model)
 ```
-As data you should provide the complete detrended and deseasonalized data set (not only the test data) because otherwise there would be especially for the first couple of forecasts nothing to condition on (i.e. in the AR(1) case  $y_{T+1} = c + \phi y _{T} + \epsilon _t$ you need $y _T$ which is the last observation of the training data).
+As data you should provide the complete detrended and deseasonalized data set (not only the test data) because otherwise there would be especially for the first couple of forecasts nothing to condition on (e.g. in the AR(1) case  $y_{T+1} = c + \phi y _{T} + \epsilon _t$ you need $y _T$ which is the last observation of the training data).
 
 `@instructions`
-- Fit an ARMA(1,1) model to the training data
-- Use the estimated model to compute 1-step-ahead forecasts for the entire test set (`all_random`)
-- Extract only the predictions for the test data by using `window()`
+- Fit an ARMA(1,1) model to the training data.
+- Use the estimated model to compute 1-step-ahead predictions for the entire data set (`all_random`). You can access those with `fitted()`. Assign the result to `one_step_ahead_all`.
+- Extract only the predictions for the test data  using `window()`.  Assign the result to `one_step_ahead_test`.
 
 `@hint`
 
@@ -419,10 +419,10 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 arma11 <- Arima(train_random, order = c(1,0,1))
 
 # 1-step-ahead predictions
-fitted_all <- fitted(Arima(all_random, model = arma11))
+one_step_ahead_all <- fitted(Arima(all_random, model = arma11))
 
 # Extract test set predictions
-fitted_test <- window(fitted_all, start = c(2018,1))
+one_step_ahead_test <- window(one_step_ahead_all, start = c(2018,5))
 
 
 
@@ -432,8 +432,8 @@ fitted_test <- window(fitted_all, start = c(2018,1))
 `@sct`
 ```{r}
 ex() %>% check_object("arma11") %>% check_equal()
-ex() %>% check_object("fitted_all") %>% check_equal()
-ex() %>% check_object("fitted_test") %>% check_equal()
+ex() %>% check_object("one_step_ahead_all") %>% check_equal()
+ex() %>% check_object("one_step_ahead_test") %>% check_equal()
 success_msg("Yay!")
 ```
 
@@ -448,8 +448,9 @@ xp: 100
 ```
 
 We now know how to perform 1-step-ahead forecasts on the test data. This can be used to select the model with the best forecast performance. 
+One way is to proceed as follows: 
 
-1. Estimate a variety of models.
+1. Estimate a variety of candidate models
 2. Make 1-step-ahead predictions for the test period for every model
 3. Compute a performance measure e.g. the MSE for every model
 4. Select the model with the best performance
@@ -471,7 +472,7 @@ This will give you the following matrix.
 `@instructions`
 - Expand a grid of possible model orders p and q. Consider here only orders from 0 to 2 for both, the MA and the AR component. Assign the result to `grid`.
 - Create an empty list `models` as placeholder for the for loop. You can do that with `list()`.
-- Write a for loop that iterates over the rows of your grid, estimates the models bast on `train_random` and writes the results into the list `models`.
+- Write a for loop that iterates over the rows of your grid, estimates the models based on `train_random` and writes the results into the list `models`.
 
 `@hint`
 - If `i` is your loop variable and you created the order matrix as above then `grid[i, "p"]` contains the order for the AR part and `grid[i, "q"]` contains the order of the MA part.
@@ -503,7 +504,6 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 
 # Write a for loop that iterates over the rows of your grid and estimates the models
 
-
 ```
 
 `@solution`
@@ -512,9 +512,9 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 grid <- expand.grid(0:2,0:2)
 
 # Create an empty list `mods` where the models can be stored
-
 models <-  list()
 
+# Write a for loop that iterates over the rows of your grid and estimates the models
 for(i in 1:nrow(grid)){
   models[[i]] <- Arima(train_random, order = c(grid[i,1],0,grid[i,2]))
 }
@@ -540,21 +540,21 @@ key: dad13b9fc0
 xp: 100
 ```
 
-Recall the 4 steps the last exercise:
+Recall the 4 steps model selection steps from the last exercise:
 
-1. Estimate a variety of models.
+1. Estimate a variety of candidate models
 2. Make 1-step-ahead predictions for the test period for every model
 3. Compute a performance measure e.g. the MSE for every model
 4. Select the model with the best performance
 
-We already completed step 1.
+We already completed step 1. Now we can use the estimated models to make predictions on the test set and compare their performance.
 
 `@instructions`
-- Create `predictions`, an empty list for your predictions, and `mse`, an empty vector for the MSE's.
+- Create `predictions`, an empty list for your predictions, and `mse`, an empty vector for the MSEs.
 
-- Compute one step ahead predictions for the whole test data and for each model. Use a for loop for this.
+- Use every model in `models` to make 1-step-ahead predictions for the test data. Use a for loop for this.
 
-- In the same for loop. Extract the fitted values from your predictions and compute the MSE.
+- In the same for loop: Extract the fitted values from your predictions and compute the MSE.
 
 - Save the model with the lowest MSE as `best_model`.
 
@@ -603,12 +603,13 @@ for(i in 1:nrow(grid)){
 `@solution`
 ```{r}
 # Create `predictions` and `mses`
+predictions <- list()
 mse <- numeric(length(mods))
 
 # Write the for loop
 for(i in 1:length(mods)){
-  predictions <- fitted(Arima(all_random, model = mods[[i]]))
-  test_prediction <- window(predictions, start = c(2018,5))
+  predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
+  prediction_test <- window(predictions[[i]], start = c(2018,5))
   mse[i] <- mean((test_prediction - test_random)^2)
 }
 
@@ -708,5 +709,5 @@ ex() %>% check_object("forecast_random") %>% check_equal()
 ex() %>% check_object("seasonal_model") %>% check_equal()
 ex() %>% check_object("forecast_season") %>% check_equal()
 ex() %>% check_object("forecast_final") %>% check_equal()
-success_msg("Unbelievable!")
+success_msg("Unbelievable, you finished Chapter 9. Be ARMAzed!")
 ```
