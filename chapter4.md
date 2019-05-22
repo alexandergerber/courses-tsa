@@ -591,12 +591,19 @@ for(i in 1:nrow(grid)){
 
 `@sample_code`
 ```{r}
-# Create `predictions` and `mse`
+# Create `predictions` and `mses`
+
 
 
 # Write the for loop
 
+
+
+
+
+
 # Save the best model
+
 
 ```
 
@@ -610,7 +617,7 @@ mse <- numeric(length(mods))
 for(i in 1:length(mods)){
   predictions[[i]] <- fitted(Arima(all_random, model = mods[[i]]))
   prediction_test <- window(predictions[[i]], start = c(2018,5))
-  mse[i] <- mean((test_prediction - test_random)^2)
+  mse[i] <- mean((prediction_test - test_random)^2)
 }
 
 # Save the best model
