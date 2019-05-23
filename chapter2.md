@@ -161,7 +161,8 @@ In R the above model can be estimated by `tslm(ts ~ trend)`.
 The function `tslm()` extends the standard `lm()` function by providing additional functionality for time series data. 
 
 A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
-The series of fitted values can be extracted by `fitted(model)`.
+The series of fitted values can be extracted by `fitted(model)`. 
+With `residuals(model)` you can also access the residuals which will be needed later on. 
 
 `@instructions`
 - Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
