@@ -192,10 +192,10 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 `@solution`
 ```{r}
 # Fit the trend model 
-trend_lm <- tslm(con_supply2010 ~ trend)
+trend_model <- tslm(con_supply2010 ~ trend)
 
 # Plot the series together with the estimated trend 
-autoplot(con_supply2010) + autolayer(fitted(trend_lm))
+autoplot(con_supply2010, series = "Construction Supplies") + autolayer(fitted(trend_model), series = "Trend Model")
 ```
 
 `@sct`
