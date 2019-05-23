@@ -17,7 +17,7 @@ by the `quantmod` package. The package contains the function `getSymbols()` whic
 and the Federal Reserve Bank of St. Louis (`src = "FRED"`). 
 
 For example, to import DAX data from Yahoo Finance we have to find the symbol Yahoo uses for the DAX. You can find the symbol by using 
-a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(Symbols = some_symbol .,src = "yahoo", auto.assign = FALSE)` and assign the result to a variable using `<-`.
+a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbol as a **string** to `getSymbols(Symbols = your_symbol,src = "yahoo", auto.assign = FALSE)` and assign the result to a variable using `<-`.
 
 `@instructions`
 - Load the `quantmod` package with `library()`.
@@ -425,9 +425,9 @@ We start with the `autoplot()` function. For a single time series it does not ma
 ```{r}
 library(quantmod)
 DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-daxMonthly   <- to.monthly(DAX)
-closeMonthly <- daxMonthly$DAX.Close
-close <- ts(closeMonthly, start = c(2007, 1), frequency = 12)
+DAX_monthly <- to.monthly(DAX)
+close_monthly <- DAX_monthly$DAX.Close
+close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
 `@sample_code`
