@@ -351,7 +351,7 @@ to compute and plot the ACF.
 
 `@instructions`
 - Remove the trend component by subtracting the trend estimated by the linear trend model (`trend_model`) from the original series and save the result as `con_supply2010_detrended`. 
-- Plot the detrended series (use `autoplot()` for this). 
+- Plot the detrended series. Use `autoplot()` for this. 
 - Plot the autocorrelation function of the detrended series. Do you see what is special about it?
 
 `@hint`
