@@ -75,7 +75,6 @@ arma11_fit <- fitted(arma11)
 # Extract the residuals
 arma11_res <- residuals(arma11)
 
-
 ```
 
 `@sct`
