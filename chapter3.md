@@ -51,10 +51,13 @@ con_supply2010_random1 <- residuals(seasonal_model)
 # Compute summary statistics
 
 
-# Extract the residuals
+# Extract the fitted values
 
 
 # Extract the residuals
+
+
+
 
 ```
 
@@ -66,11 +69,12 @@ arma11 <- arima(con_supply2010_random1, model = c(1,0,1))
 # Compute summary statistics
 summary(arma11)
 
+## Extract the fitted values
+arma11_fit <- fitted(arma11)
+
 # Extract the residuals
 arma11_res <- residuals(arma11)
 
-## Extract the residuals
-arma11_fit <- fitted(arma11)
 
 ```
 
