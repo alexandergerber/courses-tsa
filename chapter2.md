@@ -350,7 +350,7 @@ If it is less obvious the autocorrelation function (ACF) can help to detect it. 
 to compute and plot the ACF.
 
 `@instructions`
-- Remove the trend component by subtracting the trend estimate `trend_lm` from the original series and save the result as `con_supply2010_detrended`. 
+- Remove the trend component by subtracting the trend estimated by the linear trend model (`trend_model`) from the original series and save the result as `con_supply2010_detrended`. 
 - Plot the detrended series (use `autoplot()` for this). 
 - Plot the autocorrelation function of the detrended series. Do you see what is special about it?
 
@@ -365,7 +365,7 @@ download.file("https://assets.datacamp.com/production/repositories/4944/datasets
 load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
-trend_lm <- tslm(con_supply2010 ~ trend)
+trend_model <- tslm(con_supply2010 ~ trend)
 ```
 
 `@sample_code`
@@ -383,7 +383,7 @@ trend_lm <- tslm(con_supply2010 ~ trend)
 `@solution`
 ```{r}
 # Remove the trend
-con_supply2010_detrended <- con_supply2010 - fitted(trend_lm)
+con_supply2010_detrended <- con_supply2010 - fitted(trend_model)
 
 # Plot the detrended series
 autoplot(con_supply2010_detrended)
