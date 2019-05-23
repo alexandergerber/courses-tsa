@@ -560,7 +560,7 @@ key: 281b640848
 xp: 100
 ```
 
-We can eliminate a constant seasonal pattern by using seasonal differences. For this we compute differences between  $y _t$ and  $y _{t-d}$ where $d$ is the length of one cycle
+We can also eliminate a constant seasonal pattern by using seasonal differences. For this we compute differences between  $y _t$ and  $y _{t-d}$ where $d$ is the length of one cycle
 $$\Delta_d y _t = y _t - y _{t-d}.$$
 In R we can compute $\Delta_d y _t$ by `diff(y, lag = d)`.
 
