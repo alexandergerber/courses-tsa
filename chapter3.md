@@ -61,7 +61,7 @@ con_supply2010_random1 <- residuals(seasonal_model)
 `@solution`
 ```{r}
 # Fit a arma 11 model to con_supply2010_random1
-arma11 <- arima(con_supply2010_random1)
+arma11 <- arima(con_supply2010_random1, model = c(1,0,1))
 
 # Compute summary statistics
 summary(arma11)
