@@ -263,7 +263,7 @@ con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
 trend_ma <- decompose(con_supply2010)$trend
 
 # Plot the series together with the estimated trend 
-autoplot(con_supply2010, "Construction Supplies") + autolayer(trend_ma, "Trend Estimate")
+autoplot(con_supply2010, series = "Construction Supplies") + autolayer(trend_ma, series = "Trend Estimate")
 ```
 
 `@sct`
