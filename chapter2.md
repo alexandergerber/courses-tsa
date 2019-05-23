@@ -413,7 +413,7 @@ xp: 100
 To deal with the seasonality we can extend the methods used for estimating/eliminating the time trend. 
 
 If we assume a linear time trend and a constant seasonal pattern we can use `tslm(y ~ trend + season)` 
-to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the trend regressor, for each but one month a dummy variable is automatically included.
+to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the regressor for the trend, dummy variables for each but one month are automatically included. 
 
 `@instructions`
 - Estimate trend and seasonality of `con_supply2010` using a linear model and assign it to `seasonal_model`.
