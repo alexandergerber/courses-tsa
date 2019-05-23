@@ -73,7 +73,7 @@ key: 7c986018c3
 xp: 100
 ```
 
-The most basic model dealing with a trend and seasonal pattern is the additive decomposition model 
+The most basic model dealing with a trend and a seasonal pattern is the additive decomposition model 
 
 $$Y _t = m _t + s_t + X _t$$
 
