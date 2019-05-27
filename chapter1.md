@@ -507,8 +507,8 @@ close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 `@solution`
 ```{r}
 # Create high and low
-high   <- ts(DAX_monthly$DAX.High, start = c(2007, 1), frequency = 12)
-low    <- ts(DAX_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
+high   <- ts(dax_monthly$DAX.High, start = c(2007, 1), frequency = 12)
+low    <- ts(dax_monthly$DAX.Low, start = c(2007, 1), frequency = 12)
 
 # Plot high and low together
 autoplot(high, series = "high") + autolayer(low)
