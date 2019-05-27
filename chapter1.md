@@ -299,8 +299,8 @@ For example:
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-DAX_monthly <- to.monthly(DAX)
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax_monthly <- to.monthly(DAX)
 close_monthly <- DAX_monthly$DAX.Close
 ```
 
