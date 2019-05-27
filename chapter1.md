@@ -154,7 +154,7 @@ By printing the first few rows you found out that the dataset consists of more t
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```
 
 `@sample_code`
@@ -173,10 +173,10 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 `@solution`
 ```{r}
 # Find the column names
-names(DAX)
+names(dax)
 
 # Extract the closing prices 
-close_daily <- DAX[ ,"GDAXI.Close"]
+close_daily <- dax[ ,"GDAXI.Close"]
 
 # Plot the closing prices
 plot(close_daily)
