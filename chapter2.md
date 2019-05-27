@@ -162,7 +162,7 @@ The function `tslm()` extends the standard `lm()` function by providing addition
 
 A good way to check if everything worked is to plot the fitted values of the model together with the original series. 
 The series of fitted values can be extracted by `fitted(model)`. 
-With `residuals(model)` you can also access the residuals which will be needed later on. 
+With `residuals(model)` you can also access the residuals which will be needed later on.
 
 `@instructions`
 - Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
@@ -414,7 +414,7 @@ xp: 100
 To deal with the seasonality we can extend the methods used for estimating/eliminating the time trend. 
 
 If we assume a linear time trend and a constant seasonal pattern we can use `tslm(y ~ trend + season)` 
-to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the regressor for the trend, dummy variables for each but one month are automatically included. 
+to estimate $m _t$ and $s _t$ . This will run an OLS regression where, besides the regressor for the trend, dummy variables for each but one month are automatically included.
 
 `@instructions`
 - Estimate trend and seasonality of `con_supply2010` using a linear model and assign it to `seasonal_model`.
