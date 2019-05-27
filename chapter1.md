@@ -208,7 +208,7 @@ Since we get one observation for each month of the year, we can treat the newly 
 
 `@instructions`
 - Use the function `class()` to make sure that `DAX`  is of class `xts`.
-- Convert `DAX` to a monthly series and assign it to the variable `DAX_monthly`. What exactly is the function `to.monthly()` doing?
+- Convert `dax` to a monthly series and assign it to the variable `DAX_monthly`. What exactly is the function `to.monthly()` doing?
 - Create a variable `close_monthly` with the monthly closing prices. 
 - Plot `close_monthly` using the function `plot()`.
 
@@ -218,7 +218,7 @@ Since we get one observation for each month of the year, we can treat the newly 
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```
 
 `@sample_code`
@@ -240,13 +240,13 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 `@solution`
 ```{r}
 # Find out the class of the downloaded object
-class(DAX)
+class(dax)
 
 # Convert the DAX data set from daily data to monthly data
-DAX_monthly <- to.monthly(DAX)
+dax_monthly <- to.monthly(dax)
 
 # Extract the monthly closing prices
-close_monthly <- DAX_monthly$DAX.Close
+close_monthly <- dax_monthly$DAX.Close
 
 # Plot the monthly cloasing prices
 plot(close_monthly)
