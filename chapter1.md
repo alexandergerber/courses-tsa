@@ -300,8 +300,8 @@ For example:
 ```{r}
 library(quantmod)
 dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-dax_monthly <- to.monthly(DAX)
-close_monthly <- DAX_monthly$DAX.Close
+dax_monthly <- to.monthly(dax)
+close_monthly <- dax_monthly$DAX.Close
 ```
 
 `@sample_code`
