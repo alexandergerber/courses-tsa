@@ -21,7 +21,7 @@ a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbo
 
 `@instructions`
 - Load the `quantmod` package with `library()`.
-- Import the DAX data by passing the symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` and assign the result to the variable `DAX`.
+- Import the DAX data by passing the symbol as a string to `getSymbols(.,src = "yahoo", auto.assign = FALSE)` and assign the result to the variable `dax`.
 
 `@hint`
 - The Yahoo Finance symbol for the DAX is `^GDAXI`.
@@ -49,7 +49,7 @@ a search engine (e.g. search for Yahoo Finance DAX). Then we can pass this symbo
 library(quantmod)
 
 # Import the data
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```
 
 `@sct`
@@ -73,7 +73,7 @@ key: e68207ca67
 xp: 100
 ```
 
-The DAX data from the previous exercise are still loaded. You can check this by using `ls()`, which will list all variables in the working environment. Follow the instructions to find out more about the data.
+The dax data from the previous exercise are still loaded. You can check this by using `ls()`, which will list all variables in the working environment. Follow the instructions to find out more about the data.
 
 `@instructions`
 - Use `start()` to find out when the time series begins.
@@ -87,7 +87,7 @@ The DAX data from the previous exercise are still loaded. You can check this by 
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 ```
 
 `@sample_code`
@@ -109,16 +109,16 @@ DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 `@solution`
 ```{r}
 # Print out the start date of the time series dataset
-start(DAX)
+start(dax)
 
 # Print out the end date of the time series dataset
-end(DAX)
+end(dax)
 
 # Print out the first rows  
-head(DAX)
+head(dax)
 
 # Print out the last rows  
-tail(DAX)
+tail(dax)
 
 ```
 
