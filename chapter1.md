@@ -363,9 +363,9 @@ For monthly data you can use this function as follows:
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-DAX_monthly <- to.monthly(DAX)
-close_monthly <- DAX_monthly$DAX.Close
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax_monthly <- to.monthly(dax)
+close_monthly <- dax_monthly$DAX.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
@@ -424,9 +424,9 @@ We start with the `autoplot()` function. For a single time series it does not ma
 `@pre_exercise_code`
 ```{r}
 library(quantmod)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-DAX_monthly <- to.monthly(DAX)
-close_monthly <- DAX_monthly$DAX.Close
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax_monthly <- to.monthly(DAX)
+close_monthly <- dax_monthly$DAX.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
@@ -488,9 +488,9 @@ this to the legend by specifying the function parameter `series` like this `auto
 ```{r}
 library(quantmod)
 library(forecast)
-DAX <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
-DAX_monthly   <- to.monthly(DAX)
-close_monthly <- DAX_monthly$DAX.Close
+dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
+dax_monthly   <- to.monthly(dax)
+close_monthly <- dax_monthly$DAX.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
