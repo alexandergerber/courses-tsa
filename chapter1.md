@@ -246,7 +246,7 @@ class(dax)
 dax_monthly <- to.monthly(dax)
 
 # Extract the monthly closing prices
-close_monthly <- dax_monthly$DAX.Close
+close_monthly <- dax_monthly$dax.Close
 
 # Plot the monthly cloasing prices
 plot(close_monthly)
@@ -258,7 +258,7 @@ plot(close_monthly)
 ex() %>% check_function("class") %>% check_arg("x") %>% check_equal()
 ex() %>% check_function("to.monthly") %>% check_arg("x") %>% check_equal()
 ex() %>% check_object("close_monthly") %>% check_equal()
-ex() %>% check_function("plot") %>%  check_arg("x") %>% check_equal()
+#ex() %>% check_function("plot") %>%  check_arg("x") %>% check_equal()
 success_msg("Great!")
 ```
 
@@ -301,7 +301,7 @@ For example:
 library(quantmod)
 dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 dax_monthly <- to.monthly(dax)
-close_monthly <- dax_monthly$DAX.Close
+close_monthly <- dax_monthly$dax.Close
 ```
 
 `@sample_code`
@@ -365,7 +365,7 @@ For monthly data you can use this function as follows:
 library(quantmod)
 dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 dax_monthly <- to.monthly(dax)
-close_monthly <- dax_monthly$DAX.Close
+close_monthly <- dax_monthly$dax.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
@@ -426,7 +426,7 @@ We start with the `autoplot()` function. For a single time series it does not ma
 library(quantmod)
 dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 dax_monthly <- to.monthly(dax)
-close_monthly <- dax_monthly$DAX.Close
+close_monthly <- dax_monthly$dax.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
@@ -490,7 +490,7 @@ library(quantmod)
 library(forecast)
 dax <- getSymbols("^GDAXI", src = "yahoo", auto.assign = FALSE)
 dax_monthly   <- to.monthly(dax)
-close_monthly <- dax_monthly$DAX.Close
+close_monthly <- dax_monthly$dax.Close
 close <- ts(close_monthly, start = c(2007, 1), frequency = 12)
 ```
 
