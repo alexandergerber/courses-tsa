@@ -156,7 +156,7 @@ This results in a point forecast but also provides prediction intervals.
 For now we are only interested in the former which can be accessed by `$mean`.
 
 `@instructions`
-- Use `seasonal_model` to predict the seasonal component of the test data and assign the point forecasts to `seasonal_predictions`.
+- Use `seasonal_model` to predict the seasonal component of the test data and assign the point forecasts to `seasonal_forecasts`.
 - Plot the test data together with your trend and seasonality forecast.
 
 `@hint`
@@ -190,16 +190,16 @@ train_random <- residuals(seasonal_model)
 `@solution`
 ```{r}
 # Forecast season + trend for the test data
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
 
 # Plot your forecast
-autoplot(test, series = "test") + autolayer(seasonal_predictions)
+autoplot(test, series = "test") + autolayer(seasonal_forecasts)
 
 ```
 
 `@sct`
 ```{r}
-ex() %>% check_object("seasonal_predictions") %>% check_equal()
+ex() %>% check_object("seasonal_forecasts") %>% check_equal()
 ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
 success_msg("Keep grinding!")
 
@@ -241,7 +241,7 @@ train <- window(con_supply2010, end = c(2018,4))
 test <- window(con_supply2010, start = c(2018,5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
 ```
 
 `@sample_code`
@@ -257,7 +257,7 @@ con_supply_random <- ts(c(    ,    ), start = start(   ), frequency = frequency(
 `@solution`
 ```{r}
 # Detrend and deseasonalize the test data
-test_random <- test - seasonal_predictions
+test_random <- test - seasonal_forecasts
 
 # Merge train and test together without trend and season
 all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
@@ -290,7 +290,7 @@ Lets start with an example of a dynamic forecast for an ARMA model.
 
 `@instructions`
 - Fit an AR(1)-model to `train_random` and save the resulting object as `ar1_model`. 
-- Use `forecast()` to predict the values for the next year of the random component and save the result as `ar1_dynamic_predictions`.
+- Use `forecast()` to predict the values for the next year of the random component and save the result as `ar1_dynamic_forecasts`.
 - Use `autoplot()` to visualize the predicted values. What do you observe?
 
 `@hint`
@@ -308,8 +308,8 @@ train <- window(con_supply2010, end = c(2018,4))
 test <- window(con_supply2010, start = c(2018,5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
-test_random <- test - seasonal_predictions
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
+test_random <- test - seasonal_forecasts
 all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
 
 ```
@@ -333,17 +333,17 @@ all_random <- ts(c(train_random, test_random), start = start(train_random), freq
 ar1_model <- Arima(train_random, order = c(1, 0, 0))
 
 # Forecast the values for the next year
-ar1_dynamic_predictions <- forecast(ar1_model, h = 24)
+ar1_dynamic_forecasts <- forecast(ar1_model, h = 24)
 
 # Plot the forecast
-autoplot(ar1_dynamic_predictions)
+autoplot(ar1_dynamic_forecasts)
 
 ```
 
 `@sct`
 ```{r}
 ex() %>% check_object("ar1_model") %>% check_equal()
-ex() %>% check_object("ar1_dynamic_predictions") %>% check_equal()
+ex() %>% check_object("ar1_dynamic_forecasts") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
 success_msg("Like a boss!")
 ```
@@ -394,8 +394,8 @@ train <- window(con_supply2010, end = c(2018, 4))
 test <- window(con_supply2010, start = c(2018, 5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
-test_random <- test - seasonal_predictions
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
+test_random <- test - seasonal_forecasts
 all_random <- ts(c(train_random, test_random), start=start(train_random), frequency=frequency(test_random))
 
 ```
@@ -486,8 +486,8 @@ train <- window(con_supply2010, end = c(2018, 4))
 test <- window(con_supply2010, start = c(2018, 5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
-test_random <- test - seasonal_predictions
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
+test_random <- test - seasonal_forecasts
 all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
 ```
 
@@ -549,7 +549,7 @@ Recall the four model selection steps from the last exercise:
 We already completed the first step. Now we can use the estimated models to make predictions on the test set and compare their performance.
 
 `@instructions`
-- Create `predictions`, an empty list for your predictions, and `mse`, an empty vector for the MSEs.
+- Create `forecasts`, an empty list for your predictions, and `mse`, an empty vector for the MSEs.
 
 - Use every model in `models` to make 1-step-ahead predictions for the test data. Use a `for()` loop for this.
 
@@ -578,8 +578,8 @@ train <- window(con_supply2010, end = c(2018, 4))
 test <- window(con_supply2010, start = c(2018, 5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
-test_random <- test - seasonal_predictions
+seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
+test_random <- test - seasonal_forecasts
 all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
 grid <- expand.grid(0:2, 0:2)
 models <-  list()
@@ -590,7 +590,7 @@ for(i in 1:nrow(grid)){
 
 `@sample_code`
 ```{r}
-# Create `predictions` and `mse`
+# Create `forecasts` and `mse`
 
 
 
@@ -608,25 +608,25 @@ for(i in 1:nrow(grid)){
 
 `@solution`
 ```{r}
-# Create `predictions` and `mse`
-predictions <- list()
+# Create `forecasts` and `mse`
+forecasts <- list()
 mse <- numeric(length(models))
 
 # Write the for() loop
 for(i in 1:length(models)){
-  predictions[[i]] <- fitted(Arima(all_random, model = models[[i]]))
-  prediction_test <- window(predictions[[i]], start = c(2018, 5))
-  mse[i] <- mean((prediction_test - test_random)^2)
+  forecasts[[i]] <- fitted(Arima(all_random, model = models[[i]]))
+  forecast_test <- window(forecasts[[i]], start = c(2018, 5))
+  mse[i] <- mean((forecast_test - test_random)^2)
 }
 
 # Save the best model
-best_model <- mods[[which.min(mse)]]
+best_model <- models[[which.min(mse)]]
 
 ```
 
 `@sct`
 ```{r}
-ex() %>% check_object("predictions") %>% check_equal()
+ex() %>% check_object("forecasts") %>% check_equal()
 ex() %>% check_object("mse") %>% check_equal()
 ex() %>% check_object("best_model") %>% check_equal()
 success_msg("Fantastic!")
@@ -643,15 +643,16 @@ xp: 100
 ```
 
 The MA(1) model provided the best out-of-sample forecast for the random component. Equipped with this knowledge we can make a forecast for the future. 
-It would be a waste of information if we only used the training data set for our final model. Hence, we reestimate our final model with all available data. 
+It would be a waste of information if we only used the training data for our final model. Hence, we reestimate our final model with all available data. 
 
 We also need to remember that we need to add the seasonal and the random component to get our final forecast.
 
 `@instructions`
-- Estimate the MA(1) model using `àll_random` and assign it to `final_arma_model`
-- Forecast the random component for the first step into the future and assign it to `forecast_random`
-- Forecast the trend and seasonal component and assign it to `forecast_season`  
-- Add the trend and the seasonal component to the forecasted random component and assign the result to `forecast_final`
+- Estimate the trend and seasonality of `con_supply2010` and assign it to `seasonal_model`.
+- Fit a MA(1) model to the residual random component and assign it to `final_arma_model`.
+- Forecast the trend and seasonal component 1-step-ahead and assign it to `season_forecast`.
+- Forecast the random component 1-step-ahead and assign it to `random_forecast`.
+- Add the forecast of the trend and seasonal component to the forecast of the random component and assign the result to `final_forecast`.
 
 `@hint`
 
@@ -664,27 +665,20 @@ download.file("https://assets.datacamp.com/production/repositories/4944/datasets
 load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
-train <- window(con_supply2010, end = c(2018, 4))
-test <- window(con_supply2010, start = c(2018, 5))
-seasonal_model <- tslm(train ~ trend + season)
-train_random <- residuals(seasonal_model)
-seasonal_predictions <- forecast(seasonal_model, h = length(test))$mean
-test_random <- test - seasonal_predictions
-all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
 ```
 
 `@sample_code`
 ```{r}
-# Estimate the final ARMA model
-
-
-# Forecast the random component
+# Estimate trend and seasonality
 
 
 # Estimate the final ARMA model
 
 
 # Forecast trend and seasonality
+
+
+# Forecast the random component
 
 
 # Final forecast
@@ -694,29 +688,29 @@ all_random <- ts(c(train_random, test_random), start = start(train_random), freq
 
 `@solution`
 ```{r}
-# Estimate the final ARMA model
-final_arma_model <- Arima(all_random, c(0, 0, 1))
-
-# Forecast the random component
-forecast_random <- forecast(final_arma_model, h = 1)$mean
-
-# Estimate the final ARMA model
+# Estimate trend and seasonality
 seasonal_model <- tslm(con_supply2010 ~ trend + season)
 
+# Estimate the final ARMA model
+final_arma_model <- Arima(residuals(seasonal_model), c(0, 0, 1))
+
 # Forecast trend and seasonality
-forecast_season <- forecast(seasonal_model, h = 1)$mean
+season_forecast <- forecast(seasonal_model, h = 1)$mean
+
+# Forecast the random component
+random_forecast <- forecast(final_arma_model, h = 1)$mean
 
 # Final forecast
-forecast_final <- forecast_random + forecast_season
+final_forecast <- season_forecast + random_forecast
 
 ```
 
 `@sct`
 ```{r}
-ex() %>% check_object("final_arma_model") %>% check_equal()
-ex() %>% check_object("forecast_random") %>% check_equal()
 ex() %>% check_object("seasonal_model") %>% check_equal()
-ex() %>% check_object("forecast_season") %>% check_equal()
-ex() %>% check_object("forecast_final") %>% check_equal()
+ex() %>% check_object("final_arma_model") %>% check_equal()
+ex() %>% check_object("season_forecast") %>% check_equal()
+ex() %>% check_object("random_forecast") %>% check_equal()
+ex() %>% check_object("final_forecast") %>% check_equal()
 success_msg("Unbelievable, you finished Chapter 9. Be ARMAzed!")
 ```
