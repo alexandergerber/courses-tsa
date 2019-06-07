@@ -160,13 +160,7 @@ For now we are only interested in the former which can be accessed by `$mean`.
 - Plot the test data together with your trend and seasonality forecast.
 
 `@hint`
-- Remember that the random component is the part of our seasonal model that cannot be explained by seasonality or trend.
 
-- When forecasting you have to specify how many steps you want to predict. In our example, the steps should be equal to the number of observations in the test data.
-
-- Remember that you just need the deterministic part and the time series itself to calculate the random part.
-
-- The time series should start at the same point as our train data and it should have the same frequency.
 
 `@pre_exercise_code`
 ```{r}
@@ -514,7 +508,7 @@ all_random <- ts(c(train_random, test_random), start = start(train_random), freq
 `@solution`
 ```{r}
 # Expand a grid of possible model orders
-grid <- expand.grid(0:2, 0:2)
+grid <- expand.grid(p = 0:2, q = 0:2)
 
 # Create an empty list `models` where the models can be stored
 models <-  list()
