@@ -201,6 +201,8 @@ autoplot(test, series = "test") + autolayer(seasonal_forecasts)
 ```{r}
 ex() %>% check_object("seasonal_forecasts") %>% check_equal()
 ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
 success_msg("Keep grinding!")
 
 
@@ -250,7 +252,7 @@ seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
 
 
 # Merge train and test together without trend and season
-con_supply_random <- ts(c(    ,    ), start = start(   ), frequency = frequency(   ))
+all_random <- ts(c(    ,    ), start = start(   ), frequency = frequency(   ))
 
 ```
 
@@ -304,8 +306,8 @@ download.file("https://assets.datacamp.com/production/repositories/4944/datasets
 load("con_supply.rda")
 con_supply_ts <- ts(con_supply, start = c(1947, 1), frequency = 12)
 con_supply2010 <- window(con_supply_ts, start = c(2010, 1))
-train <- window(con_supply2010, end = c(2018,4))
-test <- window(con_supply2010, start = c(2018,5))
+train <- window(con_supply2010, end = c(2018, 4))
+test <- window(con_supply2010, start = c(2018, 5))
 seasonal_model <- tslm(train ~ trend + season)
 train_random <- residuals(seasonal_model)
 seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
@@ -333,7 +335,7 @@ all_random <- ts(c(train_random, test_random), start = start(train_random), freq
 ar1_model <- Arima(train_random, order = c(1, 0, 0))
 
 # Forecast the values for the next year
-ar1_dynamic_forecasts <- forecast(ar1_model, h = 24)
+ar1_dynamic_forecasts <- forecast(ar1_model, h = 12)
 
 # Plot the forecast
 autoplot(ar1_dynamic_forecasts)
@@ -358,15 +360,15 @@ key: 785d9a6669
 xp: 100
 ```
 
-You could see in the previous exercise that the dynamic forecast of an AR model converges very fast to its mean and hence provides not much value for predictions which are more than a couple of steps ahead of the present. This is true for all members of the ARMA(p,q) family. 
+You could see in the previous exercise that the dynamic forecast of an AR model converges very fast to its mean and hence provides not much value for forecasts which are more than a couple of steps ahead of the present. This is true for all members of the ARMA(p,q) family. 
 For this reason ARMA models are usually used to perform 1-step-ahead forecasts. 
 What we want to do here is to produce 1-step-ahead forecasts for the entire test sample. 
 This can be done as follows: 
 
 1. Estimate the model coefficients on the training data (all data up to time $T$)
-2. Use the estimated model and all information available up to time $T$ to predict $y_{T+1}$
-3. Use the estimated model and all information available up to time $T+1$ to predict $y_{T+2}$
-4. Continue until you have for every observation in the test data a prediction. 
+2. Use the estimated model and all information available up to time $T$ to forecast $y_{T+1}$
+3. Use the estimated model and all information available up to time $T+1$ to forecast $y_{T+2}$
+4. Continue until you have for every observation in the test data a forecast. 
 
 This can be accomplished by using the function `Arima()` from the `forecast` package: 
 ```
@@ -375,9 +377,9 @@ Arima(data, model = estimated_model)
 You should provide the complete detrended and deseasonalized data set (not only the test data) because otherwise there would be nothing to condition on, especially for the first couple of forecasts (e.g. in the AR(1) case  $y_{T+1} = c + \phi y _{T} + \epsilon _t$ you need $y _T$ which is the last observation of the training data).
 
 `@instructions`
-- Fit an ARMA(1,1) model to the training data.
-- Use the estimated model to compute 1-step-ahead predictions for the entire data set (`all_random`). You can access those with `fitted()`. Assign the result to `one_step_ahead_all`.
-- Extract only the predictions for the test data using `window()`. Assign the result to `one_step_ahead_test`.
+- Fit an ARMA(1,1) model to the training data and assign it to `arma11_model`.
+- Use the estimated model to compute 1-step-ahead forecasts for the entire data set (`all_random`). You can access those with `fitted()`. Assign the result to `one_step_ahead_all`.
+- Extract only the forecasts for the test data using `window()`. Assign the result to `one_step_ahead_test`.
 
 `@hint`
 
@@ -405,10 +407,10 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 # Fit an ARMA(1,1) model
 
 
-# 1-step-ahead predictions
+# 1-step-ahead forecasts
 
 
-# Extract test set predictions
+# Extract test set forecasts
 
 
 ```
@@ -416,19 +418,19 @@ all_random <- ts(c(train_random, test_random), start=start(train_random), freque
 `@solution`
 ```{r}
 # Fit an ARMA(1,1) model
-arma11 <- Arima(train_random, order = c(1, 0, 1))
+arma11_model <- Arima(train_random, order = c(1, 0, 1))
 
-# 1-step-ahead predictions
-one_step_ahead_all <- fitted(Arima(all_random, model = arma11))
+# 1-step-ahead forecasts
+one_step_ahead_all <- fitted(Arima(all_random, model = arma11_model))
 
-# Extract test set predictions
+# Extract test set forecasts
 one_step_ahead_test <- window(one_step_ahead_all, start = c(2018, 5))
 
 ```
 
 `@sct`
 ```{r}
-ex() %>% check_object("arma11") %>% check_equal()
+ex() %>% check_object("arma11_model") %>% check_equal()
 ex() %>% check_object("one_step_ahead_all") %>% check_equal()
 ex() %>% check_object("one_step_ahead_test") %>% check_equal()
 success_msg("Yay!")
@@ -712,5 +714,5 @@ ex() %>% check_object("final_arma_model") %>% check_equal()
 ex() %>% check_object("season_forecast") %>% check_equal()
 ex() %>% check_object("random_forecast") %>% check_equal()
 ex() %>% check_object("final_forecast") %>% check_equal()
-success_msg("Unbelievable, you finished Chapter 9. Be ARMAzed!")
+success_msg("Unbelievable, you finished Chapter 4. Be ARMAzed!")
 ```
