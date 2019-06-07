@@ -581,7 +581,7 @@ train_random <- residuals(seasonal_model)
 seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean
 test_random <- test - seasonal_forecasts
 all_random <- ts(c(train_random, test_random), start = start(train_random), frequency = frequency(test_random))
-grid <- expand.grid(0:2, 0:2)
+grid <- expand.grid(p = 0:2, q = 0:2)
 models <-  list()
 for(i in 1:nrow(grid)){
   models[[i]] <- Arima(train_random, order = c(grid[i, "p"], 0, grid[i, "q"]))
