@@ -73,7 +73,7 @@ key: e68207ca67
 xp: 100
 ```
 
-The dax data from the previous exercise are still loaded. You can check this by using `ls()`, which will list all variables in the working environment. Follow the instructions to find out more about the data.
+The `dax` data from the previous exercise are still loaded. You can check this by using `ls()`, which will list all variables in the working environment. Follow the instructions to find out more about the data.
 
 `@instructions`
 - Use `start()` to find out when the time series begins.
@@ -144,7 +144,7 @@ xp: 100
 By printing the first few rows you found out that the dataset consists of more than one time series (namely Open, High, Low, Close, Volume and Adjusted). Each time series is contained in one column. We can extract one column by either using a numerical index, the column name or the `$` notation (notice that this works exactly as with data frames).
 
 `@instructions`
-- Use `names()` to find the name of the time series of daily closing prices. The data set `DAX` is still loaded. 
+- Use `names()` to find the name of the time series of daily closing prices. The data set `dax` is still loaded. 
 - Use a subsetting method to extract the closing prices and assign the result to a new variable called `close_daily`. 
 - Plot the single time series `close_daily` by calling `plot()`.
 
@@ -201,13 +201,13 @@ key: 335ac38015
 xp: 100
 ```
 
-The downloaded `DAX` dataset is of class `xts`, which is an elaborate way of dealing with time series in R. 
+The downloaded `dax` dataset is of class `xts`, which is an elaborate way of dealing with time series in R. 
 For our purposes it is enough to know that `xts` can handle irregular time series, which means time series with non-constant time increments. This is useful for stock data since we do not have observations for night hours, weekends and holidays.
 However, in this course we will work on regular time series only. We can use the function `to.monthly()` to convert our `xts` series of daily data to monthly data. 
 Since we get one observation for each month of the year, we can treat the newly generated series as a regular time series.
 
 `@instructions`
-- Use the function `class()` to make sure that `DAX`  is of class `xts`.
+- Use the function `class()` to make sure that `dax`  is of class `xts`.
 - Convert `dax` to a monthly series and assign it to the variable `dax_monthly`. What exactly is the function `to.monthly()` doing?
 - Create a variable `close_monthly` with the monthly closing prices. 
 - Plot `close_monthly` using the function `plot()`.
@@ -477,7 +477,7 @@ This will automatically produce a legend except for the first series in `autoplo
 this to the legend by specifying the function parameter `series` like this `autoplot(timeseries1, series = "timeseries1")`.
 
 `@instructions`
-- Inspect `DAX_monthly` again. Remember that it is of class `xts`. 
+- Inspect `dax_monthly` again. Remember that it is of class `xts`. 
 - Create the variables `high` and `low` as `ts` objects. They should contain the highest and lowest monthly prices, respectively.  
 - Plot the series of the highest monthly prices together with the lowest monthly prices using `autoplot()` and `autolayer()`.
 
