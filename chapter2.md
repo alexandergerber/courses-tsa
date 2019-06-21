@@ -201,10 +201,10 @@ autoplot(con_supply2010, series = "Construction Supplies") + autolayer(fitted(tr
 
 `@sct`
 ```{r}
-#ex() %>% check_object("trend_lm") %>% check_equal()
-#ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-#ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
-#success_msg("Great!")
+ex() %>% check_object("trend_model") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+success_msg("Great!")
 ```
 
 ---
