@@ -165,7 +165,7 @@ The series of fitted values can be extracted by `fitted(model)`.
 With `residuals(model)` you can also access the residuals which will be needed later on.
 
 `@instructions`
-- Fit a linear trend model to `con_supply2010`and save it as `trend_lm`.
+- Fit a linear trend model to `con_supply2010`and save it as `trend_model`.
 - Plot the original series together with the estimated linear trend (use `autoplot()` and `autolayer()` for this).
 
 `@hint`
