@@ -500,8 +500,25 @@ autoplot(con_supply2010_random1)
 `@sct`
 ```{r}
 ex() %>% check_object("seasonal_model") %>% check_equal()
-ex() %>% check_function("autoplot", index = 1) %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+sol_alt <- '
+seasonal_model <- tslm(con_supply2010 ~ trend + season);
+autoplot(fitted(seasonal_model)) + autolayer(con_supply2010); 
+con_supply2010_random1 <- residuals(seasonal_model);
+autoplot(con_supply2010_random1)
+'
+
+ex() %>% check_or(
+   check_function(.,"autoplot", index = 1) %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autoplot", index = 1) %>% check_arg("object") %>% check_equal()
+)
+
+ex() %>% check_or(
+   check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autolayer") %>% check_arg("object") %>% check_equal()
+)
+
 ex() %>% check_object("con_supply2010_random1") %>% check_equal()
 ex() %>% check_function("autoplot", index = 2) %>% check_arg("object") %>% check_equal()
 success_msg("Great!")
