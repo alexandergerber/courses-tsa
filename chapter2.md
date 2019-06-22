@@ -619,7 +619,7 @@ $$\Delta_d \Delta y _t.$$
 - Plot `con_supply2010_random3` (use autoplot() for this).
 
 `@hint`
-- Remember that $d=12$ for the series at hand.
+
 
 `@pre_exercise_code`
 ```{r}
