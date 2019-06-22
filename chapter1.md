@@ -531,10 +531,25 @@ ex() %>% check_function("ts", index = 2) %>% {
 ex() %>% check_object("high") %>% check_equal()
 ex() %>% check_object("low") %>% check_equal()
 
+## Alternative solution
+sol_alt <- 'high   <- ts(dax_monthly$dax.High, start = c(2007, 1), frequency = 12);
+    	    low    <- ts(dax_monthly$dax.Low, start = c(2007, 1), frequency = 12);
+    	     autoplot(low, series = "low") + autolayer(high)'
+
+
 ex() %>% check_or(
-  check_function(., 'autoplot') %>% check_arg() %>% check_equal(),
-  check_function(., 'autoplot') %>% checK-equal()
+   check_function(.,"autoplot") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autoplot") %>% check_arg("object") %>% check_equal()
 )
+
+ex() %>% check_or(
+   check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autolayer") %>% check_arg("object") %>% check_equal()
+)
+
+
 
 success_msg("Great!")
 ```
