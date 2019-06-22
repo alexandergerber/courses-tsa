@@ -368,7 +368,7 @@ This can be done as follows:
 1. Estimate the model coefficients on the training data (all data up to time $T$)
 2. Use the estimated model and all information available up to time $T$ to forecast $y_{T+1}$
 3. Use the estimated model and all information available up to time $T+1$ to forecast $y_{T+2}$
-4. Continue until you have for every observation in the test data a forecast. 
+4. Continue until you have a forecast for every observation in the test dataset.
 
 This can be accomplished by using the function `Arima()` from the `forecast` package: 
 ```
