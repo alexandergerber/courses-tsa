@@ -862,7 +862,7 @@ success_msg("Great")
 
 ---
 
-## Shortcut Forecast Package
+## Shortcut from the Forecast Package
 
 ```yaml
 type: NormalExercise
@@ -870,7 +870,7 @@ key: a7a4e557dc
 xp: 100
 ```
 
-For both model selection and model diagnostic, the `forecast` package provides convenience functions which do most of what we have done in the previous exercises automatically. 
+For both model selection and model diagnostic, the `forecast` package provides convenience functions which do what we have done in the previous exercises automatically. 
 The first one is `auto.arima()`. This function fits a lot of different models and returns the model with the best result in terms of a specified criteria (e.g. AIC).
 
 The second one is `checkresiduals()`. If provided with a model object this function extracts the residuals, performs a Ljung-Box test and plots the ACF. 

@@ -92,7 +92,7 @@ So we are not only able to estimate and remove these components for our training
 - Save the estimated random component as `train_random`.
 
 `@hint`
-- This exercise is conceptually equal to exercises from Chapter 2, so it might help to recapitulate them.
+
 
 `@pre_exercise_code`
 ```{r}
@@ -199,10 +199,24 @@ autoplot(test, series = "test") + autolayer(seasonal_forecasts)
 
 `@sct`
 ```{r}
+sol_alt <- 'seasonal_forecasts <- forecast(seasonal_model, h = length(test))$mean;
+autoplot(seasonal_forecasts, series = "test") + autolayer(test)
+'
+
+ex() %>% check_or(
+   check_function(.,"autoplot") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autoplot") %>% check_arg("object") %>% check_equal()
+)
+
+ex() %>% check_or(
+   check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autolayer") %>% check_arg("object") %>% check_equal()
+)
+
 ex() %>% check_object("seasonal_forecasts") %>% check_equal()
 ex() %>% check_function("forecast") %>% check_arg("h") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
 success_msg("Keep grinding!")
 
 
