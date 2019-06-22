@@ -207,16 +207,17 @@ autoplot(con_supply2010, series = "Construction Supplies") + autolayer(fitted(tr
 `@sct`
 ```{r}
 ex() %>% check_object("trend_model") %>% check_equal()
+sol_alt <- 'trend_model <- tslm(con_supply2010 ~ trend); autoplot(fitted(trend_model)) + autolayer(con_supply2010)'
 
 ex() %>% check_or(
    check_function(.,"autoplot") %>% check_arg("object") %>% check_equal(),
-   override_solution(.,'trend_model <- tslm(con_supply2010 ~ trend); autoplot(fitted(trend_model)) + autolayer(con_supply2010)') %>% 
+   override_solution(.,sol_alt) %>% 
    check_function("autoplot") %>% check_arg("object") %>% check_equal()
 )
 
 ex() %>% check_or(
    check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
-   override_solution(.,'trend_model <- tslm(con_supply2010 ~ trend); autoplot(fitted(trend_model)) + autolayer(con_supply2010)') %>% 
+   override_solution(.,sol_alt) %>% 
    check_function("autolayer") %>% check_arg("object") %>% check_equal()
 )
 success_msg("Great!")
@@ -284,8 +285,20 @@ autoplot(con_supply2010, series = "Construction Supplies") + autolayer(trend_ma,
 `@sct`
 ```{r}
 ex() %>% check_object("trend_ma") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+sol_alt <- 'trend_ma <- decompose(con_supply2010)$trend;
+autoplot(trend_ma) + autolayer(con_supply2010)
+'
+ex() %>% check_or(
+   check_function(.,"autoplot") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autoplot") %>% check_arg("object") %>% check_equal()
+)
+
+ex() %>% check_or(
+   check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autolayer") %>% check_arg("object") %>% check_equal()
+)
 success_msg("Great! Can you guess why there are 12 rows missing?")
 ```
 
