@@ -530,5 +530,11 @@ ex() %>% check_function("ts", index = 2) %>% {
 
 ex() %>% check_object("high") %>% check_equal()
 ex() %>% check_object("low") %>% check_equal()
+
+ex() %>% check_or(
+  check_function(., 'autoplot') %>% check_arg() %>% check_equal(),
+  check_function(., 'autoplot') %>% checK-equal()
+)
+
 success_msg("Great!")
 ```

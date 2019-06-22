@@ -91,7 +91,7 @@ In practice it is unlikely to find a time series for which these assumptions hol
 this might be true.
 
 `@instructions`
-- Produce a **monthly** time series of class `ts` from `con_supply` Assign the result to the variable `con_supply_ts`. 
+- Produce a **monthly** time series of class `ts` from `con_supply` Assign the result to the variable `con_supply_ts`. Make sure the time indices are correctly specified.  
 - Subset the series so that it starts at January 2010 and ends in April 2019. Assign the result to the variable `con_supply2010`.
 - Plot `con_supply2010` to see whether the above stated assumptions approximately hold (use `autoplot()` for this).
 
@@ -132,6 +132,11 @@ autoplot(con_supply2010)
 
 `@sct`
 ```{r}
+ex() %>% check_function("ts") %>% {
+  check_arg(., "data") %>% check_equal()
+  check_arg(., "start") %>% check_equal()
+  check_arg(., "frequency") %>% check_equal()
+}
 ex() %>% check_object("con_supply_ts") %>% check_equal()
 ex() %>% check_object("con_supply2010") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
