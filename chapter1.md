@@ -416,7 +416,7 @@ We start with the `autoplot()` function. For a single time series it does not ma
 
 `@instructions`
 - Load the `forecast` package.
-- Plot the closing prices using the `autoplot()` function.
+- Plot `close` using the `autoplot()` function.
 
 `@hint`
 
