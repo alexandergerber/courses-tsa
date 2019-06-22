@@ -820,7 +820,7 @@ Box.test(ts, lag = number_of_lags, type = "Ljung-Box")
 ```
 
 `@instructions`
-- Test $H_0$ whether there is autocorrelation left in `final_model_resid` of the last exercise using the Ljung-Box test with the rule of thumb from above
+- Test $H_0$: "There is no autocorrelation left in `final_model_resid`" using the Ljung-Box test with the rule of thumb from above
 
 `@hint`
 
