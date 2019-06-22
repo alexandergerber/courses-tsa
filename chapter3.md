@@ -527,7 +527,7 @@ xp: 100
 As we found out earlier the ACF and PACF of an ARMA(p,q) model decay both slowly to zero without an obvious cutoff. Hence, we can distinguish an ARMA time series from an AR and MA time series. The same should be visible for their estimated counterparts.
 
 `@instructions`
-- Simulate data from from the process 
+- Simulate data from the process 
 $$y _t = 0.7 y _{t-1} +  \epsilon _t + 0.5 \epsilon _{t-1},\quad t = 1,...,1000$$ and save the result as `arma11` 
 - Plot the ACF and the PACF next to each other using `grid.arrange()`
 
@@ -803,7 +803,7 @@ xp: 100
 Another way of testing whether the residuals resemble white noise is to use a hypothesis test such as the Ljung-Box test. 
 The null hypothesis that the data are uncorrelated is tested against the alternative that autocorrelation is present.
 The idea behind the test is to accumulate the autocorrelations at each individual lag to one test statistic in order to test the overall autocorrelation in the data. 
-There is one critical choice to make: How many lags to include into the test statistic. However, as a rule of thumb you can choose the number of lags as $\sqrt{T}$, where $R$ is the length of the time series.  
+There is one critical choice to make: How many lags to include into the test statistic. However, as a rule of thumb you can choose the number of lags as $\sqrt{T}$, where $T$ is the length of the time series.  
 
 To perform the test in R the function  `Box.test()` can be used with the following syntax:
 
