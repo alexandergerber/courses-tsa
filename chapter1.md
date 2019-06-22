@@ -516,9 +516,19 @@ autoplot(high, series = "high") + autolayer(low)
 
 `@sct`
 ```{r}
-ex() %>% check_object("high") %>% check_equal()
-ex() %>% check_object("low") %>% check_equal()
-ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-ex() %>% check_function("autolayer") %>% check_arg("object") %>% check_equal()
+ex() %>% check_function("ts", index = 1) %>% {
+  check_arg(., "data") %>% check_equal()
+  check_arg(., "start") %>% check_equal()
+  check_arg(., "frequency") %>% check_equal()
+}
+
+ex() %>% check_function("ts", index = 2) %>% {
+  check_arg(., "data") %>% check_equal()
+  check_arg(., "start") %>% check_equal()
+  check_arg(., "frequency") %>% check_equal()
+}
+
+ex() %>% check_object("high") %>% check_equal(eq_condition = "identical")
+ex() %>% check_object("low") %>% check_equal(eq_condition = "identical")
 success_msg("Great!")
 ```
