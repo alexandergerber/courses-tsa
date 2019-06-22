@@ -571,10 +571,18 @@ grid.arrange(
 
 `@sct`
 ```{r}
+sol_alt <- 'set.seed(3);
+arma11 <- arima.sim(model = list(ar = 0.7, ma = 0.5), n = 1000);
+grid.arrange(
+  ggPacf(arma11),
+  ggAcf(arma11)
+)'
 ex() %>% check_object("arma11") %>% check_equal()
-ex() %>% check_function("grid.arrange") %>% {
-  check_arg(., "...")
-} %>% check_equal()
+ex() %>% check_or(
+   check_function(.,"grid.arrange") %>% check_arg("...") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("grid.arrange") %>% check_arg("...") %>% check_equal()
+)
 success_msg("Fancy")
 ```
 
