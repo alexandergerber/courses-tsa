@@ -275,7 +275,7 @@ xp: 100
 For the rest of the course we will work with time series of class `ts`. This is a class for regular time series only. 
 Most of the methods we are using in this course require time series in this format. We can convert an `xts` object to an object of class `ts`
 by using the function `ts()`. Unfortunately, the time indices are not converted and we have to add them manually. For this it is enough to 
-specify the start date and the so-called frequency, which is the number of observations per cycle (in our one cycle corresponds to one year). 
+specify the start date and the so-called frequency, which is the number of observations per cycle (in our case one cycle corresponds to one year). 
 
 For example: 
 - a monthly time series starting in April 2016
