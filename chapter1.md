@@ -528,7 +528,7 @@ ex() %>% check_function("ts", index = 2) %>% {
   check_arg(., "frequency") %>% check_equal()
 }
 
-ex() %>% check_object("high") %>% check_equal(eq_condition = "identical")
-ex() %>% check_object("low") %>% check_equal(eq_condition = "identical")
+ex() %>% check_object("high") %>% check_equal()
+ex() %>% check_object("low") %>% check_equal()
 success_msg("Great!")
 ```
