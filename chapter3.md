@@ -421,7 +421,7 @@ $$y _t = 0.8 y _{t-1} +  \epsilon _t + 1.5 \epsilon _{t-1} - 0.6 \epsilon _{t-2}
 ```{r}
 # Compute ACF and PACF of the ARMA process
 ARMAacf(ar = 0.8, ma = c(1.5, -0.6), lag = 10)
-ARMAacf(ar = 0.8,ma = c(0.7, -0.6), lag = 10, pacf = TRUE)
+ARMAacf(ar = 0.8,ma = c(1.5, -0.6), lag = 10, pacf = TRUE)
 ```
 
 `@sct`
