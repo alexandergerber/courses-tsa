@@ -64,7 +64,7 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 
 ---
 
-## Model Selection
+## Dependence Structure within the Return Series
 
 ```yaml
 type: NormalExercise
@@ -164,7 +164,7 @@ garch12 <- garchFit(~garch(1, 2), data = train, include.mean = FALSE, trace = FA
 
 ---
 
-## Order Selection
+## Model Selection
 
 ```yaml
 type: NormalExercise
