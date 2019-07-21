@@ -6,6 +6,7 @@ install_version("ggplot2", "2.2.1")
 install_version("gridExtra", "2.3")
 install_version("dplyr", "0.7.4")
 install_version("quantmod", "0.4-13") 
+install_version("fgarch", "3042.83.1")
 ##### Install packages in development from GitHub #####
 
 # install_github("nicholasehamilton/ggtern")
