@@ -48,11 +48,11 @@ apple <- getSymbols("AAPL", auto.assign = FALSE)$AAPL.Close
 autoplot(apple)
 
 # Compute and plot the log differences 
-log_returns <- diff(log(apple))
+log_returns <- diff(log(apple))["2015-01-01/"]
 autoplot(log_returns)
 
 # Split the return series into a train and test series
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+train <- ts(window(log_returns, end = "2018-12-31"))
 test <- ts(window(log_returns, start = "2019-01-01"))
 
 ```
@@ -85,8 +85,8 @@ xp: 100
 library(forecast)
 library(quantmod)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 ```
 
 `@sample_code`
@@ -138,8 +138,8 @@ library(forecast)
 library(quantmod)
 library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 ```
 
 `@sample_code`
@@ -186,8 +186,8 @@ library(forecast)
 library(quantmod)
 library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 ```
 
 `@sample_code`
@@ -261,8 +261,8 @@ library(forecast)
 library(quantmod)
 library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 best_model <- garchFit(~garch(1, 1), data = train, include.mean = FALSE, trace = FALSE)
 ```
 
@@ -329,8 +329,8 @@ library(forecast)
 library(quantmod)
 library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 test <- ts(window(log_returns, start = "2019-01-01"))
 ```
 
@@ -391,8 +391,8 @@ library(forecast)
 library(quantmod)
 library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
-log_returns <- diff(log(apple))
-train <- ts(window(log_returns, start = "2015-01-01", end = "2018-12-31"))
+log_returns <- diff(log(apple))["2015-01-01/"]
+train <- ts(window(log_returns, end = "2018-12-31"))
 test <- ts(window(log_returns, start = "2019-01-01"))
 forecasts_sigma <- numeric()
 for(h in seq_along(test)){
@@ -410,9 +410,6 @@ for(h in seq_along(test)){
 # Plot the test series together with the forecasted CVaRs
 
 
-# Compute the share of actual returns being less than the forecasted CVaR
-
-
 ```
 
 `@solution`
@@ -422,9 +419,6 @@ CVaR <- ts(forecasts_sigma * qnorm(0.05))
 
 # Plot the test series together with the forecasted CVaRs
 autoplot(test) + autolayer(CVaR)
-
-# Compute the share of actual returns being less than the forecasted CVaR
-mean(CVaR > test)
 
 ```
 
