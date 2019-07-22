@@ -11,13 +11,17 @@ key: 2ff3d10f68
 xp: 100
 ```
 
+...
 
+As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load 
 
 `@instructions`
-
+- Import the Apple closing prices by passing the relevant symbol (google it, if you don't know it!) to `getSymbols("your_symbol", src = "yahoo", auto.assign = FALSE)[, "your_symbol.Close"]` and assign the result to `apple`. Then plot `apple`. Does the series look stationary?
+- Compute log returns...
+- Split the return series into a test (2015-01-01 - 2018-12-31) and train (2019-01-01 - ) data set and assign them to `train` and `test`, respectively.
 
 `@hint`
-
+- The Yahoo Finance symbol for Apple is `AAPL`. Hence the closing prices can be obtained using `[, AAPL.Close]`.
 
 `@pre_exercise_code`
 ```{r}
@@ -27,11 +31,11 @@ library(quantmod)
 
 `@sample_code`
 ```{r}
-# Load and plot the closing prices of Apple
+# Import and plot the closing prices of Apple
 
 
 
-# Compute and plot the log differences 
+# Compute and plot the log returns
 
 
 
@@ -44,10 +48,10 @@ library(quantmod)
 `@solution`
 ```{r}
 # Load and plot the closing prices of Apple
-apple <- getSymbols("AAPL", auto.assign = FALSE)$AAPL.Close
+apple <- getSymbols("AAPL", src = "yahoo", auto.assign = FALSE)[, "AAPL.Close"]
 autoplot(apple)
 
-# Compute and plot the log differences 
+# Compute and plot the log returns
 log_returns <- window(diff(log(apple), start = "2015-01-01"))
 autoplot(log_returns)
 
@@ -59,7 +63,13 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("apple") %>% check_equal()
+ex() %>% check_function("autoplot", index = 1) %>% check_arg("object") %>% check_equal()
+ex() %>% check_object("log_returns") %>% check_equal()
+ex() %>% check_function("autoplot", index = 2) %>% check_arg("object") %>% check_equal()
+ex() %>% check_object("train") %>% check_equal()
+ex() %>% check_object("test") %>% check_equal()
+success_msg("Correct! The original series does not look stationary, however the return series does.")
 ```
 
 ---
@@ -75,7 +85,8 @@ xp: 100
 
 
 `@instructions`
-
+- Plot the ACF estimate of the original return series.
+- Plot the ACF estimate of the squared return series.
 
 `@hint`
 
@@ -111,7 +122,9 @@ ggAcf(train^2)
 
 `@sct`
 ```{r}
-
+ex() %>% check_function("ggAcf", index = 1) %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("ggAcf", index = 2) %>% check_arg("x") %>% check_equal()
+success_msg("Correct! It looks like a (G)ARCH model fits well here.")
 ```
 
 ---
@@ -125,9 +138,13 @@ xp: 100
 ```
 
 
+```
+garchFit(~garch(p, q), data = time_series, include.mean = FALSE, trace = FALSE)
+```
 
 `@instructions`
-
+- Fit an ARCH(4) to `train` and assign the resulting model object to `arch4`.
+- Fit a GARCH(1, 2) to `train` and assign the resulting model object to `garch12`.
 
 `@hint`
 
@@ -144,6 +161,11 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@sample_code`
 ```{r}
+# Fit an ARCH(4) to the return series
+
+
+# Fit a GARCH(1, 2) to the return series
+
 
 ```
 
@@ -159,7 +181,9 @@ garch12 <- garchFit(~garch(1, 2), data = train, include.mean = FALSE, trace = FA
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("arch4") %>% check_equal()
+ex() %>% check_object("garch12") %>% check_equal()
+success_msg("Correct!")
 ```
 
 ---
