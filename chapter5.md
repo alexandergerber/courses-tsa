@@ -13,7 +13,7 @@ xp: 100
 
 ...
 
-As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load 
+As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load
 
 `@instructions`
 - Import the Apple closing prices by passing the relevant symbol (google it, if you don't know it!) to `getSymbols("your_symbol", src = "yahoo", auto.assign = FALSE)[, "your_symbol.Close"]` and assign the result to `apple`. Then plot `apple`. Does the series look stationary?
@@ -136,7 +136,6 @@ type: NormalExercise
 key: decd27689a
 xp: 100
 ```
-
 
 ```
 garchFit(~garch(p, q), data = time_series, include.mean = FALSE, trace = FALSE)
