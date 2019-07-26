@@ -304,8 +304,7 @@ Here is an example
 The first test is performed on $\hat{\epsilon}_ t$ (because there is only `R`), with 10 lags included (because of `Q(10)`).
 The second test is on $\hat{\epsilon}_ t^2$ (because there is only `R^2`), with 15 lags included (because of `Q(15)`).
 
-In general we are satisfied, if all performed test would not reject. 
-
+In general we are satisfied, if all performed test would not reject.
 
 `@instructions`
 - Compute and plot the standardized residuals
