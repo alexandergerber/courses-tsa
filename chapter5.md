@@ -195,10 +195,25 @@ key: 71c752792e
 xp: 100
 ```
 
+To help us decide which GARCH(p,q) model to choose among a set of candidate models we can again use an information criteria, e.g AIC or BIC.
+Since there is no function which automates this process such as `auto.arima()` for ARMA models, we have to code a solution on our own. 
 
+We use a similar approach to the model selection in chapter 4 where we used the $\widehat{MSFE}\;$ to select a model. 
+
+1. Construct a grid of all considered model orders
+2. Loop over the grid to fit the models and compute the value of the information criterion
+3. Choose the model with the lowest value for the information criterion 
+
+There is one difficulty, `garchFit()` requires a formula of the form `~garch(p,q)` to set the model order.
+If we want to switch `p` and `q` in every round of the loop we need to manipulate the formula. With the function 
+`paste()` character strings can be clued together like (try `a <- 42; paste("a = ", a)`). Furthermore, we can use the function
+`formula()` to convert a character string to a `formula` (e.g. formula("y ~ x")). If we combine both we can dynamically create    
+new formulas within the loop like using `formula(paste("~garch(",p,",",q,")"))`.
 
 `@instructions`
-
+- Create a grid of possible model orders containing all combinations of $p = \{1,2,3\}$ and $q = \{1,2,3\}$ and assign it to `grid`. 
+- Loop over the grid to fit all models and save each model in a list called `garch_models` and the value of the AIC in the vector `aic`.
+- Save the best model according to the AIC as `best_model`.
 
 `@hint`
 
@@ -270,10 +285,33 @@ key: cfd91968ef
 xp: 100
 ```
 
+As we did for ARMA models we again run some model diagnostics to check whether our estimated model is a good approximation of the real process. 
+
+Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$) look roughly white noise. 
+We can check this by taking a look at the ACF or by performing e.g. a Ljung-Box test. 
+
+If you have a saved garch model object `garch_model`, then you can run `summary(garch_model)` which will print out automatically p-values
+for Ljung-Box tests on $\hat{\epsilon}_ t$ and $\hat{\epsilon}_ t^2$ for different included lag numbers. 
+
+Here is an example  
+
+|   |  | | Statistic | p-Value |
+|---|------|------|------|------|
+| Ljung-Box Test  | R | Q(10) | 10.6873  |  0.3823935|
+| Ljung-Box Test  | R^2 | Q(15) |13.5374 | 0.5608628 |
+
+
+The first test is performed on $\hat{\epsilon}_ t$ (because there is only `R`), with 10 lags included (because of `Q(10)`).
+The second test is on $\hat{\epsilon}_ t^2$ (because there is only `R^2`), with 15 lags included (because of `Q(15)`).
+
+In general we are satisfied, if all performed test would not reject. 
 
 
 `@instructions`
-
+- Compute and plot the standardized residuals
+- Estimate the ACF of the standardized residuals
+- Estimate the ACF of the squared standardized residuals
+- Check the results of the Ljung-Box test
 
 `@hint`
 

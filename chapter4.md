@@ -361,7 +361,7 @@ autoplot(ar1_dynamic_forecasts)
 ex() %>% check_object("ar1_model") %>% check_equal()
 ex() %>% check_object("ar1_dynamic_forecasts") %>% check_equal()
 ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal()
-success_msg("Like a boss!")
+success_msg("Well done!")
 ```
 
 ---
