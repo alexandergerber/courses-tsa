@@ -385,15 +385,15 @@ key: bd56a9007f
 xp: 100
 ```
 
-Since we are interested in the volatility of a process when we use GARCH models we also want to forecast volatility $\sigma$. 
+Since we are interested in the volatility of a process when we use GARCH models we also want to forecast the volatility $\sigma_ {t+h}$. 
 
-If we already have estimated a GARCH model then the h-step ahead volatility forecast can be computed with the function `predict()` 
+If we already have estimated a GARCH model then the h-step ahead volatility forecast  $\widehat{ \sigma }_ {t+h}$ can be computed with the function `predict()` 
 like this: 
 ```
 predict(garch_model, h)$standardDeviation
 ```  
 
-Here we want to produce a series of 1-step ahead volatility forecasts for the test date.
+Here we want to produce a series of 1-step ahead volatility forecasts for the test date. 
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
@@ -456,7 +456,8 @@ key: 49bd4f0b54
 xp: 100
 ```
 
-
+Using the assumption $\epsilon_ t \sim N(0,1)$ we can compute the conditional Value at Risk (CVaR) for level $\alpha$ as the 
+$\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$.  
 
 `@instructions`
 
