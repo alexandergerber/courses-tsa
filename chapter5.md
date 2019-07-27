@@ -434,7 +434,7 @@ sigma_forecast <- numeric(length(test))
 
 # Write a for() loop to statically forecast the sigmas within the rolling window scheme
 for(i in seq_along(test)){
-  garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + h) : (length(train) + h - 1)], 
+  garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + i) : (length(train) + i - 1)], 
                           cond.dist = "norm", include.mean = FALSE, trace = FALSE)
   sigma_forecast[i] <- predict(garch11, 1)$standardDeviation
 }
@@ -456,7 +456,7 @@ key: 49bd4f0b54
 xp: 100
 ```
 
-Using the assumption $\epsilon_ t \sim N(0,1)$ we can compute the conditional Value at Risk (CVaR) for level $\alpha$ as the 
+Using the assumption $\epsilon_ t \sim N(0,1)$ we can predict the conditional Value at Risk (CVaR) at time $t+1$ for level $\alpha$ as the 
 $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$.  
 
 `@instructions`
