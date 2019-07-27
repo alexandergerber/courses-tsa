@@ -457,10 +457,12 @@ xp: 100
 ```
 
 Using the assumption $\epsilon_ t \sim N(0,1)$ we can predict the conditional Value at Risk (CVaR) at time $t+1$ for level $\alpha$ as the 
-$\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$.  
+$\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$. We already have compute the vector containing 
+all $\hat{ \sigma}^2_ {t+1}$ for the test set. Now we use it to get the CVaR.
 
 `@instructions`
-
+- Predict for the test data the one-step-ahead CVaR for level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
+- Plot the test data together with the CVaR.
 
 `@hint`
 
