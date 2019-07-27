@@ -196,7 +196,7 @@ xp: 100
 ```
 
 To help us decide which GARCH(p,q) model to choose among a set of candidate models we can again use an information criteria, e.g AIC or BIC.
-Since there is no function which automates this process such as `auto.arima()` for ARMA models, we have to code a solution on our own. 
+Since there is no function which automates this process, such as `auto.arima()` for ARMA models, we have to code a solution on our own. 
 
 We use a similar approach to the model selection in chapter 4 where we used the $\widehat{MSFE}\;$ to select a model. 
 
@@ -206,13 +206,23 @@ We use a similar approach to the model selection in chapter 4 where we used the 
 
 There is one difficulty, `garchFit()` requires a formula of the form `~garch(p,q)` to set the model order.
 If we want to switch `p` and `q` in every round of the loop we need to manipulate the formula. With the function 
-`paste()` character strings can be clued together like (try `a <- 42; paste("a = ", a)`). Furthermore, we can use the function
-`formula()` to convert a character string to a `formula` (e.g. formula("y ~ x")). If we combine both we can dynamically create    
-new formulas within the loop like using `formula(paste("~garch(",p,",",q,")"))`.
+`paste()` character strings can be clued together like this
+```
+a <- 42
+paste("a = ", a)`
+```
+Furthermore, we can use the function `formula()` to convert a character string to a `formula` (e.g. `formula("y ~ x")`). 
+If we combine both we can dynamically create    
+new formulas within the loop like this
+
+```
+formula(paste("~garch(",p,",",q,")"))
+```.
 
 `@instructions`
 - Create a grid of possible model orders containing all combinations of $p = \{1,2,3\}$ and $q = \{1,2,3\}$ and assign it to `grid`. 
-- Loop over the grid to fit all models and save each model in a list called `garch_models` and the value of the AIC in the vector `aic`.
+- Create as placeholders for the estimated models the list `garch_models` and the vector `aic`. The length of both should equal the number of rows in `grid`.
+- Loop over the grid to fit all models and save each model as entry in `garch_models` and the value of the AIC as an entry in `aic`.
 - Save the best model according to the AIC as `best_model`.
 
 `@hint`
@@ -285,9 +295,9 @@ key: cfd91968ef
 xp: 100
 ```
 
-As we did for ARMA models we again run some model diagnostics to check whether our estimated model is a good approximation of the real process. 
+As we did for ARMA models we run some model diagnostics to check whether our estimated model is a good approximation of the real process. 
 
-Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$) look roughly white noise. 
+Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$)  roughly look like white noise. 
 We can check this by taking a look at the ACF or by performing e.g. a Ljung-Box test. 
 
 If you have a saved garch model object `garch_model`, then you can run `summary(garch_model)` which will print out automatically p-values
@@ -375,10 +385,19 @@ key: bd56a9007f
 xp: 100
 ```
 
+Since we are interested in the volatility of a process when we use GARCH models we also want to forecast volatility $\sigma$. 
 
+If we already have estimated a GARCH model then the h-step ahead volatility forecast can be computed with the function `predict()` 
+like this: 
+```
+predict(garch_model, h)$standardDeviation
+```  
+
+Here we want to produce a series of 1-step ahead volatility forecasts for the test date.
 
 `@instructions`
-
+- Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
+- Use a rolling window of size equal to the length of the training dataset to reestimate the GARCH(1,1) model and then unse predict to forecast the volatility $\sigma$ for the next time step.
 
 `@hint`
 
@@ -411,13 +430,13 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 `@solution`
 ```{r}
 # Create an empty vector `forecast_sigma`
-forecasts_sigma <- numeric()
+sigma_forecast <- numeric(length(test))
 
 # Write a for() loop to statically forecast the sigmas within the rolling window scheme
-for(h in seq_along(test)){
+for(i in seq_along(test)){
   garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + h) : (length(train) + h - 1)], 
                           cond.dist = "norm", include.mean = FALSE, trace = FALSE)
-  forecasts_sigma[h] <- predict(garch11, 1)$standardDeviation
+  sigma_forecast[i] <- predict(garch11, 1)$standardDeviation
 }
 
 ```
