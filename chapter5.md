@@ -309,10 +309,10 @@ Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t
 
 We can check this by taking a look at the ACF or by performing e.g. a Ljung-Box test. 
 
-If you have a saved garch model object `garch_model`, then you can run `summary(garch_model)` which will print out automatically p-values
+If you have a garch model object `garch_model`, then you can run `summary(garch_model)` which will automatically print out p-values
 for Ljung-Box tests on $\hat{\epsilon}_ t$ and $\hat{\epsilon}_ t^2$ for different included lag numbers. 
 
-Here is an example  
+This is an example:  
 
 |   |  | | Statistic | p-Value |
 |---|------|------|------|------|
@@ -323,7 +323,7 @@ Here is an example
 The first test is performed on $\hat{\epsilon}_ t$ (because there is only `R`), with 10 lags included (because of `Q(10)`).
 The second test is on $\hat{\epsilon}_ t^2$ (because there is only `R^2`), with 15 lags included (because of `Q(15)`).
 
-In general we are satisfied, if all performed test would not reject.
+In general we are satisfied if all performed test would not reject.
 
 `@instructions`
 - Compute and plot the standardized residuals
@@ -394,10 +394,9 @@ key: bd56a9007f
 xp: 100
 ```
 
-Since we are interested in the volatility of a process when we use GARCH models we also want to forecast the volatility $\sigma_ {t+h}$. 
+Since we are interested in the volatility of a process when using GARCH models we also want to forecast volatility. 
 
-If we already have estimated a GARCH model then the h-step ahead volatility forecast  $\widehat{ \sigma }_ {t+h}$ can be computed with the function `predict()` 
-like this: 
+If we already have estimated a GARCH model based on data up to time $T$ then the h-step ahead volatility forecast  $\widehat{ \sigma }_ {T+h}$ can be computed with the function `predict()` like this: 
 ```
 predict(garch_model, h)$standardDeviation
 ```  
@@ -406,7 +405,7 @@ Here we want to produce a series of 1-step ahead volatility forecasts for the te
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
-- Use a rolling window of size equal to the length of the training dataset to reestimate the GARCH(1,1) model and then unse predict to forecast the volatility $\sigma$ for the next time step.
+- Use a rolling window of size equal to the length of the training dataset to reestimate the GARCH(1,1) for each observation in the test dataset. Then use `predict()` to forecast the volatility for the next time step. That way you should get one-step-ahead forecasts for the complete test dateset.
 
 `@hint`
 
@@ -465,9 +464,8 @@ key: 49bd4f0b54
 xp: 100
 ```
 
-Using the assumption $\epsilon_ t \sim N(0,1)$ we can predict the conditional Value at Risk (CVaR) at time $t+1$ for level $\alpha$ as the 
-$\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$. We already have compute the vector containing 
-all $\hat{ \sigma}^2_ {t+1}$ for the test set. Now we use it to get the CVaR.
+Using the assumption $\epsilon_ t \sim N(0,1)$ we can use the forecasted volatility from the previous exercise to forecast the conditional Value at Risk (CVaR). 
+The CVaR forecast for level $\alpha$ can be computed as the $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$.
 
 `@instructions`
 - Predict for the test data the one-step-ahead CVaR for level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
