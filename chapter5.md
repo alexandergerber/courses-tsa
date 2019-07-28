@@ -221,10 +221,7 @@ formula(paste("~garch(",p,",",q,")"))
 ```
 
 Finally, you can extract a vector with values for several information criteria from an object returned by `garchFit`
-with `garch_model@fit$ics`. 
-
-
-
+with `garch_model@fit$ics`.
 
 `@instructions`
 - Create a grid of possible model orders containing all combinations of $p = \{1,2,3\}$ and $q = \{1,2,3\}$ and assign it to `grid`. 
