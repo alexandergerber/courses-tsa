@@ -195,16 +195,17 @@ key: 71c752792e
 xp: 100
 ```
 
-To help us decide which GARCH(p,q) model to choose among a set of candidate models we can again use an information criteria, e.g AIC or BIC.
+To help us decide which GARCH(p,q) model to choose among a set of candidate models we can make use of a information criteria again, e.g AIC or BIC.
 Since there is no function which automates this process, such as `auto.arima()` for ARMA models, we have to code a solution on our own. 
 
 We use a similar approach to the model selection in chapter 4 where we used the $\widehat{MSFE}\;$ to select a model. 
 
 1. Construct a grid of all considered model orders
-2. Loop over the grid to fit the models and compute the value of the information criterion
+2. Loop over the grid to fit the models  
+4. Compute the value of the information criterion for every model
 3. Choose the model with the lowest value for the information criterion 
 
-There is one difficulty, `garchFit()` requires a formula of the form `~garch(p,q)` to set the model order.
+There is one difficulty: `garchFit()` requires a formula of the form `~garch(p,q)` to set the model order.
 If we want to switch `p` and `q` in every round of the loop we need to manipulate the formula. With the function 
 `paste()` character strings can be clued together like this
 ```
@@ -213,20 +214,27 @@ paste("a = ", a)`
 ```
 Furthermore, we can use the function `formula()` to convert a character string to a `formula` (e.g. `formula("y ~ x")`). 
 If we combine both we can dynamically create    
-new formulas within the loop like this
+new formulas within the loop as follows
 
 ```
 formula(paste("~garch(",p,",",q,")"))
-```.
+```
+
+Finally, you can extract a vector with values for several information criteria from an object returned by `garchFit`
+with `garch_model@fit$ics`. 
+
+
+
 
 `@instructions`
 - Create a grid of possible model orders containing all combinations of $p = \{1,2,3\}$ and $q = \{1,2,3\}$ and assign it to `grid`. 
-- Create as placeholders for the estimated models the list `garch_models` and the vector `aic`. The length of both should equal the number of rows in `grid`.
+- Create as placeholders the list `garch_models` and the vector `aic`. The length of both should equal the number of rows in `grid`.
 - Loop over the grid to fit all models and save each model as entry in `garch_models` and the value of the AIC as an entry in `aic`.
 - Save the best model according to the AIC as `best_model`.
 
 `@hint`
-
+- Use `expand.grid()` to produce `grid`. 
+- Use double brackets (`[[]]`) if you work with a list.
 
 `@pre_exercise_code`
 ```{r}
@@ -297,7 +305,8 @@ xp: 100
 
 As we did for ARMA models we run some model diagnostics to check whether our estimated model is a good approximation of the real process. 
 
-Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$)  roughly look like white noise. 
+Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$)  roughly look like white noise. If that wouldn't be the case there would be some dependence left our model did not capture. 
+
 We can check this by taking a look at the ACF or by performing e.g. a Ljung-Box test. 
 
 If you have a saved garch model object `garch_model`, then you can run `summary(garch_model)` which will print out automatically p-values
