@@ -393,7 +393,7 @@ like this:
 predict(garch_model, h)$standardDeviation
 ```  
 
-Here we want to produce a series of 1-step ahead volatility forecasts for the test date. 
+Here we want to produce a series of 1-step ahead volatility forecasts for the test date.
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
