@@ -137,22 +137,30 @@ key: decd27689a
 xp: 100
 ```
 
+After finding evidence for a serial structure in the squared log returns, a model from the (G)ARCH model class seems to be the right choice.
+
+Fitting GARCH(p, q) models in R is provided by the function `garchFit()` from the `fGarch` package.
+The syntax is as follows:
+
 ```
 garchFit(~garch(p, q), data = time_series, include.mean = FALSE, trace = FALSE)
 ```
 
+Setting `include.mean = FALSE` fixes the mean at zero during the optimization process which, when working with financial time series', is a reasonable assumption (why?).
+With `trace = FALSE` we suppress any output printed out during the optimization process.
+
 `@instructions`
+- Load the `fGarch` package.
 - Fit an ARCH(4) to `train` and assign the resulting model object to `arch4`.
 - Fit a GARCH(1, 2) to `train` and assign the resulting model object to `garch12`.
 
 `@hint`
-
+- The ARCH(p) model arises as a special case of the GARCH(p, q) model.
 
 `@pre_exercise_code`
 ```{r}
 library(forecast)
 library(quantmod)
-library(fGarch)
 apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
 log_returns <- window(diff(log(apple)), start = "2015-01-01")
 train <- ts(window(log_returns, end = "2018-12-31"))
@@ -160,6 +168,9 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@sample_code`
 ```{r}
+# Load the fGarch package
+
+
 # Fit an ARCH(4) to the return series
 
 
@@ -170,6 +181,9 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@solution`
 ```{r}
+# Load the fGarch package
+library(fGarch)
+
 # Fit an ARCH(4) to the return series
 arch4 <- garchFit(~garch(4, 0), data = train, include.mean = FALSE, trace = FALSE)
 
@@ -180,6 +194,7 @@ garch12 <- garchFit(~garch(1, 2), data = train, include.mean = FALSE, trace = FA
 
 `@sct`
 ```{r}
+ex() %>% check_library("fGarch")
 ex() %>% check_object("arch4") %>% check_equal()
 ex() %>% check_object("garch12") %>% check_equal()
 success_msg("Correct!")
@@ -276,7 +291,7 @@ aic <- numeric()
 # Write a for() loop that iterates over the rows of your grid and estimates the models
 for(i in 1:nrow(grid)){
   garch_formula <- formula(paste("~garch(", grid[i, 1], ",", grid[i, 2] , ")"))     
-  garch_models[[i]] <- garchFit(garch_formula, data = train, include.mean = F, trace = F)
+  garch_models[[i]] <- garchFit(garch_formula, data = train, include.mean = FALSE, trace = FALSE)
   aic[i] <- garch_models[[i]]@fit$ics[1]
 }
 
@@ -287,7 +302,12 @@ best_model <- garch_models[[which.min(aic)]]
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("grid") %>% check_equal()
+ex() %>% check_function("expand.grid") 
+ex() %>% check_object("garch_models") %>% check_equal()
+ex() %>% check_object("aic") %>% check_equal()
+ex() %>% check_object("best_model") %>% check_equal()
+success_msg("Correct!")
 ```
 
 ---
@@ -378,7 +398,12 @@ summary(best_model)
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("e") %>% check_equal()
+ex() %>% check_function("autoplot") %>% check_arg("object") %>% check_equal
+ex() %>% check_function("ggAcf", index = 1) %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("ggAcf", index = 2) %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("summary") %>% check_arg("object") %>% check_equal
+success_msg("Correct!")
 ```
 
 ---
@@ -448,7 +473,8 @@ for(i in seq_along(test)){
 
 `@sct`
 ```{r}
-
+ex() %>% check_object("sigma_forecast") %>% check_equal()
+success_msg("Correct!")
 ```
 
 ---
@@ -510,5 +536,19 @@ autoplot(test) + autolayer(CVaR)
 
 `@sct`
 ```{r}
+ex() %>% check_object("CVaR") %>% check_equal()
+sol_alt <- 'CVaR <- ts(forecasts_sigma * qnorm(0.05)); autoplot(CVaR) + autolayer(test)'
 
+ex() %>% check_or(
+   check_function(.,"autoplot") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autoplot") %>% check_arg("object") %>% check_equal()
+)
+
+ex() %>% check_or(
+   check_function(.,"autolayer") %>% check_arg("object") %>% check_equal(),
+   override_solution(.,sol_alt) %>% 
+   check_function("autolayer") %>% check_arg("object") %>% check_equal()
+)
+success_msg("Correct!")
 ```
