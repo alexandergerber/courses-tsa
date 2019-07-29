@@ -418,12 +418,13 @@ xp: 100
 
 Since we are interested in the volatility of a process when using GARCH models we also want to forecast volatility. 
 
-If we already have estimated a GARCH model based on data up to time $T$ then the h-step ahead volatility forecast  $\widehat{ \sigma }_ {T+h}$ can be computed with the function `predict()` like this: 
+If we already have estimated a GARCH model based on data up to time $T$. then the h-step ahead volatility forecast  $\widehat{ \sigma }_ {T+h}$ can be computed with the function `predict()` like this: 
 ```
 predict(garch_model, h)$standardDeviation
 ```  
 
-Here we want to produce a series of 1-step ahead volatility forecasts for the test date.
+Here we want to produce a series of 1-step ahead volatility forecasts for the test data.
+
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
@@ -487,8 +488,8 @@ key: 49bd4f0b54
 xp: 100
 ```
 
-Using the assumption $\epsilon_ t \sim N(0,1)$ we can use the forecasted volatility from the previous exercise to forecast the conditional Value at Risk (CVaR). 
-The CVaR forecast for level $\alpha$ can be computed as the $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {t+1}$.
+Using the assumption $\epsilon_ t \sim N(0,1)$ we can use the forecasted volatilities from the previous exercise to forecast the conditional Value at Risk (CVaR). 
+The CVaR forecast for $T+1$ at level $\alpha$ can be computed as the $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {T+1}$.
 
 `@instructions`
 - Predict for the test data the one-step-ahead CVaR for level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
