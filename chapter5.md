@@ -492,7 +492,7 @@ Using the assumption $\epsilon_ t \sim N(0,1)$ we can use the forecasted volatil
 The CVaR forecast for $T+1$ at level $\alpha$ can be computed as the $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {T+1}$.
 
 `@instructions`
-- Predict for the test data the one-step-ahead CVaR for level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
+- Predict for the test data the one-step-ahead CVaR at level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
 - Plot the test data together with the CVaR.
 
 `@hint`
