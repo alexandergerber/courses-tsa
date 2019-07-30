@@ -425,7 +425,6 @@ predict(garch_model, h)$standardDeviation
 
 Here we want to produce a series of 1-step ahead volatility forecasts for the test data.
 
-
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
 - Use a rolling window of size equal to the length of the training dataset to reestimate the GARCH(1,1) for each observation in the test dataset. Then use `predict()` to forecast the volatility for the next time step. That way you should get one-step-ahead forecasts for the complete test dateset.
