@@ -13,12 +13,12 @@ xp: 100
 
 ...
 
-As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load
+As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load the data.
 
 `@instructions`
 - Import the Apple closing prices by passing the relevant symbol (google it, if you don't know it!) to `getSymbols("your_symbol", src = "yahoo", auto.assign = FALSE)[, "your_symbol.Close"]` and assign the result to `apple`. Then plot `apple`. Does the series look stationary?
-- Compute log returns...
-- Split the return series into a test (2015-01-01 - 2018-12-31) and train (2019-01-01 - ) data set and assign them to `train` and `test`, respectively.
+- Compute the log returns of `apple` and ... using `window()`. Assign the result to `log_returns` and plot it. Does the return series look stationary?
+- Split the return series into a test (2015-01-01 - 2018-12-31) and train (2019-01-01 - 2019-06-01) data set and save the results as objects of class `ts()` in `train` and `test`, respectively.
 
 `@hint`
 - The Yahoo Finance symbol for Apple is `AAPL`. Hence the closing prices can be obtained using `[, AAPL.Close]`.
@@ -52,7 +52,7 @@ apple <- getSymbols("AAPL", src = "yahoo", auto.assign = FALSE)[, "AAPL.Close"]
 autoplot(apple)
 
 # Compute and plot the log returns
-log_returns <- window(diff(log(apple)), start = "2015-01-01")
+log_returns <- window(diff(log(apple)), start = "2015-01-01", end = "2019-06-01")
 autoplot(log_returns)
 
 # Split the return series into a train and test series
@@ -150,7 +150,7 @@ Setting `include.mean = FALSE` fixes the mean at zero during the optimization pr
 With `trace = FALSE` we suppress any output printed out during the optimization process.
 
 `@instructions`
-- Load the `fGarch` package.
+- Load the `fGarch` package. It will be loaded for the rest of the course. 
 - Fit an ARCH(4) to `train` and assign the resulting model object to `arch4`.
 - Fit a GARCH(1, 2) to `train` and assign the resulting model object to `garch12`.
 
@@ -337,8 +337,8 @@ This is an example:
 | Ljung-Box Test  | R^2 | Q(15) |13.5374 | 0.5608628 |
 
 
-The first test is performed on $\hat{\epsilon}_ t$ (because there is only `R`), with 10 lags included (because of `Q(10)`).
-The second test is on $\hat{\epsilon}_ t^2$ (because there is only `R^2`), with 15 lags included (because of `Q(15)`).
+The first test is performed on $\hat{\epsilon}_ t$ (indicated by only `R`), with 10 lags included (indicated by `Q(10)`).
+The second test is on $\hat{\epsilon}_ t^2$ (indicated by `R^2`), with 15 lags included (indicated by `Q(15)`).
 
 In general we are satisfied if all performed test would not reject.
 
@@ -423,11 +423,22 @@ If we already have estimated a GARCH model based on data up to time $T$. then th
 predict(garch_model, h)$standardDeviation
 ```  
 
-Here we want to produce a series of 1-step ahead volatility forecasts for the test data.
+Here we want to produce a series of 1-step ahead volatility forecasts for the data in the test set using a rolling window.
+For this we fit a model for each forecasting step to a subsample of the data.
+If the test data set consists of the observations $\\{y_ 1, \ldots, y_ T\\}$ and the test data set consists of $\\{y_ {T+1}, \ldots, y_ {T+n}\\}$ then we would proceed as follows: 
+
+1. Fit a model to ${y_ {T-m}, \ldots, y_ T}$. Use this model to forecast $y_ {T+1}$.
+2. Fit a model to ${y_ {T-m + 1}, \ldots, y_ {T + 1}}$. Use this model to forecast $y_ {T+2}$.
+
+&emsp;&ensp;   Continue until you reach 
+
+&emsp;&ensp; n. Fit a model to ${y_ {T-m + n - 1}, \ldots, y_ {T + n - 1}}$ and use this model to forecast $y_ {T+n}$.
+
+Note that we fit each model on exactly $m$ observations. $m$ is called the window size.
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
-- Use a rolling window of size equal to the length of the training dataset to reestimate the GARCH(1,1) for each observation in the test dataset. Then use `predict()` to forecast the volatility for the next time step. That way you should get one-step-ahead forecasts for the complete test dateset.
+- Use a rolling window approach as described above. Set the window size equal to the length of the training dataset. This way you should get for each observation in the test dataset a volatility forecast.
 
 `@hint`
 
@@ -448,8 +459,7 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 # Create an empty vector `forecast_sigma`
 
 
-# Write a for() loop to statically forecast the sigmas within the rolling window scheme
-
+# Write a for() loop forecast the sigmas using a rolling window approach
 
 
 
@@ -462,10 +472,10 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 # Create an empty vector `forecast_sigma`
 sigma_forecast <- numeric(length(test))
 
-# Write a for() loop to statically forecast the sigmas within the rolling window scheme
+# Write a for() loop forecast the sigmas using a rolling window approach
 for(i in seq_along(test)){
-  garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + i) : (length(train) + i - 1)], 
-                          cond.dist = "norm", include.mean = FALSE, trace = FALSE)
+  garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + i) : (length(train) + i - 1)],
+                      include.mean = FALSE, trace = FALSE)
   sigma_forecast[i] <- predict(garch11, 1)$standardDeviation
 }
 
@@ -488,7 +498,7 @@ xp: 100
 ```
 
 Using the assumption $\epsilon_ t \sim N(0,1)$ we can use the forecasted volatilities from the previous exercise to forecast the conditional Value at Risk (CVaR). 
-The CVaR forecast for $T+1$ at level $\alpha$ can be computed as the $\alpha$ quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {T+1}$.
+The CVaR forecast for $T+1$ at level $\alpha$ can be computed as the $\alpha$-quantile of a normal distribution with expectation $0$ and variance $\hat{ \sigma}^2_ {T+1}$.
 
 `@instructions`
 - Predict for the test data the one-step-ahead CVaR at level $\alpha = 0.05$. Save the result as an object of class `ts()` called `CVaR`. 
