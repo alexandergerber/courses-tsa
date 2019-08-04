@@ -11,17 +11,18 @@ key: 2ff3d10f68
 xp: 100
 ```
 
-...
+Financial time series' often exhibit a dependence structure previously introduced model classes (e.g. ARMA models) fail to capture.
+But before being able to elaborate more on this, we first need to download and prepare some financial time series. 
 
-As in Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load the data.
+For this chapter we will work with closing prices from the tech firm Apple. Similarly to Chapter 1 we will make use of the function `getSymbols()` from the `quantmod` package to load the data.
 
 `@instructions`
 - Import the Apple closing prices by passing the relevant symbol (google it, if you don't know it!) to `getSymbols("your_symbol", src = "yahoo", auto.assign = FALSE)[, "your_symbol.Close"]` and assign the result to `apple`. Then plot `apple`. Does the series look stationary?
-- Compute the log returns of `apple` and ... using `window()`. Assign the result to `log_returns` and plot it. Does the return series look stationary?
+- Compute the log returns of `apple` and restrict the observation period (2015-01-01 - 2019-06-01). Assign the result to `log_returns` and plot it. Does the return series look stationary?
 - Split the return series into a test (2015-01-01 - 2018-12-31) and train (2019-01-01 - 2019-06-01) data set and save the results as objects of class `ts()` in `train` and `test`, respectively.
 
 `@hint`
-- The Yahoo Finance symbol for Apple is `AAPL`. Hence the closing prices can be obtained using `[, AAPL.Close]`.
+- The Yahoo Finance symbol for Apple is `AAPL`. Thus the closing prices can be obtained using `[, "AAPL.Close"]`.
 
 `@pre_exercise_code`
 ```{r}
@@ -82,10 +83,15 @@ key: 28573c3590
 xp: 100
 ```
 
+The series of log returns seems to randomly fluctuate around zero indicating that little to no autocorrelation is prevalent. 
+However when considering the squared log returns we do indeed spot a dependence structure. In particular, there seems to be a clustering in that large squared log returns tend to occur consecutively.
 
+Such volatility clustering (also known as conditional heteroscedasticity) can be captured with so-called (Generalized) AutoRegressive Conditional Heteroscedasticity models, short (G)ARCH models.
+
+So in order to check whether a (G)ARCH model is an appropriate choice we should investigate the autocorrelation structure of the raw and squared return series.
 
 `@instructions`
-- Plot the ACF estimate of the original return series.
+- Plot the ACF estimate of the raw return series.
 - Plot the ACF estimate of the squared return series.
 
 `@hint`
@@ -102,7 +108,7 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@sample_code`
 ```{r}
-# Estimate the ACF of the original return series
+# Estimate the ACF of the raw return series
 
 
 # Estimate the ACF of the squared return series
@@ -112,7 +118,7 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@solution`
 ```{r}
-# Estimate the ACF of the original return series
+# Estimate the ACF of the raw return series
 ggAcf(train)
 
 # Estimate the ACF of the squared return series
@@ -143,7 +149,7 @@ Fitting GARCH(p, q) models in R is provided by the function `garchFit()` from th
 The syntax is as follows:
 
 ```
-garchFit(~garch(p, q), data = time_series, include.mean = FALSE, trace = FALSE)
+garchFit(~garch(p, q), data = time_series, include.mean = FALSE, trace = FALSE).
 ```
 
 Setting `include.mean = FALSE` fixes the mean at zero during the optimization process which, when working with financial time series', is a reasonable assumption (why?).
@@ -210,10 +216,10 @@ key: 71c752792e
 xp: 100
 ```
 
-To help us decide which GARCH(p,q) model to choose among a set of candidate models we can make use of a information criteria again, e.g AIC or BIC.
+To help us decide which GARCH(p,q) model to choose among a set of candidate models we can make use of information criteria again, e.g AIC or BIC.
 Since there is no function which automates this process, such as `auto.arima()` for ARMA models, we have to code a solution on our own. 
 
-We use a similar approach to the model selection in chapter 4 where we used the $\widehat{MSFE}\;$ to select a model. 
+We use a similar approach to the model selection step in chapter 4 where we used the $\widehat{MSFE}\;$ to select a model. 
 
 1. Construct a grid of all considered model orders
 2. Loop over the grid to fit the models  
