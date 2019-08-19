@@ -23,6 +23,7 @@ For this chapter we will work with closing prices from the tech firm Apple. Simi
 
 `@hint`
 - The Yahoo Finance symbol for Apple is `AAPL`. Thus the closing prices can be obtained using `[, "AAPL.Close"]`.
+- Log returns are defined as $r\_t=\log\left(\frac{S\_t}{S\_{t-1}}\right)=\log(S\_t)-\log(S\_{t-1})$, where $S_t$ denotes the closing price of Apple at time $t$.
 
 `@pre_exercise_code`
 ```{r}
@@ -75,7 +76,7 @@ success_msg("Correct! The original series does not look stationary, however the 
 
 ---
 
-## Dependence Structure within the Return Series
+## Detecting Dependence Structure within the Return Series
 
 ```yaml
 type: NormalExercise
@@ -91,8 +92,8 @@ Such volatility clustering (also known as conditional heteroscedasticity) can be
 So in order to check whether a (G)ARCH model is an appropriate choice we should investigate the autocorrelation structure of the raw and squared return series.
 
 `@instructions`
-- Plot the ACF estimate of the raw return series.
-- Plot the ACF estimate of the squared return series.
+- Plot the ACF estimate of the raw `train` return series.
+- Plot the ACF estimate of the squared `train` return series.
 
 `@hint`
 
@@ -108,20 +109,20 @@ train <- ts(window(log_returns, end = "2018-12-31"))
 
 `@sample_code`
 ```{r}
-# Estimate the ACF of the raw return series
+# Estimate the ACF of the raw train return series
 
 
-# Estimate the ACF of the squared return series
+# Estimate the ACF of the squared train return series
 
 
 ```
 
 `@solution`
 ```{r}
-# Estimate the ACF of the raw return series
+# Estimate the ACF of the raw train return series
 ggAcf(train)
 
-# Estimate the ACF of the squared return series
+# Estimate the ACF of the squared train return series
 ggAcf(train^2)
 
 ```
@@ -143,9 +144,9 @@ key: decd27689a
 xp: 100
 ```
 
-After finding evidence for a serial structure in the squared log returns, a model from the (G)ARCH model class seems to be the right choice.
+After finding evidence for a serial structure in the squared log returns, a model from the (G)ARCH class seems to be the right choice.
 
-Fitting GARCH(p, q) models in R is provided by the function `garchFit()` from the `fGarch` package.
+Fitting GARCH(p, q) models in R can be done by the function `garchFit()` from the `fGarch` package.
 The syntax is as follows:
 
 ```
@@ -228,7 +229,7 @@ We use a similar approach to the model selection step in chapter 4 where we used
 
 There is one difficulty: `garchFit()` requires a formula of the form `~garch(p,q)` to set the model order.
 If we want to switch `p` and `q` in every round of the loop we need to manipulate the formula. With the function 
-`paste()` character strings can be clued together like this
+`paste()` character strings can be glued together like this
 ```
 a <- 42
 paste("a = ", a)`
@@ -247,7 +248,7 @@ with `garch_model@fit$ics`.
 `@instructions`
 - Create a grid of possible model orders containing all combinations of $p = \{1,2,3\}$ and $q = \{1,2,3\}$ and assign it to `grid`. 
 - Create as placeholders the list `garch_models` and the vector `aic`. The length of both should equal the number of rows in `grid`.
-- Loop over the grid to fit all models and save each model as entry in `garch_models` and the value of the AIC as an entry in `aic`.
+- Loop over the grid to fit all models and save each model as an entry in `garch_models` and the value of the AIC as an entry in `aic`.
 - Save the best model according to the AIC as `best_model`.
 
 `@hint`
@@ -328,7 +329,7 @@ xp: 100
 
 As we did for ARMA models we run some model diagnostics to check whether our estimated model is a good approximation of the real process. 
 
-Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma _t}$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$)  roughly look like white noise. If that wouldn't be the case there would be some dependence left our model did not capture. 
+Specifically, we want to check if the standardized residuals ($\hat{\epsilon}_ t = y _t / \hat{\sigma} _t$) as well as the squared standardized residuals ($\hat{\epsilon}_ t^2$)  roughly look like white noise (use `garch_model@sigma.t` to extract the $\hat{\sigma}$ s from a GARCH model object). If that wouldn't be the case there would be some dependence left our model did not capture. 
 
 We can check this by taking a look at the ACF or by performing e.g. a Ljung-Box test. 
 
@@ -355,7 +356,7 @@ In general we are satisfied if all performed test would not reject.
 - Check the results of the Ljung-Box test
 
 `@hint`
-
+- The $\hat{\sigma} _t$ s needed to compute the standardized residuals can be extracted from a GARCH model object.
 
 `@pre_exercise_code`
 ```{r}
@@ -431,7 +432,7 @@ predict(garch_model, h)$standardDeviation
 
 Here we want to produce a series of 1-step ahead volatility forecasts for the data in the test set using a rolling window.
 For this we fit a model for each forecasting step to a subsample of the data.
-If the test data set consists of the observations $\\{y_ 1, \ldots, y_ T\\}$ and the test data set consists of $\\{y_ {T+1}, \ldots, y_ {T+n}\\}$ then we would proceed as follows: 
+If the training data set consists of the observations $\\{y_ 1, \ldots, y_ T\\}$ and the test data set consists of $\\{y_ {T+1}, \ldots, y_ {T+n}\\}$ then we would proceed as follows: 
 
 1. Fit a model to ${y_ {T-m}, \ldots, y_ T}$. Use this model to forecast $y_ {T+1}$.
 2. Fit a model to ${y_ {T-m + 1}, \ldots, y_ {T + 1}}$. Use this model to forecast $y_ {T+2}$.
@@ -440,7 +441,7 @@ If the test data set consists of the observations $\\{y_ 1, \ldots, y_ T\\}$ and
 
 &emsp;&ensp; n. Fit a model to ${y_ {T-m + n - 1}, \ldots, y_ {T + n - 1}}$ and use this model to forecast $y_ {T+n}$.
 
-Note that we fit each model on exactly $m$ observations. $m$ is called the window size.
+Note that we fit each model on exactly $m$ observations. Therefore $m$ is called the window size.
 
 `@instructions`
 - Create an empty numeric vector having the length of the test data (`test`) for the volatility forecasts called `sigma_forecast`.
@@ -475,10 +476,10 @@ test <- ts(window(log_returns, start = "2019-01-01"))
 
 `@solution`
 ```{r}
-# Create an empty vector `forecast_sigma`
+# Create an empty vector `sigma_forecast`
 sigma_forecast <- numeric(length(test))
 
-# Write a for() loop forecast the sigmas using a rolling window approach
+# Write a for-loop to forecast the sigmas using a rolling window
 for(i in seq_along(test)){
   garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + i) : (length(train) + i - 1)],
                       include.mean = FALSE, trace = FALSE)
@@ -511,7 +512,7 @@ The CVaR forecast for $T+1$ at level $\alpha$ can be computed as the $\alpha$-qu
 - Plot the test data together with the CVaR.
 
 `@hint`
-
+- Use `qnorm()` to compute quantiles for the normal distribution.
 
 `@pre_exercise_code`
 ```{r}
@@ -522,11 +523,11 @@ apple <- getSymbols('AAPL', auto.assign = F)$AAPL.Close
 log_returns <- window(diff(log(apple)), start = "2015-01-01")
 train <- ts(window(log_returns, end = "2018-12-31"))
 test <- ts(window(log_returns, start = "2019-01-01"))
-forecasts_sigma <- numeric()
+sigma_forecast <- numeric()
 for(h in seq_along(test)){
   garch11 <- garchFit(formula = ~garch(1, 1), data = log_returns[(1 + h) : (length(train) + h - 1)], 
                           cond.dist = "norm", include.mean = FALSE, trace = FALSE)
-  forecasts_sigma[h] <- predict(garch11, 1)$standardDeviation
+  sigma_forecast[h] <- predict(garch11, 1)$standardDeviation
 }
 ```
 
@@ -543,7 +544,7 @@ for(h in seq_along(test)){
 `@solution`
 ```{r}
 # Forecast the CVaRs based on the forecasted sigmas
-CVaR <- ts(forecasts_sigma * qnorm(0.05))
+CVaR <- ts(sigma_forecast * qnorm(0.05))
 
 # Plot the test series together with the forecasted CVaRs
 autoplot(test) + autolayer(CVaR)
