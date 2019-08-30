@@ -19,7 +19,7 @@ For this chapter we will work with closing prices from the tech firm Apple. Simi
 `@instructions`
 - Import the Apple closing prices by passing the relevant symbol (google it, if you don't know it!) to `getSymbols("your_symbol", src = "yahoo", auto.assign = FALSE)[, "your_symbol.Close"]` and assign the result to `apple`. Then plot `apple`. Does the series look stationary?
 - Compute the log returns of `apple` and restrict the observation period (2015-01-01 - 2019-06-01). Assign the result to `log_returns` and plot it. Does the return series look stationary?
-- Split the return series into a test (2015-01-01 - 2018-12-31) and train (2019-01-01 - 2019-06-01) data set and save the results as objects of class `ts()` in `train` and `test`, respectively.
+- Split the return series into a train (2015-01-01 - 2018-12-31) and test (2019-01-01 - 2019-06-01) data set and save the results as objects of class `ts()` in `train` and `test`, respectively.
 
 `@hint`
 - The Yahoo Finance symbol for Apple is `AAPL`. Thus the closing prices can be obtained using `[, "AAPL.Close"]`.
