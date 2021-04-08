@@ -1,6 +1,6 @@
 ---
-title: 'Import and Visualize Time Series Data'
-description: ""
+title: Import and Visualize Time Series Data
+description: ''
 free_preview: true
 ---
 

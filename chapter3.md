@@ -1,6 +1,6 @@
 ---
-title: 'ARMA Models'
-description: ""
+title: ARMA Models
+description: ''
 ---
 
 ## Fitting ARMA Models

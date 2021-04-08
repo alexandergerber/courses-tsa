@@ -1,6 +1,6 @@
 ---
-title: 'Trend and Seasonality'
-description: ""
+title: Trend and Seasonality
+description: ''
 ---
 
 ## Download Data with Seasonality

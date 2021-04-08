@@ -1,6 +1,6 @@
 ---
-title: 'GARCH Models'
-description: ""
+title: GARCH Models
+description: ''
 ---
 
 ## Downloading and Preparing Financial Data
